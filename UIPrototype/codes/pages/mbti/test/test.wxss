@@ -1,0 +1,111 @@
+/* pages/mbti/test/test.wxss */
+
+.question-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: absolute;
+  top: 30%;
+}
+
+.question {
+  font-size: 48rpx;
+  margin: 48rpx auto;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 32rpx;
+}
+
+.yes {
+  font-size: 32rpx;
+  color: green;
+}
+
+.no {
+  font-size: 32rpx;
+  color: red;
+}
+
+.checkbox1 {
+  width: 84rpx;
+  height: 84rpx;
+  padding: 0;
+  background-color: rgb(0, 0, 0, 0);
+  border: 2rpx solid darkgreen;
+  border-radius: 84rpx;
+}
+
+.checkbox2 {
+  width: 72rpx;
+  height: 72rpx;
+  padding: 0;
+  background-color: rgb(0, 0, 0, 0);
+  border: 2rpx solid darkgreen;
+  border-radius: 72rpx;
+}
+
+.checkbox3 {
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  background-color: rgb(0, 0, 0, 0);
+  border: 2rpx solid darkgreen;
+  border-radius: 60rpx;
+}
+
+.checkbox4 {
+  width: 48rpx;
+  height: 48rpx;
+  padding: 0;
+  background-color: rgb(0, 0, 0, 0);
+  border: 2rpx solid gray;
+  border-radius: 48rpx;
+}
+
+.checkbox5 {
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  background-color: rgb(0, 0, 0, 0);
+  border: 2rpx solid red;
+  border-radius: 60rpx;
+}
+
+.checkbox6 {
+  width: 72rpx;
+  height: 72rpx;
+  padding: 0;
+  background-color: rgb(0, 0, 0, 0);
+  border: 2rpx solid red;
+  border-radius: 72rpx;
+}
+
+.checkbox7 {
+  width: 84rpx;
+  height: 84rpx;
+  padding: 0;
+  background-color: rgb(0, 0, 0, 0);
+  border: 2rpx solid red;
+  border-radius: 84rpx;
+}
+
+.shift-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 60%;
+  width: 100%;
+}
+
+.shift-text {
+  margin: 24rpx;
+}

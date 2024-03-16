@@ -1,0 +1,19 @@
+<!--pages/square/search/search.wxml-->
+
+<navigation-bar></navigation-bar>
+
+<view class="search-bar">
+  <input class="search-input" placeholder="输入关键词、用户名、话题以搜索" bindinput="searchInput" />
+  <button class="search-btn" style="background-color:rgb(0,0,0,0); background-image:url('/image/search-black.png'); background-size:cover; background-position:center; width:32rpx; height:32rpx; margin:0; padding:0;"></button>
+</view>
+
+<view class="rank">
+  <view class="rank-search">
+    <text style="margin:4rpx 0;">热搜榜🔥</text>
+    <text class="rank-content" wx:for="{{searchRank}}">{{index + 1}}.{{item}}</text>
+  </view>
+  <view class="rank-topic">
+    <text style="margin:4rpx 0;">热门话题🔥</text>
+    <text class="rank-content" wx:for="{{topicRank}}">{{index + 1}}.{{item}}</text>
+  </view>
+</view>

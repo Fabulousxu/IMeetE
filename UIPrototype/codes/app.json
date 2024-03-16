@@ -1,10 +1,15 @@
 {
   "pages": [
     "pages/friend/friend",
-    "pages/mbti/mbti",
+    "pages/mbti/index/mbti-index",
     "pages/mine/mine",
     "pages/square/square",
-    "pages/message/message"
+    "pages/message/message",
+    "pages/friend/success",
+    "pages/message/chat",
+    "pages/square/search/search",
+    "pages/mbti/test/test",
+    "pages/mbti/result/result"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -21,32 +26,31 @@
     }
   },
   "tabBar": {
-    "selectedColor": "#00BFFF", 
-    "borderStyle": "white", 
+    "selectedColor": "#00BFFF",
+    "borderStyle": "white",
     "backgroundColor": "#ffffff",
-    "list": [ 
-      {
-        "pagePath": "pages/square/square", 
-        "text": "广场", 
-        "iconPath": "./src/square.png", 
+    "list": [{
+        "pagePath": "pages/square/square",
+        "text": "广场",
+        "iconPath": "./src/square.png",
         "selectedIconPath": "./src/square.png"
       },
       {
-        "pagePath": "pages/friend/friend", 
-        "text": "交友", 
-        "iconPath": "./src/square.png", 
+        "pagePath": "pages/friend/friend",
+        "text": "交友",
+        "iconPath": "./src/square.png",
         "selectedIconPath": "./src/square.png"
       },
       {
-        "pagePath": "pages/mbti/mbti", 
-        "text": "MBTI", 
-        "iconPath": "./src/square.png", 
+        "pagePath": "pages/mbti/index/mbti-index",
+        "text": "MBTI",
+        "iconPath": "./src/square.png",
         "selectedIconPath": "./src/square.png"
       },
       {
-        "pagePath": "pages/message/message", 
-        "text": "消息", 
-        "iconPath": "./src/square.png", 
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "./src/square.png",
         "selectedIconPath": "./src/square.png"
       },
       {

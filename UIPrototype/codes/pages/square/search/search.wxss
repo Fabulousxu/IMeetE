@@ -1,0 +1,53 @@
+/* pages/square/search/search.wxss */
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64rpx;
+  width: 80%;
+  padding-left: 16rpx;
+  padding-right: 16rpx;
+  margin: 32rpx auto 64rpx;
+  background-color: rgb(0, 0, 0, 0.1);
+  border: 2rpx solid black;
+  border-radius: 32rpx;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 0;
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.rank-search {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  width: 50%;
+  padding-left: 10%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rank-topic {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  width: 50%;
+  padding-right: 10%;
+}
+
+.rank-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 4rpx 0;
+}

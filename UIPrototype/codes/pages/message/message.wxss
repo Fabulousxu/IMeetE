@@ -1,1 +1,73 @@
 /* pages/message/message.wxss */
+.body {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  height: 90vh; 
+}
+
+.header-word4 {
+  font-family: fantasy;
+  font-size: 60px;
+  color: rgb(233, 84, 108);
+  text-align: center;
+}
+
+.users-scroll-view {
+  margin-top: 20px;
+  height: 100%;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.user-card {
+  justify-content: space-between; /* 在主轴方向上，元素之间和周围的空间分配 */
+  padding: 10px; /* 或根据需要调整 */
+}
+
+.user-basic-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-name, .user-mbti, .user-location {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.user-social-info {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+
+.user-intro {
+  color: #999;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.user-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.tag {
+  background-color: #f0f0f0;
+  color: #666;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.chat-btn {
+  display: inline;
+  padding: 5px 10px;
+  background-color: #007bff; /* 蓝色背景 */
+  color: white; /* 白色文字 */
+  border-radius: 15px; /* 圆角边框 */
+  font-size: 14px; /* 文字大小 */
+}

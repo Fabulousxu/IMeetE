@@ -1,0 +1,25 @@
+<!--pages/mbti/test/test.wxml-->
+
+<navigation-bar title="测测我的MBTI"></navigation-bar>
+
+<view class="question-display">
+  <view class="question">{{question}}</view>
+  <view class="option">
+    <text class="yes">同意</text>
+    <!-- <view class="checkbox1"></view> -->
+    <view class="checkbox2"></view>
+    <view class="checkbox3"></view>
+    <view class="checkbox4"></view>
+    <view class="checkbox5"></view>
+    <view class="checkbox6"></view>
+    <!-- <view class="checkbox7"></view> -->
+    <text class="no">反对</text>
+  </view>
+</view>
+
+
+<view class="shift-display">
+  <button class="shift-back" style="width:auto; padding:16rpx; margin:0; background-color:lightblue;">上一题</button>
+  <text class="shift-text">第{{curr_page}}题，共{{total_page}}题</text>
+  <button class="shift-next" style="width:auto; padding:16rpx; margin:0; background-color:lightgray;">下一题</button>
+</view>

@@ -5,7 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    name: "user_00000001",
+    id: "00000001",
+    mbti: "INTJ",
+    area: "上海 闵行",
+    sex: "♂",
+    age: "20岁",
+    followCount: "1437",
+    followerCount: "5.6w",
+    intro: "此用户未设置个人简介",
+    tags: [
+      "运动",
+      "音乐",
+      "游戏",
+      "动漫"
+    ],
+    mode: true
   },
 
   /**
@@ -62,5 +77,17 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  onPostButton() {
+    this.setData({
+      mode: true
+    })
+  },
+
+  onSaveButton() {
+    this.setData({
+      mode: false
+    })
   }
 })

@@ -1,2 +1,27 @@
-<!--pages/message/message.wxml-->
-<text>pages/message/message.wxml</text>
+<!-- pages/message/message.wxml -->
+<view class="body">
+  <view class="header-word4">😉have a chat</view>
+  <scroll-view class="users-scroll-view" scroll-y="true">
+    <block wx:for="{{usersInfo}}" wx:key="id">
+      <view class="user-card">
+        <view class="user-basic-info">
+          <text class="user-name">{{item.name}} {{item.sex}} {{item.age}}</text>
+          <text class="user-mbti">{{item.mbti}}</text>
+        </view>
+        <view class="user-location">{{item.area}}</view>
+        <view class="user-social-info">
+          <text>👥 {{item.followCount}} 关注</text>
+          <text>👤 {{item.followerCount}} 粉丝</text>
+        </view>
+        <view class="user-intro">{{item.intro || '此用户未设置个人简介'}}</view>
+        <view class="user-tags">
+          <block wx:for="{{item.tags}}" wx:key="index">
+            <text class="tag">{{item}}</text>
+          </block>
+        </view>
+        <!-- <view class="chat-btn" bind:tap="clickToChat">💬 Chat</view> -->
+        <navigator url="/pages/message/chat?id={{item.id}}" class="chat-btn">💬 Chat</navigator>
+      </view>
+    </block>
+  </scroll-view>
+</view>

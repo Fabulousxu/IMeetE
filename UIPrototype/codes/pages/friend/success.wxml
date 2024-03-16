@@ -1,0 +1,41 @@
+<!--pages/friend/success.wxml-->
+<!-- 正在匹配时页面 -->
+<view wx:if="{{loading}}" class="container">
+  <view class="header">
+    <view class="header-word1">loading......</view>
+    <view class="header-word2">we are trying our best</view>
+    <view class="header-word2">for your meeting</view>
+  </view>
+</view>
+<!-- 匹配失败页面 -->
+<view wx:if="{{!loading&&!success}}" class="container">
+  <view class="fail-header">
+    <view class="header-word4">😭sorry😣</view>
+    <view class="header-word2">believe the better match</view>
+    <view class="header-word2">is around the corner🥹</view>
+    <view class="header-word3">what about</view>
+    <view class="header-word3">trying again😉</view>
+  </view>
+  <button class="btn" bindtap="back">back</button>
+</view>
+
+<view wx:if="{{!loading&&success}}" class="container">
+  <view class="header">
+    <view class="header-word1">horray!</view>
+    <view class="header-word2">success match😘</view>
+  </view>
+  <view class="user-container">
+    <view class="up">
+      <image src="/src/friend/userPic/{{userInfo.nickname}}.jpg" class="user-pic"></image>
+      <view class="nickname_mbti">
+        <text class="nickname">{{userInfo.nickname}}</text>
+        <text class="mbti">{{userInfo.mbti}}</text>
+      </view>
+    </view>
+    <view class="down">{{userInfo.loveSentence}}</view>
+    <view class="downbtnarea">
+    <button class="successBtn" bind:tap="chat">chat</button>
+    <button class="successBtn" bind:tap="back">back</button>
+    </view>
+ </view>
+</view>

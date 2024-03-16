@@ -1,2 +1,39 @@
 <!--pages/mine/mine.wxml-->
-<text>pages/mine/mine.wxml</text>
+
+<navigation-bar back="{{false}}"></navigation-bar>
+<scroll-view>
+  <view style="display:flex; width:100%; margin:16rpx 0; justify-content:center;">
+    <text wx:for="{{tags}}" style="margin:auto 24rpx; padding:8rpx 16rpx; border-radius:28rpx; border:4rpx solid rgb(127, 182, 255); font-size:24rpx;">{{item}}</text>
+  </view>
+  <view style="display:flex; width:100%; height:256rpx; align-items:center;">
+    <img style="width:128rpx; height:128rpx; margin:auto 64rpx; border:2px solid black; border-radius:72rpx;"/>
+    <view style="display:flex; flex-direction:column; flex-grow:1; height:100%; justify-content:center;">
+      <text style="font-size:40rpx; margin:32rpx 0 auto;">{{name}}</text>
+      <text style="font-size:24rpx; margin:auto 0;">id: {{id}}</text>
+      <view style="display:flex; margin:auto 0 32rpx;">
+        <text style="margin:0 auto 0 0">{{mbti}}</text>
+        <text style="margin:0 auto 0 auto;">{{area}}</text>
+        <text style="margin:0 16rpx 0 auto; font-size:32rpx;">{{sex}}</text>
+        <text style="margin:0 64rpx 0 16rpx; font-size:32rpx;">{{age}}</text>
+      </view>
+    </view>
+  </view>
+  <view style="display:flex; width:100%; height:196rpx; justify-content:center; align-items:center;">
+    <text style="flex-grow:1; margin:auto 48rpx auto 64rpx; font-size:28rpx;">{{intro}}</text>
+    <view style="width:0; height:60%; border-left:2px solid gray;"></view>
+    <view style="display:flex; flex-direction:column; justify-content:center; align-items:center; margin:auto 24rpx auto 48rpx;">
+      <text style="margin:auto auto 16rpx; font-size:36rpx;">关注</text>
+      <text style="margin:16rpx auto auto; font-size:28rpx;">{{followCount}}</text>
+    </view>
+    <view style="display:flex; flex-direction:column; justify-content:center; align-items:center; margin:auto 64rpx auto 24rpx;">
+      <text style="margin:auto auto 16rpx; font-size:36rpx;">粉丝</text>
+      <text style="margin:16rpx auto auto; font-size:28rpx;">{{followerCount}}</text>
+    </view>
+  </view>
+  <view style="display:flex;">
+    <button id="postButton" bindtap="onPostButton" style="width:50%; background-color:rgb(226,208,230,0.8); border-bottom:none; border-radius:48rpx 48rpx 0 0; padding:16rpx; text-align:center;">动态</button>
+    <button id="saveButton" bindtap="onSaveButton" style="width:50%; background-color:rgb(151,213,238,0.8); border-bottom:none; border-radius:48rpx 48rpx 0 0; padding:16rpx; text-align:center;">收藏</button>
+  </view>
+  <view id="posts" wx:if="{{mode}}" style="width:100%; height:1024rpx; background-color:rgb(226,208,230,0.8);"></view>
+  <view id="saves" wx:else style="width:100%; height:1024rpx; background-color:rgb(151,213,238,0.8);"></view>
+</scroll-view>
