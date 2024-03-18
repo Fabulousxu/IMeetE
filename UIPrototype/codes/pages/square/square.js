@@ -93,8 +93,18 @@ Page({
     ]
   },
 
-  onload: function() {
-
+  onLoad() {
+    //调整顶部栏高度
+    wx.getSystemInfo({
+      success: res => {
+        let custom = wx.getMenuButtonBoundingClientRect();
+        this.setData({
+          statusBarHeight: res.statusBarHeight,
+          navigationBarHeight: custom.bottom + custom.top - res.statusBarHeight * 2,
+          navigationBarPaddingRight: custom.width
+        })
+      }
+    })
   },
   /** 
    * 滑动切换tab 
