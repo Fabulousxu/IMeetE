@@ -2,7 +2,7 @@
 <view style="width:100%">
     <view style="width:100%; height:{{statusBarHeight}}px;"></view>
     <view style="display:flex; width:100%; box-sizing:border-box; height:{{navigationBarHeight}}px; padding-left:32rpx; padding-right:{{navigationBarPaddingRight}}px;">
-        <button bindinput="search" style="background-color:rgb(0,0,0,0); background-image:url('/image/search-black.png'); background-size:cover; background-position:center; width: 48rpx; height:48rpx; margin:auto; padding:0;"></button>
+        <button bindtap="onSearchButton" style="background-color:rgb(0,0,0,0); background-image:url('/image/search-black.png'); background-size:cover; background-position:center; width: 48rpx; height:48rpx; margin:auto; padding:0;"></button>
         <view class='tabbar'>
             <view class="tabbar_item {{swipeIndex==0 ? 'on' : ''}}" data-current='0' bindtap="swichNav">
                 <view>关注</view>
