@@ -21,7 +21,7 @@
         <swiper-item>
             <scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%">
                 <view class="s-post-list">
-                    <view class="s-post" wx:for="{{sitemlist}}" wx:key="item.id">
+                    <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
                         <view class="s-item">
                             <image class="avator" src="{{item.avaurl}}"></image>
                             <view class="info">
@@ -69,7 +69,7 @@
                     <view class="place">{{user.place}}</view>
                 </view>
                 <view class="s-post-list">
-                    <view class="s-post" wx:for="{{sitemlist}}" wx:key="item.id">
+                    <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
                         <view class="s-item">
                             <image class="avator" src="{{item.avaurl}}"></image>
                             <view class="info">
@@ -124,7 +124,7 @@
                 <swiper-item style="width:100vw;height:100%" bindtouchmove="itemTouchLeftMove" bindtouchend="itemTouchLeftEnd" bindtouchcancel="itemTouchLeftEnd">
                     <scroll-view class="pe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%">
                         <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="item.id">
+                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
                                 <view class="s-item">
                                     <image class="avator" src="{{item.avaurl}}"></image>
                                     <view class="info">
@@ -163,7 +163,7 @@
                 <swiper-item>
                     <scroll-view class="game" style="width:100vw;height:100%" type="list" scroll-y="{{true}}">
                         <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="item.id">
+                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
                                 <view class="s-item">
                                     <image class="avator" src="{{item.avaurl}}"></image>
                                     <view class="info">
@@ -202,7 +202,7 @@
                 <swiper-item>
                     <scroll-view class="study" style="width:100vw;height:100%" type="list" scroll-y="{{true}}">
                         <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="item.id">
+                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
                                 <view class="s-item">
                                     <image class="avator" src="{{item.avaurl}}"></image>
                                     <view class="info">
@@ -241,7 +241,7 @@
                 <swiper-item>
                     <scroll-view class="travel" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindtouchmove="itemTouchRightMove" bindtouchend="itemTouchRightEnd" bindtouchcancel="itemTouchRightEnd">
                         <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="item.id">
+                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
                                 <view class="s-item">
                                     <image class="avator" src="{{item.avaurl}}"></image>
                                     <view class="info">
