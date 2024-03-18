@@ -5,15 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-      loading:false,
-      success:false,
-      userInfo: { // 定义userInfo结构体
-        nickname: 'Giggle',
-        age: 0,
-        mbti: 'ENTJ',
-        gender: 'man',
-        loveSentence: '伟大的喜剧在继续，而你可以奉献一首诗'
-      }
+    loading: false,
+    success: false,
+    userInfo: { // 定义userInfo结构体
+      nickname: 'Giggle',
+      age: 0,
+      mbti: 'ENTJ',
+      gender: 'man',
+      loveSentence: '伟大的喜剧在继续，而你可以奉献一首诗'
+    }
   },
 
   /**
@@ -71,10 +71,10 @@ Page({
   onShareAppMessage() {
 
   },
-  back:function(){
+  back: function() {
     wx.navigateBack();
   },
-  chat:function(){
+  chat: function() {
     console.log("go to the chat page")
   }
 })
