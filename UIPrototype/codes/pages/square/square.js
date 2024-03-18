@@ -110,7 +110,6 @@ Page({
    * 滑动切换tab 
    */
   bindChange: function(e) {
-    console.log('debugbindcange')
     var that = this;
     that.setData({
       currentTab: e.detail.current,
@@ -128,7 +127,7 @@ Page({
   /** 
    * 点击tab切换 
    */
-  swichNav: function(e) {
+  swichNav: tool.throttle(function(e) {
     var that = this;
     if (this.data.swipeIndex === e.currentTarget.dataset.current) {
       return false;
@@ -138,7 +137,7 @@ Page({
       })
     }
 
-  },
+  },300),
 
   itemSwich: function(e) {
     var that = this;
@@ -155,7 +154,7 @@ Page({
   /**
    * 滑动item绑定事件
    */
-  swiperTrans: function(e) {
+  swiperTrans: tool.throttle(function(e) {
     var that = this;
     var dx = e.detail.dx
 
@@ -166,7 +165,6 @@ Page({
       }
       else
       {
-        console.log('debug')
         that.data.flag3 = false
         this.setData({
           currentTab: (that.data.swipeIndex + 1),
@@ -180,7 +178,7 @@ Page({
       })
     }
 
-  },
+  },300),
 
   itemTouchLeftMove: function(e) {
     this.data.flag1 = true;
@@ -193,7 +191,6 @@ Page({
     this.data.flag2 = true;
   },
   itemTouchRightEnd: function(e) {
-    console.log('debugrightend');
     this.data.flag2 = false;
     this.data.flag3 = true;
   },
