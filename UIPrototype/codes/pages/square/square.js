@@ -159,19 +159,24 @@ Page({
     var that = this;
     var dx = e.detail.dx
 
-    if (this.data.flag3 && (this.data.flag2) && (dx >= 50) && (dx < 100)) {
-      console.log('debug')
-      that.data.flag3 = false
-      this.setData({
-        currentTab: that.data.swipeIndex + 1,
-
-      })
+    if ((this.data.flag3) && (this.data.flag2) && (dx >= 50) && (dx < 100)) {
+      if(this.data.itemCurrent === 3)
+      {
+        return;
+      }
+      else
+      {
+        console.log('debug')
+        that.data.flag3 = false
+        this.setData({
+          currentTab: (that.data.swipeIndex + 1),
+        })
+      }
     }
-    if (this.data.flag3 && (this.data.flag1) && (dx <= -50) && (dx > -100)) {
+    if ((this.data.flag3) && (this.data.flag1) && (dx <= -50) && (dx > -100)) {
       that.data.flag3 = false
       this.setData({
-        currentTab: that.data.swipeIndex - 1,
-
+        currentTab: (that.data.swipeIndex - 1),
       })
     }
 
@@ -188,6 +193,7 @@ Page({
     this.data.flag2 = true;
   },
   itemTouchRightEnd: function(e) {
+    console.log('debugrightend');
     this.data.flag2 = false;
     this.data.flag3 = true;
   },
