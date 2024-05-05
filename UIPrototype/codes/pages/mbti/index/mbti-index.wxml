@@ -6,7 +6,7 @@
   <img style="position:absolute; top:0; left:0; height:100%; width:100%; border-radius:144rpx; background:linear-gradient(lightpink,pink,lightblue);" />
   <text style="position:absolute; top:0; left:0; height:100%; width:100%; display:flex; align-items:center; justify-content:center;">测测我的MBTI！</text>
 </button>
-<button style="position:relative; margin-right:32rpx; height:196rpx; width:196rpx; padding:0; background:none;">
+<button bind:tap="onIntroButton" style="position:relative; margin-right:32rpx; height:196rpx; width:196rpx; padding:0; background:none;">
   <img style="position:absolute; top:0; left:0; height:100%; width:100%; border-radius:144rpx; background:linear-gradient(lightgreen,orange,brown);" />
   <text style="position:absolute; top:0; left:0; height:100%; width:100%; display:flex; align-items:center; justify-content:center;">MBTI解读</text>
 </button>

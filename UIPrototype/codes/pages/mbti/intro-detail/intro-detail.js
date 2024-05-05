@@ -1,14 +1,12 @@
-// pages/mbti/test/test.js
+// pages/mbti/intro-detail/intro-detail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    question: "你是否xxxx？",
-    curr_page: 1,
-    total_page: 160,
-    all_questions: []
+    mbtiType: "INTJ",
+    mbtiIntro: "MBTI（Myers-Briggs Type Indicator）是一种心理测评工具，用于测量个体在认知、决策和生活方式方面的偏好。基于卡尔·荣格的心理学理论，MBTI将人们分为16个性格类型，包括极端、感性、直觉和判断等四个维度。每个人被分为其中一个类型，如INFJ或ESTP。MBTI常用于团队建设、招聘和个人发展。", 
   },
 
   /**
@@ -17,8 +15,11 @@ Page({
   onLoad(options) {
     let that = this;
 
+    let type = JSON.parse(options.mbtiType);
+
+    that.setData({mbtiType:type});
     wx.request({
-      url: 'http://localhost:8080/mbti_test', // 向后端服务器获取mbti测试信息
+      url: 'http://localhost:8080/mbti_intro?mbtiType=' + type, // 向后端服务器获取mbti介绍
       header:{
         'content-type': 'application/json'
       },
@@ -27,13 +28,7 @@ Page({
         let result = res.data;
 
         if(result.ok){
-          that.setData({all_questions:result.data})
-
-          let all_questions = that.data.all_questions;
-          that.setData({total_page:all_questions.length})
-          if(all_questions != []){
-            that.setData({question:all_questions[0].question})
-          }
+          that.setData({mbtiIntro:result.data.mbti_intro})
         }
       },
       fail(rej){
@@ -89,32 +84,5 @@ Page({
    */
   onShareAppMessage() {
 
-  },
-
-  /*
-  * 上一题
-  */
-  onShiftBack(){
-    let curr_page = this.data.curr_page
-    this.setData({curr_page:curr_page-1,
-    question:this.data.all_questions[curr_page-2].question
-    })
-  },
-
-  /*
-  * 下一题
-  */
-  onShiftNext(){
-    let curr_page = this.data.curr_page
-    this.setData({curr_page:curr_page+1,
-      question:this.data.all_questions[curr_page].question
-    })
-  },  
-
-  /*
-  * 提交
-  */
- onSubmit(){
-  console.log("提交")
-},  
+  }
 })
