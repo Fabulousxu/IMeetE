@@ -20,40 +20,12 @@
     <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange" style="overflow-y:hidden">
         <swiper-item>
             <scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%">
-                <view class="s-post-list">
-                    <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
-                        <view class="s-item">
-                            <image class="avator" src="{{item.avaurl}}"></image>
-                            <view class="info">
-                                <view class="name">{{item.name}}</view>
-                                <view class="mbti">{{item.mbti}}</view>
-                            </view>
-                            <view class="data-wrapper">
-                                <view class="fans">
-                                    <view class="fans_log">粉丝 : {{item.fansnum}}</view>
-                                    <view class="post-time">{{item.posttime}}</view>
-                                </view>
-                                <view class="sign">{{item.sign}}</view>
-                            </view>
-                        </view>
-                        <view class="s-pic" wx:if="{{item.isDisplay === 1}}">
-                            <image class="post-pic" src="{{item.postpicurl}}"></image>
-                        </view>
-                        <view class="s-content">
-                            <view class="content">{{item.content}}</view>
-                            <view class="view-wrapper">
-                                <view class="view">
-                                    <view class="view-num">view : {{item.viewnum}}</view>
-                                    <view class="com-num">comment : {{item.comnum}}</view>
-                                </view>
-                                <view class="tool-wrapper">
-                                    <button class="like" bindtap="like">点赞</button>
-                                    <button class="comment" bindtap="comment">评论</button>
-                                    <button class="share" bindtap="share">分享</button>
-                                </view>
-                            </view>
-                        </view>
-                    </view>
+                <!-- 使用自定义组件post -->
+                <view wx:if="{{showPostList}}">
+                    <user-post bind:postTap="showPostDetail"></user-post>
+                </view>
+                <view wx:else>
+                    <post-detail post="{{selectedPost}}" bind:return="showPostList"></post-detail>
                 </view>
             </scroll-view>
         </swiper-item>
@@ -68,40 +40,11 @@
                     <icon class="position"></icon>
                     <view class="place">{{user.place}}</view>
                 </view>
-                <view class="s-post-list">
-                    <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
-                        <view class="s-item">
-                            <image class="avator" src="{{item.avaurl}}"></image>
-                            <view class="info">
-                                <view class="name">{{item.name}}</view>
-                                <view class="mbti">{{item.mbti}}</view>
-                            </view>
-                            <view class="data-wrapper">
-                                <view class="fans">
-                                    <view class="fans_log">粉丝 : {{item.fansnum}}</view>
-                                    <view class="post-time">{{item.posttime}}</view>
-                                </view>
-                                <view class="sign">{{item.sign}}</view>
-                            </view>
-                        </view>
-                        <view class="s-pic" wx:if="{{item.isDisplay === 1}}">
-                            <image class="post-pic" src="{{item.postpicurl}}"></image>
-                        </view>
-                        <view class="s-content">
-                            <view class="content">{{item.content}}</view>
-                            <view class="view-wrapper">
-                                <view class="view">
-                                    <view class="view-num">view : {{item.viewnum}}</view>
-                                    <view class="com-num">comment : {{item.comnum}}</view>
-                                </view>
-                                <view class="tool-wrapper">
-                                    <button class="like" bindtap="like">点赞</button>
-                                    <button class="comment" bindtap="comment">评论</button>
-                                    <button class="share" bindtap="share">分享</button>
-                                </view>
-                            </view>
-                        </view>
-                    </view>
+                <view wx:if="{{showPostList}}">
+                    <user-post bind:postTap="showPostDetail"></user-post>
+                </view>
+                <view wx:else>
+                    <post-detail post="{{selectedPost}}" bind:return="showPostList"></post-detail>
                 </view>
             </scroll-view>
         </swiper-item>
@@ -123,157 +66,41 @@
             <swiper current="{{itemCurrent}}" duration="300" bindchange="swiperItemChange" bindtransition="swiperTrans">
                 <swiper-item style="width:100vw;height:100%" bindtouchmove="itemTouchLeftMove" bindtouchend="itemTouchLeftEnd" bindtouchcancel="itemTouchLeftEnd">
                     <scroll-view class="pe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%">
-                        <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
-                                <view class="s-item">
-                                    <image class="avator" src="{{item.avaurl}}"></image>
-                                    <view class="info">
-                                        <view class="name">{{item.name}}</view>
-                                        <view class="mbti">{{item.mbti}}</view>
-                                    </view>
-                                    <view class="data-wrapper">
-                                        <view class="fans">
-                                            <view class="fans_log">粉丝 : {{item.fansnum}}</view>
-                                            <view class="post-time">{{item.posttime}}</view>
-                                        </view>
-                                        <view class="sign">{{item.sign}}</view>
-                                    </view>
-                                </view>
-                                <view class="s-pic" wx:if="{{item.isDisplay === 1}}">
-                                    <image class="post-pic" src="{{item.postpicurl}}"></image>
-                                </view>
-                                <view class="s-content">
-                                    <view class="content">{{item.content}}</view>
-                                    <view class="view-wrapper">
-                                        <view class="view">
-                                            <view class="view-num">view : {{item.viewnum}}</view>
-                                            <view class="com-num">comment : {{item.comnum}}</view>
-                                        </view>
-                                        <view class="tool-wrapper">
-                                            <button class="like" bindtap="like">点赞</button>
-                                            <button class="comment" bindtap="comment">评论</button>
-                                            <button class="share" bindtap="share">分享</button>
-                                        </view>
-                                    </view>
-                                </view>
-                            </view>
+                        <view wx:if="{{showPostList}}">
+                            <user-post bind:postTap="showPostDetail"></user-post>
+                        </view>
+                        <view wx:else>
+                            <post-detail post="{{selectedPost}}" bind:return="showPostList"></post-detail>
                         </view>
                     </scroll-view>
                 </swiper-item>
                 <swiper-item>
                     <scroll-view class="game" style="width:100vw;height:100%" type="list" scroll-y="{{true}}">
-                        <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
-                                <view class="s-item">
-                                    <image class="avator" src="{{item.avaurl}}"></image>
-                                    <view class="info">
-                                        <view class="name">{{item.name}}</view>
-                                        <view class="mbti">{{item.mbti}}</view>
-                                    </view>
-                                    <view class="data-wrapper">
-                                        <view class="fans">
-                                            <view class="fans_log">粉丝 : {{item.fansnum}}</view>
-                                            <view class="post-time">{{item.posttime}}</view>
-                                        </view>
-                                        <view class="sign">{{item.sign}}</view>
-                                    </view>
-                                </view>
-                                <view class="s-pic" wx:if="{{item.isDisplay === 1}}">
-                                    <image class="post-pic" src="{{item.postpicurl}}"></image>
-                                </view>
-                                <view class="s-content">
-                                    <view class="content">{{item.content}}</view>
-                                    <view class="view-wrapper">
-                                        <view class="view">
-                                            <view class="view-num">view : {{item.viewnum}}</view>
-                                            <view class="com-num">comment : {{item.comnum}}</view>
-                                        </view>
-                                        <view class="tool-wrapper">
-                                            <button class="like" bindtap="like">点赞</button>
-                                            <button class="comment" bindtap="comment">评论</button>
-                                            <button class="share" bindtap="share">分享</button>
-                                        </view>
-                                    </view>
-                                </view>
-                            </view>
+                        <view wx:if="{{showPostList}}">
+                            <user-post bind:postTap="showPostDetail"></user-post>
+                        </view>
+                        <view wx:else>
+                            <post-detail post="{{selectedPost}}" bind:return="showPostList"></post-detail>
                         </view>
                     </scroll-view>
                 </swiper-item>
                 <swiper-item>
                     <scroll-view class="study" style="width:100vw;height:100%" type="list" scroll-y="{{true}}">
-                        <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
-                                <view class="s-item">
-                                    <image class="avator" src="{{item.avaurl}}"></image>
-                                    <view class="info">
-                                        <view class="name">{{item.name}}</view>
-                                        <view class="mbti">{{item.mbti}}</view>
-                                    </view>
-                                    <view class="data-wrapper">
-                                        <view class="fans">
-                                            <view class="fans_log">粉丝 : {{item.fansnum}}</view>
-                                            <view class="post-time">{{item.posttime}}</view>
-                                        </view>
-                                        <view class="sign">{{item.sign}}</view>
-                                    </view>
-                                </view>
-                                <view class="s-pic" wx:if="{{item.isDisplay === 1}}">
-                                    <image class="post-pic" src="{{item.postpicurl}}"></image>
-                                </view>
-                                <view class="s-content">
-                                    <view class="content">{{item.content}}</view>
-                                    <view class="view-wrapper">
-                                        <view class="view">
-                                            <view class="view-num">view : {{item.viewnum}}</view>
-                                            <view class="com-num">comment : {{item.comnum}}</view>
-                                        </view>
-                                        <view class="tool-wrapper">
-                                            <button class="like" bindtap="like">点赞</button>
-                                            <button class="comment" bindtap="comment">评论</button>
-                                            <button class="share" bindtap="share">分享</button>
-                                        </view>
-                                    </view>
-                                </view>
-                            </view>
+                        <view wx:if="{{showPostList}}">
+                            <user-post bind:postTap="showPostDetail"></user-post>
+                        </view>
+                        <view wx:else>
+                            <post-detail post="{{selectedPost}}" bind:return="showPostList"></post-detail>
                         </view>
                     </scroll-view>
                 </swiper-item>
                 <swiper-item>
                     <scroll-view class="travel" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindtouchmove="itemTouchRightMove" bindtouchend="itemTouchRightEnd" bindtouchcancel="itemTouchRightEnd">
-                        <view class="s-post-list">
-                            <view class="s-post" wx:for="{{sitemlist}}" wx:key="id">
-                                <view class="s-item">
-                                    <image class="avator" src="{{item.avaurl}}"></image>
-                                    <view class="info">
-                                        <view class="name">{{item.name}}</view>
-                                        <view class="mbti">{{item.mbti}}</view>
-                                    </view>
-                                    <view class="data-wrapper">
-                                        <view class="fans">
-                                            <view class="fans_log">粉丝 : {{item.fansnum}}</view>
-                                            <view class="post-time">{{item.posttime}}</view>
-                                        </view>
-                                        <view class="sign">{{item.sign}}</view>
-                                    </view>
-                                </view>
-                                <view class="s-pic" wx:if="{{item.isDisplay === 1}}">
-                                    <image class="post-pic" src="{{item.postpicurl}}"></image>
-                                </view>
-                                <view class="s-content">
-                                    <view class="content">{{item.content}}</view>
-                                    <view class="view-wrapper">
-                                        <view class="view">
-                                            <view class="view-num">view : {{item.viewnum}}</view>
-                                            <view class="com-num">comment : {{item.comnum}}</view>
-                                        </view>
-                                        <view class="tool-wrapper">
-                                            <button class="like" bindtap="like">点赞</button>
-                                            <button class="comment" bindtap="comment">评论</button>
-                                            <button class="share" bindtap="share">分享</button>
-                                        </view>
-                                    </view>
-                                </view>
-                            </view>
+                        <view wx:if="{{showPostList}}">
+                            <user-post bind:postTap="showPostDetail"></user-post>
+                        </view>
+                        <view wx:else>
+                            <post-detail post="{{selectedPost}}" bind:return="showPostList"></post-detail>
                         </view>
                     </scroll-view>
                 </swiper-item>

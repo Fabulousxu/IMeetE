@@ -1,0 +1,46 @@
+<view class="container">
+  <!-- 展示具体帖子内容 -->
+  <view class="post-content">
+    <view class="bar">
+      <!-- 封装一个bar，放置返回按钮 -->
+      <view class="back-btn" bindtap="navigateBack">
+        <text class="arrow">{{'<'}}</text>
+      </view>
+    </view>
+    <view class="s-item">
+      <image class="avator" src="{{post.avaurl}}"></image>
+      <view class="info">
+        <view class="name">{{post.name}}</view>
+        <view class="mbti">{{post.mbti}}</view>
+      </view>
+      <view class="data-wrapper">
+        <view class="fans">
+          <view class="fans_log">粉丝 : {{post.fansnum}}</view>
+          <view class="post-time">{{post.posttime}}</view>
+        </view>
+        <view class="sign">{{post.sign}}</view>
+      </view>
+    </view>
+    <view class="s-pic" wx:if="{{post.isDisplay === 1}}">
+      <image class="post-pic" src="{{post.postpicurl}}"></image>
+    </view>
+    <view class="content" id="{{idx}}">{{post.content}}</view>
+    <view class="s-content">
+      <view class="view-wrapper">
+        <view class="view">
+          <view class="view-num">view : {{post.viewnum}}</view>
+          <view class="com-num">comment : {{post.comnum}}</view>
+        </view>
+        <view class="tool-wrapper">
+          <button class="like" bindtap="like">点赞</button>
+          <button class="comment" bindtap="comment">评论</button>
+          <button class="share" bindtap="share">分享</button>
+        </view>
+        <view class="comment-area">
+          <!-- 评论区 -->
+          评论区
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

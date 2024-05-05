@@ -16,81 +16,8 @@ Page({
       url: '../square/img/avator1.jpg',
       place: 'Shanghai',
     },
-    sitemlist: [{
-        id: 1,
-        name: 'a',
-        mbti: 'INTJ',
-        avaurl: '../square/img/avator1.jpg',
-        fansnum: 100,
-        sign: 'hello',
-        posttime: '2020-10-10',
-        isDisplay: 1,
-        postpicurl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        content: 'hello',
-        viewnum: 100,
-        comnum: 100,
-      },
-
-      {
-        id: 2,
-        name: 'b',
-        mbti: 'INTJ',
-        avaurl: '../square/img/avator2.jpeg',
-        fansnum: 100,
-        sign: 'hello',
-        posttime: '2020-10-10',
-        isDisplay: 0,
-        postpicurl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        content: 'hello',
-        viewnum: 100,
-        comnum: 100,
-      },
-
-      {
-        id: 3,
-        name: 'c',
-        mbti: 'INTJ',
-        avaurl: '../square/img/avator3.jpeg',
-        fansnum: 100,
-        sign: 'hello',
-        posttime: '2020-10-10',
-        isDisplay: 1,
-        postpicurl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        content: 'hello',
-        viewnum: 100,
-        comnum: 100,
-      },
-
-      {
-        id: 4,
-        name: 'd',
-        mbti: 'INTJ',
-        avaurl: '../square/img/avator4.jpg',
-        fansnum: 100,
-        sign: 'hello',
-        posttime: '2020-10-10',
-        isDisplay: 0,
-        postpicurl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        content: 'hello',
-        viewnum: 100,
-        comnum: 100,
-      },
-
-      {
-        id: 5,
-        name: 'e',
-        mbti: 'INTJ',
-        avaurl: '../square/img/avator5.jpg',
-        fansnum: 100,
-        sign: 'hello',
-        posttime: '2020-10-10',
-        isDisplay: 1,
-        postpicurl: 'https://img.yzcdn.cn/vant/cat.jpeg',
-        content: 'hello',
-        viewnum: 100,
-        comnum: 100,
-      },
-    ]
+    showPostList:true,
+    selectedPost:null,
   },
 
   onLoad() {
@@ -198,6 +125,21 @@ Page({
   onSearchButton() {
     wx.navigateTo({
       url: '/pages/square/search/search',
+    })
+  },
+
+  showPostList: function() {
+    this.setData({
+      showPostList:true,
+      selectedPost:null,
+    })
+  },
+
+  showPostDetail: function(e) {
+    const post = e.detail.selectedPost;
+    this.setData({
+      showPostList:false,
+      selectedPost:post,
     })
   }
 })
