@@ -37,7 +37,7 @@ public class MBTIController {
         JSONObject res = new JSONObject();
         // 从数据库中读取MBTI_Intro表的数据
         res.put("ok", true);
-        // 不根据逐渐查找，而是根据mbti_type查找
+        // 根据mbti_type查找
         res.put("data", mbti_introRepository.findById(type).orElse(null));
 
         System.out.println(res.toJSONString());

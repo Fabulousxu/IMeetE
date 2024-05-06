@@ -7,11 +7,12 @@
   <view class="option">
     <text class="yes">同意</text>
     <!-- <view class="checkbox1"></view> -->
-    <view class="checkbox2"></view>
-    <view class="checkbox3"></view>
-    <view class="checkbox4"></view>
-    <view class="checkbox5"></view>
-    <view class="checkbox6"></view>
+    <view class="checkbox2 {{selectedCheckbox===-2 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{-2}}"></view>
+    <view class="checkbox3 {{selectedCheckbox===-1 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{-1}}"></view>
+    <view class="checkbox4 {{selectedCheckbox===0 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{0}}"></view>
+    <view class="checkbox5 {{selectedCheckbox===1 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{1}}"></view>
+    <view class="checkbox6 {{selectedCheckbox===2 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{2}}"></view>
+    
     <!-- <view class="checkbox7"></view> -->
     <text class="no">反对</text>
   </view>

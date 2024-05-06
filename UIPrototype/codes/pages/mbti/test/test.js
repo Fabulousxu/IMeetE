@@ -8,7 +8,9 @@ Page({
     question: "你是否xxxx？",
     curr_page: 1,
     total_page: 160,
-    all_questions: []
+    all_questions: [],
+    answers: [],
+    selectedCheckbox: null,
   },
 
   /**
@@ -31,6 +33,9 @@ Page({
 
           let all_questions = that.data.all_questions;
           that.setData({total_page:all_questions.length})
+          // 设置存储测试结果的列表
+          that.setData({answers:new Array(all_questions.length).fill(null)})
+
           if(all_questions != []){
             that.setData({question:all_questions[0].question})
           }
@@ -96,9 +101,10 @@ Page({
   */
   onShiftBack(){
     let curr_page = this.data.curr_page
-    this.setData({curr_page:curr_page-1,
-    question:this.data.all_questions[curr_page-2].question
-    })
+    this.setData({curr_page:curr_page-1});
+    this.setData({question:this.data.all_questions[curr_page-2].question})
+    this.setData({selectedCheckbox: this.data.answers[curr_page-2]});
+    console.log(this.data.answers);
   },
 
   /*
@@ -106,9 +112,10 @@ Page({
   */
   onShiftNext(){
     let curr_page = this.data.curr_page
-    this.setData({curr_page:curr_page+1,
-      question:this.data.all_questions[curr_page].question
-    })
+    this.setData({curr_page:curr_page+1});
+    this.setData({question:this.data.all_questions[curr_page].question})
+    this.setData({selectedCheckbox: this.data.answers[curr_page]});
+    console.log(this.data.answers);
   },  
 
   /*
@@ -117,4 +124,19 @@ Page({
  onSubmit(){
   console.log("提交")
 },  
+
+  onCheck: function(event){
+    let score = event.target.dataset.score;
+    console.log(score);
+    this.setData({selectedCheckbox:score})
+
+    let updatedAnswers = [...this.data.answers]; // 使用扩展运算符来复制数组  
+    updatedAnswers[this.data.curr_page-1] = score; // 修改第curr_page项为score
+    this.setData({answers:updatedAnswers});
+
+    setTimeout(() => {
+      this.setData({selectedCheckbox:null});
+        this.onShiftNext();
+    }, 300);
+  }
 })

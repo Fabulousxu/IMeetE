@@ -97,6 +97,10 @@
   border-radius: 84rpx;
 }
 
+.tapped{
+  border: 5px solid lightblue; /* 以荧光绿色为例 */
+}
+
 .shift-display {
   display: flex;
   align-items: center;
