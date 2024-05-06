@@ -68,5 +68,11 @@ Page({
     wx.navigateTo({
       url: '/pages/mbti/test/test',
     })
+  },
+
+  onIntroButton(){
+    wx.navigateTo({
+      url: '/pages/mbti/introduction/introduction',
+    })
   }
 })

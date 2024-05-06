@@ -19,7 +19,17 @@
 
 
 <view class="shift-display">
-  <button class="shift-back" style="width:auto; padding:16rpx; margin:0; background-color:lightblue;">上一题</button>
+  <button wx:if="{{curr_page > 1}}" class="shift-back" 
+  bind:tap="onShiftBack"
+  style="width:auto; padding:16rpx; margin:0; background-color:lightblue;">上一题</button>
+  
   <text class="shift-text">第{{curr_page}}题，共{{total_page}}题</text>
-  <button class="shift-next" style="width:auto; padding:16rpx; margin:0; background-color:lightgray;">下一题</button>
+  
+  <button wx:if="{{curr_page < total_page}}" class="shift-next" 
+  bind:tap="onShiftNext"
+  style="width:auto; padding:16rpx; margin:0; background-color:lightgray;">下一题</button>
+  
+  <button wx:if="{{curr_page == total_page}}" class="shift-next" 
+  bind:tap="onSubmit"
+  style="width:auto; padding:16rpx; margin:0; background-color:lightgray;">提交</button>
 </view>

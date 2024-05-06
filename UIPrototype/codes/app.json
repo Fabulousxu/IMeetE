@@ -9,7 +9,9 @@
     "pages/message/chat",
     "pages/square/search/search",
     "pages/mbti/test/test",
-    "pages/mbti/result/result"
+    "pages/mbti/result/result",
+    "pages/mbti/introduction/introduction",
+    "pages/mbti/intro-detail/intro-detail"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -29,7 +31,8 @@
     "selectedColor": "#00BFFF",
     "borderStyle": "white",
     "backgroundColor": "#ffffff",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/square/square",
         "text": "广场",
         "iconPath": "./src/square.png",

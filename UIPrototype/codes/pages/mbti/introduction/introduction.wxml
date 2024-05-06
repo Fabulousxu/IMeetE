@@ -1,0 +1,15 @@
+<!--pages/mbti/introduction.wxml-->
+<navigation-bar title="MBTI介绍"></navigation-bar>
+
+
+<view class="mbti-container">
+    <block wx:for="{{mbtiTypes}}" wx:key="index">
+      <view class="mbti-row">
+        <block wx:for="{{item}}" wx:key="type">
+          <button class="mbti-button" data-type="{{item}}" bindtap="onMBTITap">
+            <image src="/src/friend/16mbti/{{item}}.png" class="{{selectedMBTI === item ? 'selected-mbti-img' : ''}}"></image>
+          </button>
+        </block>
+      </view>
+    </block>
+  </view>
