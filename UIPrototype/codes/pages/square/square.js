@@ -20,7 +20,29 @@ Page({
     selectedPost:null,
   },
 
+  getCurrntUser: function() {
+    //向后端发送fetch请求，获取当前登录的用户信息
+    wx.request({
+      url: 'dbc:mysql://localhost:3306/imeete?useUnicode=true&characterEncoding=utf8',
+      method: 'GET',
+      header: {
+        'content-type': 'application/json',
+        'cookie': wx.getStorageSync("cookieKey")
+      },
+      success: (res) => {
+        this.setData({
+          user: res.data,
+        })
+      },
+      
+      fail: (err) => {
+        console.log(err);
+      }
+    })
+  },
+
   onLoad() {
+    this.getCurrntUser();
     //调整顶部栏高度
     wx.getSystemInfo({
       success: res => {

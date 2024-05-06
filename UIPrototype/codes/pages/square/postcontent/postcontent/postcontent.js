@@ -1,11 +1,21 @@
 Component({
-  data: {},
+  data: {
+    post_comments: [{
+      id: 1,
+      name: 'a',
+      mbti: 'INTJ',
+      avaurl: '../../img/avator1.jpg',
+      com_date: '2020-10-10',
+      com_content: 'hello',
+      com_like: 100,
+    },]
+  },
   properties: {
     post: Object,
   },
   methods: {
     navigateBack: function(){
-      this.triggerEvent('return');
+      this.triggerEvent('backToPostList');
     },
 
     posterDetailTap: function(e) { // 待实现

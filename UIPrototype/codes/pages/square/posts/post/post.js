@@ -75,6 +75,28 @@ Component({
       comnum: 100,
     },]
   },
+  // lifetimes: {
+  //   attached: function(){
+  //     // 从后端fetch帖子数据
+  //     wx.request({
+  //       url: 'dbc:mysql://localhost:3306/imeete?useUnicode=true&characterEncoding=utf8',
+  //       method: 'GET',
+  //       header: {
+  //         'content-type': 'application/json',
+  //         'cookie': wx.getStorageSync("cookieKey")
+  //       },
+  //       success: (res) => {
+  //         this.setData({
+  //           sitemlist: res.data,
+  //         })
+  //       },
+        
+  //       fail: (err) => {
+  //         console.log(err);
+  //       }
+  //     })
+  //   }
+  // },
   properties: {},
   methods: {
     posterDetailTap: function(e) { // 待实现
