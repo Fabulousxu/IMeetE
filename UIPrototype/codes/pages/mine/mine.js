@@ -27,7 +27,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.request({
+      url: 'http://localhost:8080/user?id=u10', // 向后端服务器获取mbti测试信息
+      header:{
+        'content-type': 'application/json'
+      },
+      method:'GET',
+      success: res=>{
+        let result = res.data
 
+        if(result.ok){
+          let data = result.data
+          console.log(data)
+          this.setData({
+            name: data.nickname,
+            id: data.id,
+            mbti: data.mbti,
+            area: data.area,
+            sex: (data.sex === "男") ? "♂" : "♀",
+            age: data.age,
+            followCount: data.followCount,
+            followerCount: data.followerCount,
+            intro: data.intro,
+            tags: [
+              "运动",
+              "音乐",
+              "游戏",
+              "动漫"
+            ],
+            mode: true
+          })
+        }
+      },
+      fail:rej=>{
+        console.log(rej.data);
+      }
+    })
   },
 
   /**

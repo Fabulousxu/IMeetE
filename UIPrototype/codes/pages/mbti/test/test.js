@@ -20,7 +20,7 @@ Page({
     let that = this;
 
     wx.request({
-      url: 'http://localhost:8080/mbti_test', // 向后端服务器获取mbti测试信息
+      url: 'http://localhost:8080/mbti/test', // 向后端服务器获取mbti测试信息
       header:{
         'content-type': 'application/json'
       },

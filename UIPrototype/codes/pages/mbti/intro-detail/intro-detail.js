@@ -19,16 +19,17 @@ Page({
 
     that.setData({mbtiType:type});
     wx.request({
-      url: 'http://localhost:8080/mbti_intro?mbtiType=' + type, // 向后端服务器获取mbti介绍
+      url: 'http://localhost:8080/mbti/intro?mbtiType=' + type, // 向后端服务器获取mbti介绍
       header:{
         'content-type': 'application/json'
       },
       method:'GET',
       success(res){
         let result = res.data;
+        console.log(result);
 
         if(result.ok){
-          that.setData({mbtiIntro:result.data.mbti_intro})
+          that.setData({mbtiIntro:result.data.intro})
         }
       },
       fail(rej){
