@@ -7,5 +7,5 @@ import java.util.List;
 
 @Service
 public interface PostService {
-  List<Post> getPost(String type, String category, int lastpost);
+  List<Post> getPost(String type, String category, int lastPostId);
 }

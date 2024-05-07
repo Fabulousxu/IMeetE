@@ -1,8 +1,9 @@
 package com.example.imeete.dao;
 
-import com.example.imeete.entity.Account;
+import com.example.imeete.entity.Like;
+import com.example.imeete.entity.LikeId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, String> {}
+public interface LikeRepository extends JpaRepository<Like, LikeId> {}

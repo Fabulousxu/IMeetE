@@ -4,27 +4,21 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.AccountRepository;
 import com.example.imeete.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 public class LoginController {
-  @Autowired
-  private AccountRepository accountRepository;
+  @Autowired private AccountRepository accountRepository;
 
   @PostMapping("/login")
   public JSONObject login(@RequestBody JSONObject param) {
     JSONObject res = new JSONObject();
-    String userid = param.getString("id");
-    String password = param.getString("password");
-    Account user = accountRepository.findById(userid).orElse(null);
-    if (user == null) {
+    Account account = accountRepository.findById(param.getString("id")).orElse(null);
+    if (account == null) {
       res.put("ok", false);
       res.put("message", "账号不存在");
-    } else if (!user.password.equals(password)) {
+    } else if (!account.comparePassword(param.getString("password"))) {
       res.put("ok", false);
       res.put("message", "密码错误");
     } else {

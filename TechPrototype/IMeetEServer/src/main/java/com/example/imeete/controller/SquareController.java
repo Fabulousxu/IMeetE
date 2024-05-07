@@ -2,55 +2,50 @@ package com.example.imeete.controller;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.dao.PostRepository;
 import com.example.imeete.dao.UserRepository;
 import com.example.imeete.entity.Post;
 import com.example.imeete.entity.User;
 import com.example.imeete.service.impl.PostServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import java.text.SimpleDateFormat;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/square")
+@CrossOrigin
 public class SquareController {
-  @Autowired
-  private UserRepository userRepository;
-
-  @Autowired
-  private PostRepository postRepository;
-
-  @Autowired
-  private PostServiceImpl postService;
+  @Autowired private UserRepository userRepository;
+  @Autowired private PostServiceImpl postService;
 
   @GetMapping
-  public JSONArray getPost(@RequestParam("type") String type,
-                           @RequestParam("category") String category,
-                           @RequestParam("lastpost") int lastpost) {
+  public JSONArray getPost(
+      @RequestParam("type") String type,
+      @RequestParam("category") String category,
+      @RequestParam("lastPostId") int lastPostId,
+      @CookieValue("userId") String userId) {
     JSONArray res = new JSONArray();
-    List<Post> posts = postService.getPost(type, category, lastpost);
+    List<Post> posts = postService.getPost(type, category, lastPostId);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     for (Post p : posts) {
-      JSONObject post = new JSONObject();
-      post.put("id", p.id);
-      post.put("title", p.title);
-      post.put("time", p.time);
-      post.put("content", p.content);
-      post.put("cover", "");
-      post.put("watch", p.watch);
-      post.put("like", p.like);
-      post.put("collect", p.collect);
-      post.put("share", p.share);
-      User user = userRepository.findById(p.userId).get();
+      User user = userRepository.findById(p.getUserId()).get();
       JSONObject userJson = new JSONObject();
-      userJson.put("id", user.id);
-      userJson.put("nickname", user.nickname);
-      userJson.put("photo", "");
-      userJson.put("mbti", user.mbti);
+      userJson.put("id", user.getId());
+      userJson.put("nickname", user.getNickname());
+      userJson.put("avatar", user.getAvatar());
+      userJson.put("mbti", user.getMbti());
+      JSONObject post = new JSONObject();
+      post.put("id", p.getId());
       post.put("user", userJson);
+      post.put("time", dateFormat.format(p.getTime()));
+      post.put("title", p.getTitle());
+      post.put("cover", p.getCover());
+      post.put("content", p.getContent());
+      post.put("watchCount", p.getWatchCount());
+      post.put("likeCount", p.getLikeCount());
+      post.put("collectCount", p.getCollectCount());
+      post.put("shareCount", p.getShareCount());
+      post.put("commentCount", p.getCommentCount());
       res.add(post);
     }
     return res;

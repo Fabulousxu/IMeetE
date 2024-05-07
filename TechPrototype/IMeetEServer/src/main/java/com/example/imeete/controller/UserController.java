@@ -3,40 +3,32 @@ package com.example.imeete.controller;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.UserRepository;
 import com.example.imeete.entity.User;
+import com.example.imeete.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired private UserService userService;
 
-    @GetMapping("/user")
-    public JSONObject getUserInfo(@RequestParam("id") String userid) {
-        System.out.println("userid: " + userid);
-
-        User user = userRepository.findById(userid).orElse(null);
-        JSONObject res = new JSONObject();
-        if (user == null) {
-            res.put("ok", false);
-            res.put("data", "账号不存在");
-        } else {
-            res.put("ok", true);
-            JSONObject data = new JSONObject();
-            data.put("id", user.id);
-            data.put("nickname", user.nickname);
-            data.put("mbti", user.mbti);
-            data.put("area", user.area);
-            data.put("sex", user.sex);
-            data.put("age", user.age);
-            data.put("intro", user.intro);
-            data.put("avatar", user.avatar);
-            data.put("followCount", user.followCount);
-            data.put("followerCount", user.followerCount);
-            res.put("data", data);
-        }
-        return res;
+  @GetMapping("/user")
+  public JSONObject getUserInfo(@RequestParam("id") String userId) {
+    JSONObject res = new JSONObject();
+    JSONObject data = userService.getUserInfoJson(userId);
+    if (data == null) {
+      res.put("ok", false);
+      res.put("message", "用户不存在");
+    } else {
+      res.put("ok", true);
+      res.put("message", "获取用户信息成功");
+      res.put("data", data);
     }
-}
+    return res;
+  }
 
+  @GetMapping("/user/self")
+  public JSONObject getSelfInfo(@CookieValue("id") String userId) {
+    return userService.getUserInfoJson(userId);
+  }
+}

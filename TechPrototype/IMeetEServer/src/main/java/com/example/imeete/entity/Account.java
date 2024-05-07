@@ -1,17 +1,18 @@
 package com.example.imeete.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "account")
 public class Account {
-    @Id
-    @Column(name = "account_id")
-    public String id;
+  @Id
+  @Column(name = "account_id")
+  private String id;
 
-    @Column(name = "account_password")
-    public String password;
+  @Column(name = "account_password")
+  private String password;
+
+  public boolean comparePassword(String password) {
+    return this.password.equals(password);
+  }
 }

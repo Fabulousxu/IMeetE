@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/mbti")
 @CrossOrigin
 public class MBTIController {
-  @Autowired
-  private MBTITestRepository mbtiTestRepository;
-  @Autowired
-  private MBTIIntroRepository mbtiIntroRepository;
+  @Autowired private MBTITestRepository mbtiTestRepository;
+  @Autowired private MBTIIntroRepository mbtiIntroRepository;
 
   @GetMapping("/test")
   public String getMBTITest() {

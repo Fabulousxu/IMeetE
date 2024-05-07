@@ -1,41 +1,42 @@
 package com.example.imeete.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
 public class User {
   @Id
   @Column(name = "user_id")
-  public String id;
+  private String id;
 
   @Column(name = "user_nickname")
-  public String nickname;
-
-  @Column(name = "user_mbti")
-  public String mbti;
-
-  @Column(name = "user_area")
-  public String area;
-
-  @Column(name = "user_sex")
-  public String sex;
-
-  @Column(name = "user_age")
-  public int age;
-
-  @Column(name = "user_intro")
-  public String intro;
+  private String nickname;
 
   @Column(name = "user_avatar")
-  public String avatar;
+  private String avatar;
 
-  @Column(name = "user_follow_count")
-  public int followCount;
+  @Column(name = "user_mbti")
+  private String mbti;
+
+  @Column(name = "user_sex")
+  private int sex;
+
+  @Column(name = "user_age")
+  private int age;
+
+  @Column(name = "user_area")
+  private String area;
+
+  @Column(name = "user_intro")
+  private String intro;
+
+  @Column(name = "user_following_count")
+  private int followingCount;
 
   @Column(name = "user_follower_count")
-  public int followerCount;
+  private int followerCount;
 }

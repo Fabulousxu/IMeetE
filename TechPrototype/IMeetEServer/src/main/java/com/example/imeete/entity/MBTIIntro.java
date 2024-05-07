@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 @Table(name = "mbti_intro")
 public class MBTIIntro {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "mbti_type")
   public String type;
 
