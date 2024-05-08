@@ -24,8 +24,16 @@ public class SquareController {
       @RequestParam("category") String category,
       @RequestParam("lastPostId") int lastPostId,
       @CookieValue("userId") String userId) {
+
+    System.out.println("getPost");
+    System.out.println("type: " + type);
+    System.out.println("category: " + category);
+    System.out.println("lastPostId: " + lastPostId);
+
     JSONArray res = new JSONArray();
+
     List<Post> posts = postService.getPost(type, category, lastPostId);
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     for (Post p : posts) {
       User user = userRepository.findById(p.getUserId()).get();
@@ -48,6 +56,9 @@ public class SquareController {
       post.put("commentCount", p.getCommentCount());
       res.add(post);
     }
+
+    System.out.println("res" + res.toJSONString());
+
     return res;
   }
 }

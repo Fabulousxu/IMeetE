@@ -27,10 +27,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let userid = wx.getStorageSync('userid')
-    console.log(userid)
+    let userId = wx.getStorageSync('userId')
+    console.log(userId)
     wx.request({
-      url: 'http://localhost:8080/user?id=' + userid, // 向后端服务器用户信息
+      url: 'http://localhost:8080/user?id=' + userId, // 向后端服务器用户信息
       header:{
         'content-type': 'application/json'
       },

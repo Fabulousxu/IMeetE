@@ -2,33 +2,33 @@
   <view class="s-post-list">
     <view class="s-post" wx:for="{{sitemlist}}" wx:key="id" wx:for-index="idx">
       <view class="s-item" id="{{idx}}" bindtap="posterDetailTap">
-        <image class="avator" src="{{item.avaurl}}"></image>
+        <image class="avator" src="{{item.user.avatar}}"></image>
         <view class="info">
-          <view class="name">{{item.name}}</view>
-          <view class="mbti">{{item.mbti}}</view>
+          <view class="name">{{item.user.nickname}}</view>
+          <view class="mbti">{{item.user.mbti}}</view>
         </view>
         <view class="data-wrapper">
           <view class="fans">
-            <view class="fans_log">粉丝 : {{item.fansnum}}</view>
-            <view class="post-time">{{item.posttime}}</view>
+            <view class="fans_log">粉丝 : {{item.user.followerCount}}</view>
+            <view class="post-time">{{item.time}}</view>
           </view>
-          <view class="sign">{{item.sign}}</view>
+          <view class="sign">{{item.title}}</view>
         </view>
       </view>
       <view class="s-pic" wx:if="{{item.isDisplay === 1}}" id="{{idx}}" bindtap="postContentTap">
-        <image class="post-pic" src="{{item.postpicurl}}"></image>
+        <image class="post-pic" src="{{item.cover}}"></image>
       </view>
       <view class="s-content">
         <view class="content" id="{{idx}}" bindtap="postContentTap">{{item.content}}</view>
         <view class="view-wrapper">
           <view class="view">
-            <view class="view-num">view : {{item.viewnum}}</view>
-            <view class="com-num">comment : {{item.comnum}}</view>
+            <view class="view-num">view : {{item.watchCount}}</view>
+            <view class="com-num">comment : {{item.commentCount}}</view>
           </view>
           <view class="tool-wrapper">
-            <button class="like" bindtap="like">点赞</button>
-            <button class="comment" bindtap="comment">评论</button>
-            <button class="share" bindtap="share">分享</button>
+            <button class="like" bindtap="like" id="{{idx}}">点赞</button>
+            <button class="comment" bindtap="comment" id="{{idx}}">评论</button>
+            <button class="share" bindtap="share" id="{{idx}}">分享</button>
           </view>
         </view>
       </view>

@@ -119,7 +119,7 @@ Page({
           
           // wx.setStorageSync('token', res.data.data.token) // 缓存token
 
-          wx.setStorageSync('userid', this.data.userid)
+          wx.setStorageSync('userId', this.data.userid)
 
           // 设置时效缓存
           // wx.setStorageSync('expireTime', new Date().getTime() + 1000 * 60 * 60 * 24 * 7) // 7天有效期

@@ -21,6 +21,9 @@ public class PostController {
   public JSONObject like(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
     JSONObject res = new JSONObject();
     LikeId likeId = new LikeId(userId, param.getIntValue("id"));
+    System.out.println(userId);
+    System.out.println(param.getIntValue("id"));
+
     if (likeRepository.findById(likeId).orElse(null) == null) {
       likeRepository.save(new Like(likeId));
       res.put("ok", true);
