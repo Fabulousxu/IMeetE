@@ -14,6 +14,7 @@ public class UserController {
 
   @GetMapping("/user")
   public JSONObject getUserInfo(@RequestParam("id") String userId) {
+    System.out.println("userId: " + userId);
     JSONObject res = new JSONObject();
     JSONObject data = userService.getUserInfoJson(userId);
     if (data == null) {

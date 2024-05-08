@@ -1,0 +1,12 @@
+<!--pages/login/login.wxml-->
+
+<view class="login">
+    <form bindsubmit="onSubmit">
+        <view style="text-align: center; margin-bottom: 50px; font-size: 20px;">用户登录</view>
+        <input type="text" placeholder="用户名" class="login-input" 
+        bindinput="onInputUserId" value="{{userid}}"></input>
+        <input type="password" placeholder="密码" class="login-input"
+        bindinput="onInputPassword" value="{{password}}"></input>
+        <button class="login-button" form-type="submit">登录</button>
+    </form>
+</view>

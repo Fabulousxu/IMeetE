@@ -27,8 +27,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    let userid = wx.getStorageSync('userid')
+    console.log(userid)
     wx.request({
-      url: 'http://localhost:8080/user?id=u10', // 向后端服务器获取mbti测试信息
+      url: 'http://localhost:8080/user?id=' + userid, // 向后端服务器用户信息
       header:{
         'content-type': 'application/json'
       },
