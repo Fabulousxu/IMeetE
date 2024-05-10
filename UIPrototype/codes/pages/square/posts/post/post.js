@@ -53,21 +53,22 @@ Component({
   },
   methods: {
     posterDetailTap: function(e) { // 待实现
-      // 获取当前点击对象的父元素在wx::for中的key
-      var index = e.currentTarget.id;
-      // 跳转到帖子详情页
-      this.triggerEvent('postTap', {
-        selectPost: this.data.sitemlist[index]
-      });
+      // // 获取当前点击对象的父元素在wx::for中的key
+      // var index = e.currentTarget.id;
+      // // 跳转到帖子详情页
+      // this.triggerEvent('postTap', {
+      //   selectPost: this.data.sitemlist[index]
+      // });
     },
   
     postContentTap: function(e) {
       // 获取当前点击对象的父元素在wx::for中的key
       var index = e.currentTarget.id;
       var post = this.data.sitemlist[index];
+      var postId = post.id;
       // 获取当前点击对象的id
       this.triggerEvent('postTap', {
-        selectedPost: post
+        selectedPostId: postId
       });
     },
 

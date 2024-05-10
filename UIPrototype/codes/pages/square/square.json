@@ -1,6 +1,5 @@
 {
     "usingComponents":{
-        "user-post":"./posts/post/post",
-        "post-detail":"./postcontent/postcontent/postcontent"
+        "user-post":"./posts/post/post"
     }
 }

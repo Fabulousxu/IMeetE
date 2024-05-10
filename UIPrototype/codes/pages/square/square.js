@@ -16,8 +16,7 @@ Page({
       url: '../square/img/avator1.jpg',
       place: 'Shanghai',
     },
-    showPostList:true,
-    selectedPost:null,
+    selectedPostId:0,
   },
 
   // getCurrntUser: function() {
@@ -55,6 +54,14 @@ Page({
       }
     })
   },
+
+  showPostDetail: function(e) {
+    const postId = e.detail.selectedPostId;
+    wx.navigateTo({
+      url: '/pages/square/post-detail/post-detail?postId=' + postId,
+    })
+  },
+
   /** 
    * 滑动切换tab 
    */
@@ -65,8 +72,8 @@ Page({
       swipeIndex: e.detail.current
     });
     console.log(this.data.currentTab)
-
   },
+
   swiperItemChange: function(e) {
     var that = this;
     that.setData({
@@ -74,6 +81,7 @@ Page({
       itemIndex: e.detail.current
     });
   },
+
   /** 
    * 点击tab切换 
    */
@@ -86,7 +94,6 @@ Page({
         currentTab: e.currentTarget.dataset.current
       })
     }
-
   },300),
 
   itemSwich: function(e) {
@@ -151,18 +158,4 @@ Page({
     })
   },
 
-  showPostList: function() {
-    this.setData({
-      showPostList:true,
-      selectedPost:null,
-    })
-  },
-
-  showPostDetail: function(e) {
-    const post = e.detail.selectedPost;
-    this.setData({
-      showPostList:false,
-      selectedPost:post,
-    })
-  }
 })

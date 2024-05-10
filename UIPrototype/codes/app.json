@@ -5,6 +5,7 @@
     "pages/mbti/index/mbti-index",
     "pages/mine/mine",
     "pages/square/square",
+    "pages/square/post-detail/post-detail",
     "pages/message/message",
     "pages/friend/success",
     "pages/message/chat",
