@@ -3,7 +3,8 @@ package com.example.imeete.controller;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.AccountRepository;
 import com.example.imeete.entity.Account;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class LoginController {
   @Autowired private AccountRepository accountRepository;
+  @Autowired private HttpServletResponse response;
 
   @PostMapping("/login")
-  public JSONObject login(@RequestBody JSONObject param, HttpSession session) {
+  public JSONObject login(@RequestBody JSONObject param) {
     JSONObject res = new JSONObject();
     Account account = accountRepository.findById(param.getString("id")).orElse(null);
     if (account == null) {
@@ -23,7 +25,7 @@ public class LoginController {
       res.put("ok", false);
       res.put("message", "密码错误");
     } else {
-      session.setAttribute("userId", account.getUserId());
+      response.addCookie(new Cookie("userId", account.getUserId()));
       res.put("ok", true);
       res.put("message", "登录成功");
     }

@@ -11,9 +11,9 @@ public class UserController {
   @Autowired private UserService userService;
 
   @GetMapping("/user")
-  public JSONObject getUserInfo(@RequestParam("id") String userId) {
+  public JSONObject getUserInfo(String id) {
     JSONObject res = new JSONObject();
-    JSONObject data = userService.toJson(userId);
+    JSONObject data = userService.toJson(id);
     if (data == null) {
       res.put("ok", false);
       res.put("message", "用户不存在");
@@ -26,7 +26,7 @@ public class UserController {
   }
 
   @GetMapping("/user/self")
-  public JSONObject getSelfInfo(@SessionAttribute("userId") String userId) {
+  public JSONObject getSelfInfo(@CookieValue("userId") String userId) {
     return userService.toJson(userId);
   }
 }

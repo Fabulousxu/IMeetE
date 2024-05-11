@@ -8,7 +8,6 @@ import com.example.imeete.entity.*;
 import com.example.imeete.service.CommentService;
 import com.example.imeete.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,15 +20,13 @@ public class PostController {
   @Autowired private CollectRepository collectRepository;
 
   @GetMapping
-  public JSONObject getPost(@Param("id") int id, @SessionAttribute("userId") String userId) {
+  public JSONObject getPost(int id, @CookieValue("userId") String userId) {
     return postService.toJson(id, userId);
   }
 
   @GetMapping("/comment")
   public JSONArray getComment(
-      @Param("postId") int postId,
-      @Param("lastCommentId") long lastCommentId,
-      @SessionAttribute("userId") String userId) {
+      int postId, long lastCommentId, @CookieValue("userId") String userId) {
     JSONArray res = new JSONArray();
     for (Comment comment : postService.getComment(postId, lastCommentId))
       res.add(commentService.toJson(comment, userId));
@@ -37,7 +34,7 @@ public class PostController {
   }
 
   @PostMapping("/like")
-  public JSONObject like(@RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
+  public JSONObject like(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
     JSONObject res = new JSONObject();
     LikeId likeId = new LikeId(userId, param.getIntValue("id"));
     if (!likeRepository.existsById(likeId)) {
@@ -52,8 +49,7 @@ public class PostController {
   }
 
   @PostMapping("/dislike")
-  public JSONObject dislike(
-      @RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
+  public JSONObject dislike(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
     JSONObject res = new JSONObject();
     LikeId likeId = new LikeId(userId, param.getIntValue("id"));
     if (likeRepository.existsById(likeId)) {
@@ -68,8 +64,7 @@ public class PostController {
   }
 
   @PostMapping("/collect")
-  public JSONObject collect(
-      @RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
+  public JSONObject collect(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
     JSONObject res = new JSONObject();
     CollectId collectId = new CollectId(userId, param.getIntValue("id"));
     if (!collectRepository.existsById(collectId)) {
@@ -84,8 +79,7 @@ public class PostController {
   }
 
   @PostMapping("/uncollect")
-  public JSONObject uncollect(
-      @RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
+  public JSONObject uncollect(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
     JSONObject res = new JSONObject();
     CollectId collectId = new CollectId(userId, param.getIntValue("id"));
     if (collectRepository.existsById(collectId)) {

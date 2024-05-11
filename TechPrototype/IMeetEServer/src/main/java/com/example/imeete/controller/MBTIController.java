@@ -1,7 +1,7 @@
 package com.example.imeete.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.dao.MbtiIIntroRepository;
+import com.example.imeete.dao.MbtiIntroRepository;
 import com.example.imeete.dao.MbtiTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class MbtiController {
   @Autowired private MbtiTestRepository mbtiTestRepository;
-  @Autowired private MbtiIIntroRepository mbtiIntroRepository;
+  @Autowired private MbtiIntroRepository mbtiIntroRepository;
 
   @GetMapping("/test")
   public String getMbtiTest() {
@@ -28,14 +28,14 @@ public class MbtiController {
   }
 
   @GetMapping("/intro")
-  public String getMbtiIntro(@RequestParam("mbtiType") String type) {
+  public String getMbtiIntro(String mbtiType) {
     System.out.println("getMBTI_Intro");
 
     JSONObject res = new JSONObject();
     // 从数据库中读取MBTI_Intro表的数据
     res.put("ok", true);
     // 根据mbti_type查找
-    res.put("data", mbtiIntroRepository.findById(type).orElse(null));
+    res.put("data", mbtiIntroRepository.findById(mbtiType).orElse(null));
 
     System.out.println(res.toJSONString());
 
