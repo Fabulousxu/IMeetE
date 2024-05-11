@@ -1,18 +1,13 @@
 package com.example.imeete.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "account")
+@Getter
+@Setter
 public class Account {
-  @Id
-  @Column(name = "account_id")
-  private String id;
-
-  @Column(name = "account_password")
+  @Id private String userId;
   private String password;
-
-  public boolean comparePassword(String password) {
-    return this.password.equals(password);
-  }
 }

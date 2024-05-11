@@ -1,20 +1,20 @@
 package com.example.imeete.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.dao.MBTIIntroRepository;
-import com.example.imeete.dao.MBTITestRepository;
+import com.example.imeete.dao.MbtiIIntroRepository;
+import com.example.imeete.dao.MbtiTestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mbti")
 @CrossOrigin
-public class MBTIController {
-  @Autowired private MBTITestRepository mbtiTestRepository;
-  @Autowired private MBTIIntroRepository mbtiIntroRepository;
+public class MbtiController {
+  @Autowired private MbtiTestRepository mbtiTestRepository;
+  @Autowired private MbtiIIntroRepository mbtiIntroRepository;
 
   @GetMapping("/test")
-  public String getMBTITest() {
+  public String getMbtiTest() {
     System.out.println("getMBTI_Test");
 
     JSONObject res = new JSONObject();
@@ -28,7 +28,7 @@ public class MBTIController {
   }
 
   @GetMapping("/intro")
-  public String getMBTIIntro(@RequestParam("mbtiType") String type) {
+  public String getMbtiIntro(@RequestParam("mbtiType") String type) {
     System.out.println("getMBTI_Intro");
 
     JSONObject res = new JSONObject();

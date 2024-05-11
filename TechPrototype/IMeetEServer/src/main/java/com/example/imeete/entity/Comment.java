@@ -2,25 +2,22 @@ package com.example.imeete.entity;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Table(name = "comment")
+@Getter
+@Setter
 public class Comment {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "comment_id")
-  public int id;
+  private long commentId;
 
-  @Column(name = "post_id")
-  public int postId;
+  private int postId;
+  private String userId;
+  private Date createdAt;
+  private String content;
 
-  @Column(name = "user_id")
-  public String userId;
-
-  @Column(name = "comment_time")
-  @Temporal(TemporalType.TIMESTAMP)
-  public Date time;
-
-  @Column(name = "comment_content")
-  public String content;
+  @Column(name = "`like`")
+  private int like;
 }

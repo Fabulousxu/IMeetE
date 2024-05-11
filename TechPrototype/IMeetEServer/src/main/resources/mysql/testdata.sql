@@ -1,5 +1,5 @@
 # 初始化测试账户密码表
-INSERT INTO account (account_id, account_password)
+INSERT INTO account (user_id, password)
 VALUES ('u1', 'abc'),
        ('u2', 'abc'),
        ('u3', 'abc'),
@@ -22,9 +22,8 @@ VALUES ('u1', 'abc'),
        ('u20', 'abc');
 
 # 初始化测试用户信息
-INSERT INTO user (user_id, user_nickname, user_avatar, user_mbti, user_sex,
-                  user_age, user_area, user_intro, user_following_count,
-                  user_follower_count)
+INSERT INTO user (user_id, nickname, avatar, mbti, sex, age, area, intro,
+                  following, follower)
 VALUES ('u1', 'user1', '', 'INTJ', 0, 20, '上海 闵行', '用户签名', 6, 0),
        ('u2', 'user2', '', 'INTP', 1, 20, '上海 黄埔', '用户签名', 5, 1),
        ('u3', 'user3', '', 'ENTJ', 0, 20, '上海 徐汇', '用户签名', 4, 2),
@@ -71,9 +70,8 @@ VALUES ('u1', 'u2'),
        ('u6', 'u7');
 
 # 初始化测试帖子信息
-INSERT INTO post (user_id, post_title, post_cover, post_content,
-                  post_watch_count, post_like_count, post_collect_count,
-                  post_share_count, post_comment_count)
+INSERT INTO post (user_id, title, cover, content, watch, `like`, collect, share,
+                  comment)
 VALUES ('u1', '帖子1', '', '这是一个帖子', 10, 6, 6, 6, 0),
        ('u1', '帖子2', '', '这是一个帖子', 10, 5, 5, 5, 0),
        ('u1', '帖子3', '', '这是一个帖子', 10, 4, 4, 4, 0),
@@ -164,41 +162,75 @@ VALUES ('u1', 1),
        ('u6', 1);
 
 # 初始化模拟评论信息
-INSERT INTO comment (post_id, user_id, comment_content)
-VALUES (1, 'u1', '评论1'),
-       (2, 'u1', '评论2'),
-       (3, 'u1', '评论3'),
-       (4, 'u1', '评论4'),
-       (5, 'u1', '评论5'),
-       (6, 'u1', '评论6'),
-       (7, 'u1', '评论7'),
-       (8, 'u1', '评论8'),
-       (9, 'u1', '评论9'),
-       (10, 'u1', '评论10'),
-       (1, 'u2', '评论11'),
-       (2, 'u2', '评论12'),
-       (3, 'u2', '评论13'),
-       (4, 'u2', '评论14'),
-       (5, 'u2', '评论15'),
-       (6, 'u2', '评论16'),
-       (7, 'u2', '评论17'),
-       (8, 'u2', '评论18'),
-       (1, 'u3', '评论19'),
-       (2, 'u3', '评论20'),
-       (3, 'u3', '评论21'),
-       (4, 'u3', '评论22'),
-       (5, 'u3', '评论23'),
-       (6, 'u3', '评论24'),
-       (1, 'u4', '评论25'),
-       (2, 'u4', '评论26'),
-       (3, 'u4', '评论27'),
-       (4, 'u4', '评论28'),
-       (1, 'u5', '评论29'),
-       (2, 'u5', '评论30'),
-       (1, 'u6', '评论31');
+INSERT INTO comment (post_id, user_id, content, `like`)
+VALUES (1, 'u1', '评论1', 6),
+       (2, 'u1', '评论2', 5),
+       (3, 'u1', '评论3', 4),
+       (4, 'u1', '评论4', 4),
+       (5, 'u1', '评论5', 3),
+       (6, 'u1', '评论6', 3),
+       (7, 'u1', '评论7', 2),
+       (8, 'u1', '评论8', 2),
+       (9, 'u1', '评论9', 1),
+       (10, 'u1', '评论10', 1),
+       (1, 'u2', '评论11', 0),
+       (2, 'u2', '评论12', 0),
+       (3, 'u2', '评论13', 0),
+       (4, 'u2', '评论14', 0),
+       (5, 'u2', '评论15', 0),
+       (6, 'u2', '评论16', 0),
+       (7, 'u2', '评论17', 0),
+       (8, 'u2', '评论18', 0),
+       (1, 'u3', '评论19', 0),
+       (2, 'u3', '评论20', 0),
+       (3, 'u3', '评论21', 0),
+       (4, 'u3', '评论22', 0),
+       (5, 'u3', '评论23', 0),
+       (6, 'u3', '评论24', 0),
+       (1, 'u4', '评论25', 0),
+       (2, 'u4', '评论26', 0),
+       (3, 'u4', '评论27', 0),
+       (4, 'u4', '评论28', 0),
+       (1, 'u5', '评论29', 0),
+       (2, 'u5', '评论30', 0),
+       (1, 'u6', '评论31', 0);
+
+# 初始化模拟评论点赞信息
+INSERT INTO comment_like (user_id, comment_id)
+VALUES ('u1', 1),
+       ('u1', 2),
+       ('u1', 3),
+       ('u1', 4),
+       ('u1', 5),
+       ('u1', 6),
+       ('u1', 7),
+       ('u1', 8),
+       ('u1', 9),
+       ('u1', 10),
+       ('u2', 1),
+       ('u2', 2),
+       ('u2', 3),
+       ('u2', 4),
+       ('u2', 5),
+       ('u2', 6),
+       ('u2', 7),
+       ('u2', 8),
+       ('u3', 1),
+       ('u3', 2),
+       ('u3', 3),
+       ('u3', 4),
+       ('u3', 5),
+       ('u3', 6),
+       ('u4', 1),
+       ('u4', 2),
+       ('u4', 3),
+       ('u4', 4),
+       ('u5', 1),
+       ('u5', 2),
+       ('u6', 1);
 
 # 初始化模拟MBTI介绍信息
-INSERT INTO mbti_intro (mbti_type, mbti_intro)
+INSERT INTO mbti_intro (mbti, intro)
 VALUES ('INTJ',
         'INTJ是分析型问题解决者，他们渴望用创新的思想改进系统和流程。他们擅长发现改进的可能性，无论是在工作中、家庭中还是自己身上。'),
        ('INTP',
@@ -233,7 +265,7 @@ VALUES ('INTJ',
         'ESFP是充满活力的表演者，能够迷住并吸引周围的人。他们 spontaneity、充满活力和热爱乐趣，喜欢周围的事物：食物、服装、自然、动物，尤其是人。');
 
 # 初始化模拟MBTI测试题
-INSERT INTO mbti_test (mbti_test_question)
+INSERT INTO mbti_test (question)
 VALUES ('你觉得向其他人介绍自己很困难'),
        ('你经常沉浸在思考中，以至于忽视或忘记周围的环境'),
        ('你尽可能快地回复电子邮件，并且无法忍受杂乱的收件箱'),

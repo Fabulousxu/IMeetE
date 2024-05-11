@@ -1,13 +1,13 @@
 package com.example.imeete.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "`like`")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Like {
-  @EmbeddedId private LikeId likeId;
+public class CommentLike {
+  @EmbeddedId private CommentLikeId commentLikeId;
 }

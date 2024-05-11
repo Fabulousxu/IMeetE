@@ -1,8 +1,6 @@
 package com.example.imeete.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.dao.UserRepository;
-import com.example.imeete.entity.User;
 import com.example.imeete.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +12,8 @@ public class UserController {
 
   @GetMapping("/user")
   public JSONObject getUserInfo(@RequestParam("id") String userId) {
-    System.out.println("userId: " + userId);
     JSONObject res = new JSONObject();
-    JSONObject data = userService.getUserInfoJson(userId);
+    JSONObject data = userService.toJson(userId);
     if (data == null) {
       res.put("ok", false);
       res.put("message", "用户不存在");
@@ -29,7 +26,7 @@ public class UserController {
   }
 
   @GetMapping("/user/self")
-  public JSONObject getSelfInfo(@CookieValue("id") String userId) {
-    return userService.getUserInfoJson(userId);
+  public JSONObject getSelfInfo(@SessionAttribute("userId") String userId) {
+    return userService.toJson(userId);
   }
 }

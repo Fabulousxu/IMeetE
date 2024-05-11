@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeId implements Serializable {
+public class CommentLikeId implements Serializable {
+  private long commentId;
   private String userId;
-  private int postId;
 }

@@ -1,30 +1,46 @@
 package com.example.imeete.controller;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.CollectRepository;
 import com.example.imeete.dao.LikeRepository;
-import com.example.imeete.entity.Collect;
-import com.example.imeete.entity.CollectId;
-import com.example.imeete.entity.Like;
-import com.example.imeete.entity.LikeId;
+import com.example.imeete.entity.*;
+import com.example.imeete.service.CommentService;
+import com.example.imeete.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/post")
 @CrossOrigin
 public class PostController {
+  @Autowired private PostService postService;
+  @Autowired private CommentService commentService;
   @Autowired private LikeRepository likeRepository;
   @Autowired private CollectRepository collectRepository;
 
+  @GetMapping
+  public JSONObject getPost(@Param("id") int id, @SessionAttribute("userId") String userId) {
+    return postService.toJson(id, userId);
+  }
+
+  @GetMapping("/comment")
+  public JSONArray getComment(
+      @Param("postId") int postId,
+      @Param("lastCommentId") long lastCommentId,
+      @SessionAttribute("userId") String userId) {
+    JSONArray res = new JSONArray();
+    for (Comment comment : postService.getComment(postId, lastCommentId))
+      res.add(commentService.toJson(comment, userId));
+    return res;
+  }
+
   @PostMapping("/like")
-  public JSONObject like(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
+  public JSONObject like(@RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
     JSONObject res = new JSONObject();
     LikeId likeId = new LikeId(userId, param.getIntValue("id"));
-    System.out.println(userId);
-    System.out.println(param.getIntValue("id"));
-
-    if (likeRepository.findById(likeId).orElse(null) == null) {
+    if (!likeRepository.existsById(likeId)) {
       likeRepository.save(new Like(likeId));
       res.put("ok", true);
       res.put("message", "点赞成功");
@@ -36,10 +52,11 @@ public class PostController {
   }
 
   @PostMapping("/dislike")
-  public JSONObject dislike(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
+  public JSONObject dislike(
+      @RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
     JSONObject res = new JSONObject();
     LikeId likeId = new LikeId(userId, param.getIntValue("id"));
-    if (likeRepository.findById(likeId).orElse(null) != null) {
+    if (likeRepository.existsById(likeId)) {
       likeRepository.deleteById(likeId);
       res.put("ok", true);
       res.put("message", "取消点赞成功");
@@ -51,10 +68,11 @@ public class PostController {
   }
 
   @PostMapping("/collect")
-  public JSONObject collect(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
+  public JSONObject collect(
+      @RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
     JSONObject res = new JSONObject();
     CollectId collectId = new CollectId(userId, param.getIntValue("id"));
-    if (collectRepository.findById(collectId).orElse(null) == null) {
+    if (!collectRepository.existsById(collectId)) {
       collectRepository.save(new Collect(collectId));
       res.put("ok", true);
       res.put("message", "收藏成功");
@@ -66,10 +84,11 @@ public class PostController {
   }
 
   @PostMapping("/uncollect")
-  public JSONObject uncollect(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
+  public JSONObject uncollect(
+      @RequestBody JSONObject param, @SessionAttribute("userId") String userId) {
     JSONObject res = new JSONObject();
     CollectId collectId = new CollectId(userId, param.getIntValue("id"));
-    if (collectRepository.findById(collectId).orElse(null) != null) {
+    if (collectRepository.existsById(collectId)) {
       collectRepository.deleteById(collectId);
       res.put("ok", true);
       res.put("message", "取消收藏成功");
