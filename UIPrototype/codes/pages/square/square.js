@@ -55,10 +55,58 @@ Page({
     })
   },
 
+  onReachBottom: async function() {
+    // 获取当前正在显示的user-post 的 id
+    let currentComponent = this.getCurrentComponent();
+    let currentPostList = this.selectComponent('#' + currentComponent);
+    if(currentPostList)
+    {
+      await currentPostList.update();
+    }
+  },
+
+  getCurrentComponent: function() {
+    let currentTab = this.data.currentTab;
+    let currentComponent;
+    switch (currentTab) {
+      case 0:
+        currentComponent = "subscribe-post";
+        break;
+      case 1:
+        currentComponent = "city-post";
+        break;
+      case 2:
+        let itemCurrent = this.data.itemCurrent;
+        switch (itemCurrent) {
+          case 0:
+            currentComponent = "pe-post";
+            break;
+          case 1:
+            currentComponent = "game-post";
+            break;
+          case 2:
+            currentComponent = "study-post";
+            break;
+          case 3:
+            currentComponent = "travel-post";
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        break;
+    }
+
+    return currentComponent;
+  },
+
   showPostDetail: function(e) {
     const postId = e.detail.selectedPostId;
+    const liked = e.detail.liked;
+    const collected = e.detail.collected;
     wx.navigateTo({
-      url: '/pages/square/post-detail/post-detail?postId=' + postId,
+      url: '/pages/square/post-detail/post-detail?postId=' + postId + '&liked=' + liked + '&collected=' + collected,
     })
   },
 

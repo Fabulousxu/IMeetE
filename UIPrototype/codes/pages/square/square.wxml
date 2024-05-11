@@ -17,15 +17,15 @@
     </view>
 </view>
 <view class="main-page">
-    <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange" style="overflow-y:hidden">
+    <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange" style="overflow-y:hidden" bindscrolltolower="onReachBottom">
         <swiper-item>
             <scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%">
                 <!-- 使用自定义组件post -->
-                <user-post bind:postTap="showPostDetail" pageType="关注" category=""></user-post>
+                <user-post id="subscribe-post" bind:postTap="showPostDetail" pageType="关注" category=""></user-post>
             </scroll-view>
         </swiper-item>
         <swiper-item>
-            <scroll-view class="city" type="list" scroll-y="{{true}}" style="width:100vw;height:100%">
+            <scroll-view class="city" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindscrolltolower="onReachBottom">
                 <view class="user">
                     <image class="avator" src="{{user.url}}"></image>
                     <view class="info">
@@ -35,7 +35,7 @@
                     <icon class="position"></icon>
                     <view class="place">{{user.place}}</view>
                 </view>
-                <user-post bind:postTap="showPostDetail" pageType="同城" category=""></user-post>
+                <user-post id="city-post" bind:postTap="showPostDetail" pageType="同城" category=""></user-post>
             </scroll-view>
         </swiper-item>
         <swiper-item>
@@ -55,23 +55,23 @@
             </view>
             <swiper current="{{itemCurrent}}" duration="300" bindchange="swiperItemChange" bindtransition="swiperTrans">
                 <swiper-item style="width:100vw;height:100%" bindtouchmove="itemTouchLeftMove" bindtouchend="itemTouchLeftEnd" bindtouchcancel="itemTouchLeftEnd">
-                    <scroll-view class="pe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%">
-                        <user-post bind:postTap="showPostDetail" pageType="发现" category="体育"></user-post>
+                    <scroll-view class="pe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindscrolltolower="onReachBottom">
+                        <user-post id="pe-post" bind:postTap="showPostDetail" pageType="发现" category="体育"></user-post>
                     </scroll-view>
                 </swiper-item>
                 <swiper-item>
-                    <scroll-view class="game" style="width:100vw;height:100%" type="list" scroll-y="{{true}}">
-                        <user-post bind:postTap="showPostDetail" pageType="发现" category="游戏"></user-post>
+                    <scroll-view class="game" style="width:100vw;height:100%" type="list" scroll-y="{{true}}" bindscrolltolower="onReachBottom">
+                        <user-post id="game-post" bind:postTap="showPostDetail" pageType="发现" category="游戏"></user-post>
                     </scroll-view>
                 </swiper-item>
                 <swiper-item>
-                    <scroll-view class="study" style="width:100vw;height:100%" type="list" scroll-y="{{true}}">
-                        <user-post bind:postTap="showPostDetail" pageType="发现" category="学习"></user-post>
+                    <scroll-view class="study" style="width:100vw;height:100%" type="list" scroll-y="{{true}}" bindscrolltolower="onReachBottom">
+                        <user-post id="study-post" bind:postTap="showPostDetail" pageType="发现" category="学习"></user-post>
                     </scroll-view>
                 </swiper-item>
                 <swiper-item>
-                    <scroll-view class="travel" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindtouchmove="itemTouchRightMove" bindtouchend="itemTouchRightEnd" bindtouchcancel="itemTouchRightEnd">
-                        <user-post bind:postTap="showPostDetail" pageType="发现" category="旅游"></user-post>
+                    <scroll-view class="travel" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindtouchmove="itemTouchRightMove" bindtouchend="itemTouchRightEnd" bindtouchcancel="itemTouchRightEnd" bindscrolltolower="onReachBottom">
+                        <user-post id="travel-post" bind:postTap="showPostDetail" pageType="发现" category="旅游"></user-post>
                     </scroll-view>
                 </swiper-item>
             </swiper>

@@ -14,6 +14,12 @@ Page({
      */
     onLoad(options) {
         const postId = options.postId;
+        let liked;
+        let collected;
+        if(options.liked == 'true') liked = true;
+        else liked = false;
+        if(options.collected == 'true') collected = true;
+        else collected = false;
         // 从后端fetch post数据
         wx.request({
           url: 'http://localhost:8080/square/post-detail' + '?postId=' + postId,
@@ -25,6 +31,8 @@ Page({
           },
           success: (res) => {
             if(res.data.ok){
+              res.data.postData.liked = liked;
+              res.data.postData.collected = collected;
               this.setData({
                 post: res.data.postData,
                 poster: res.data.poster
@@ -95,5 +103,53 @@ Page({
         wx.navigateBack({
             delta: 1
         })
-    }
+    },
+
+    like()
+    {
+      console.log(this.data.post.liked)
+        // 向后端发送请求
+        wx.request({
+            url: 'http://localhost:8080/post/' + (this.data.post.liked == true ? 'dislike' : 'like'),
+            method: 'POST',
+            header: {
+              'content-type': 'application/json',
+              'cookie': 'userId=' + wx.getStorageSync('userId')
+            },
+            data:{
+              id: this.data.post.id,
+            },
+            success: (res) => {
+              res = res.data
+              if(res.ok){
+                console.log(res.message)
+                wx.showToast({
+                  title: res.message,
+                  icon: 'none',
+                  duration: 1000
+                })
+                this.data.post.liked = !this.data.post.liked
+                this.setData({
+                  post: this.data.post
+                })
+              }else{
+                console.log(res.message)
+              }
+            },
+            
+            fail: (err) => {
+              console.log(err);
+            }
+          })
+    },
+
+    comment()
+    {
+      
+    },
+
+    share()
+    {
+
+    },
   })

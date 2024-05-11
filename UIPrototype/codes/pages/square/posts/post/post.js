@@ -11,8 +11,8 @@ Component({
       // 帖子分类
       let category = this.data.category
 
-      // 默认获得前10条帖子
-      let lastPostId = 10
+      // 当前页面最后一个帖子的id
+      let lastPostId = 0
 
       // 从后端fetch帖子数据
       wx.request({
@@ -25,6 +25,11 @@ Component({
         },
         success: (res) => {
           if(res.statusCode == 200){
+            // 向res.data 中每个元素添加一个新属性，用于标记是否已经点赞和收藏
+            for(let i = 0; i < res.data.length; i++){
+              res.data[i].liked = false
+              res.data[i].collected = false
+            }
             this.data.sitemlist = [...res.data]
             this.setData({
               sitemlist: this.data.sitemlist
@@ -52,6 +57,52 @@ Component({
     }
   },
   methods: {
+    update: async function(){
+      // 从后端获取新帖子并且加入到已有帖子后面，更新页面
+      // 获取当前页面类型
+      let type = this.data.pageType
+      // console.log(type)
+
+      // 帖子分类
+      let category = this.data.category
+
+      // 当前页面最后一个帖子的id，目前是sitemlist最后一个元素的 id
+      let lastPostId = this.data.sitemlist[this.data.sitemlist.length-1].id
+
+      // 从后端fetch帖子数据
+      wx.request({
+        url: 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId,
+        method: 'GET',
+        header: {
+          'content-type': 'application/json',
+          // 'cookie': wx.getStorageSync("cookieKey")
+          'cookie': 'userId=' + wx.getStorageSync('userId')
+        },
+        success: (res) => {
+          if(res.statusCode == 200){
+            // 从sitemlist 末尾插入新帖子，并从页面当前位置加载
+            // 向res.data 中每个元素添加一个新属性，用于标记是否已经点赞
+            for(let i = 0; i < res.data.length; i++){
+              res.data[i].liked = false
+              res.data[i].collected = false
+            }
+
+            this.data.sitemlist = [...this.data.sitemlist, ...res.data]
+            console.log(this.data.sitemlist)
+
+            this.setData({
+              sitemlist: this.data.sitemlist
+            })
+          }else{
+            console.log("fetch error")
+          }
+        },
+        
+        fail: (err) => {
+          console.log(err);
+        }
+      })
+    },
     posterDetailTap: function(e) { // 待实现
       // // 获取当前点击对象的父元素在wx::for中的key
       // var index = e.currentTarget.id;
@@ -63,12 +114,16 @@ Component({
   
     postContentTap: function(e) {
       // 获取当前点击对象的父元素在wx::for中的key
-      var index = e.currentTarget.id;
-      var post = this.data.sitemlist[index];
-      var postId = post.id;
+      let index = e.currentTarget.id;
+      let post = this.data.sitemlist[index];
+      let postId = post.id;
+      let postliked = post.liked;
+      let postcollected = post.collected;
       // 获取当前点击对象的id
       this.triggerEvent('postTap', {
-        selectedPostId: postId
+        selectedPostId: postId,
+        liked: postliked,
+        collected: postcollected
       });
     },
 
@@ -79,19 +134,28 @@ Component({
 
       // 向后端发送请求
       wx.request({
-        url: 'http://localhost:8080/post/like',
+        url: 'http://localhost:8080/post/' + (this.data.sitemlist[index].liked ? 'dislike' : 'like'),
         method: 'POST',
         header: {
           'content-type': 'application/json',
           'cookie': 'userId=' + wx.getStorageSync('userId')
         },
         data:{
-          id: this.data.sitemlist[index].id
+          id: this.data.sitemlist[index].id,
         },
         success: (res) => {
           res = res.data
           if(res.ok){
             console.log(res.message)
+            wx.showToast({
+              title: res.message,
+              icon: 'none',
+              duration: 1000
+            })
+            this.data.sitemlist[index].liked = !this.data.sitemlist[index].liked
+            this.setData({
+              sitemlist: this.data.sitemlist
+            })
           }else{
             console.log(res.message)
           }
@@ -104,8 +168,13 @@ Component({
     },
 
     comment: function(e){
-      console.log("成功评论")
-      
+      // 获取当前点击对象的父元素在wx::for中的key
+      var index = e.currentTarget.id;
+      console.log(index)
+      // 跳转到评论页面
+      this.triggerEvent('postTap', {
+        selectedPostId: this.data.sitemlist[index].id
+      });
     },
 
     share: function(e){

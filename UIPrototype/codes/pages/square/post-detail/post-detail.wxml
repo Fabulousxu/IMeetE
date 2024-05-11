@@ -36,7 +36,7 @@
                     <button class="comment" bindtap="comment">评论</button>
                     <button class="share" bindtap="share">分享</button>
                 </view>
-                <view class="comment-area">
+                <view class="comment-area" id="commentarea">
                     <!-- 评论区 -->
                     <view class="com-item" wx:for="{{post_comments}}" wx:key="id" wx:for-index="idx">
                         <view class="com-user">
