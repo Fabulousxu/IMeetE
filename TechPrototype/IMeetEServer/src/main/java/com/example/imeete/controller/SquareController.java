@@ -2,15 +2,11 @@ package com.example.imeete.controller;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.dao.CommentRepository;
 import com.example.imeete.dao.PostRepository;
 import com.example.imeete.dao.UserRepository;
 import com.example.imeete.entity.Post;
 import com.example.imeete.entity.User;
-import com.example.imeete.entity.Comment;
-import com.example.imeete.service.impl.PostServiceImpl;
-import java.text.SimpleDateFormat;
-import java.util.List;
+import com.example.imeete.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,71 +14,37 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/square")
 @CrossOrigin
 public class SquareController {
-  @Autowired private UserRepository userRepository;
-  @Autowired private PostServiceImpl postService;
+  @Autowired private PostService postService;
   @Autowired private PostRepository postRepository;
+  @Autowired private UserRepository userRepository;
 
   @GetMapping
   public JSONArray getPost(
       @RequestParam("type") String type,
       @RequestParam("category") String category,
       @RequestParam("lastPostId") int lastPostId,
-      @CookieValue("userId") String userId) {
-
-    System.out.println("getPost");
-    System.out.println("type: " + type);
-    System.out.println("category: " + category);
-    System.out.println("lastPostId: " + lastPostId);
-
+      @SessionAttribute("userId") String userId) {
     JSONArray res = new JSONArray();
-
-    List<Post> posts = postService.getPost(type, category, lastPostId);
-
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    for (Post p : posts) {
-      User user = userRepository.findById(p.getUserId()).get();
-      JSONObject userJson = new JSONObject();
-      userJson.put("id", user.getId());
-      userJson.put("nickname", user.getNickname());
-      userJson.put("avatar", user.getAvatar());
-      userJson.put("mbti", user.getMbti());
-      JSONObject post = new JSONObject();
-      post.put("id", p.getId());
-      post.put("user", userJson);
-      post.put("time", dateFormat.format(p.getTime()));
-      post.put("title", p.getTitle());
-      post.put("cover", p.getCover());
-      post.put("content", p.getContent());
-      post.put("watchCount", p.getWatchCount());
-      post.put("likeCount", p.getLikeCount());
-      post.put("collectCount", p.getCollectCount());
-      post.put("shareCount", p.getShareCount());
-      post.put("commentCount", p.getCommentCount());
-      res.add(post);
-    }
-
-    System.out.println("res" + res.toJSONString());
-
+    for (Post post : postService.getPost(type, category, lastPostId))
+      res.add(postService.toJson(post, userId));
     return res;
   }
 
   @GetMapping("/post-detail")
-  public JSONObject getPostById(@RequestParam("postId") int postId)
-  {
+  public JSONObject getPostById(
+      @RequestParam("postId") int postId, @SessionAttribute("userId") String userId) {
     JSONObject post = new JSONObject();
 
     System.out.println(postId);
     Post p = postRepository.findById(postId).orElse(null);
-    if(p != null) {
-      post.put("postData",p);
+    if (p != null) {
+      post.put("postData", p);
       User user = userRepository.findById(p.getUserId()).get();
-      post.put("poster",user);
-      post.put("ok",true);
-      //需要获取评论
-    }
-    else
-    {
-      post.put("ok",false);
+      post.put("poster", user);
+      post.put("ok", true);
+      // 需要获取评论
+    } else {
+      post.put("ok", false);
     }
     return post;
   }

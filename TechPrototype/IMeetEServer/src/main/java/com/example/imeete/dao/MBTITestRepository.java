@@ -1,9 +1,8 @@
 package com.example.imeete.dao;
 
-import com.example.imeete.entity.MBTITest;
+import com.example.imeete.entity.MbtiTest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MBTITestRepository extends JpaRepository<MBTITest, Integer> {
-}
+public interface MbtiTestRepository extends JpaRepository<MbtiTest, Integer> {}

@@ -9,22 +9,25 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-  @Autowired
-  private UserRepository userRepository;
-  public JSONObject getUserInfoJson(String userId) {
-    JSONObject info = new JSONObject();
-    User user = userRepository.findById(userId).orElse(null);
-    if (user == null) return null;
-    info.put("nickname", user.getNickname());
-    info.put("avatar", user.getAvatar());
-    info.put("mbti", user.getMbti());
-    info.put("sex", user.getSex());
-    info.put("age", user.getAge());
-    info.put("area", user.getArea());
-    info.put("intro", user.getIntro());
-    info.put("followingCount", user.getFollowingCount());
-    info.put("followerCount", user.getFollowerCount());
-    return info;
+  @Autowired private UserRepository userRepository;
+
+  public JSONObject toJson(User user) {
+    JSONObject json = new JSONObject();
+    json.put("userId", user.getUserId());
+    json.put("nickname", user.getNickname());
+    json.put("avatar", user.getAvatar());
+    json.put("mbti", user.getMbti());
+    json.put("sex", user.getSex());
+    json.put("age", user.getAge());
+    json.put("area", user.getArea());
+    json.put("intro", user.getIntro());
+    json.put("followingCount", user.getFollowing());
+    json.put("followerCount", user.getFollower());
+    return json;
   }
 
+  public JSONObject toJson(String userId) {
+    User user = userRepository.findById(userId).orElse(null);
+    return user == null ? null : toJson(user);
+  }
 }

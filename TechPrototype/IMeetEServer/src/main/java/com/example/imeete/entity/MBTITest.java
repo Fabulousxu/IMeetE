@@ -3,13 +3,10 @@ package com.example.imeete.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "mbti_test")
-public class MBTITest {
+public class MbtiTest {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "mbti_test_id")
-  public int id;
+  private int testId;
 
-  @Column(name = "mbti_test_question")
-  public String question;
+  private String question;
 }

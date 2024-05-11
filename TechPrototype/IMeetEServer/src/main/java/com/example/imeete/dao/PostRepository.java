@@ -8,11 +8,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
-  @Query("SELECT MAX(p.id) FROM Post p")
+  @Query("SELECT MAX(post.postId) FROM Post post")
   Integer findMaxId();
 
-  @Query("SELECT MIN(p.id) FROM Post p")
-  Integer findMinId();
-
-  List<Post> findTop10ByIdBeforeOrderByIdDesc(int id);
+  List<Post> findTop10ByPostIdBeforeOrderByPostIdDesc(int lastPostId);
 }
