@@ -3,7 +3,9 @@ package com.example.imeete.controller;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.CollectRepository;
+import com.example.imeete.dao.CommentRepository;
 import com.example.imeete.dao.LikeRepository;
+import com.example.imeete.dao.PostRepository;
 import com.example.imeete.entity.*;
 import com.example.imeete.entity.idclass.CollectId;
 import com.example.imeete.entity.idclass.LikeId;
@@ -20,6 +22,8 @@ public class PostController {
   @Autowired private CommentService commentService;
   @Autowired private LikeRepository likeRepository;
   @Autowired private CollectRepository collectRepository;
+  @Autowired private PostRepository postRepository;
+  @Autowired private CommentRepository commentRepository;
 
   @GetMapping
   public JSONObject getPost(int id, @CookieValue("userId") String userId) {
@@ -32,6 +36,39 @@ public class PostController {
     JSONArray res = new JSONArray();
     for (Comment comment : postService.getComment(postId, lastCommentId))
       if (comment != null) res.add(commentService.toJson(comment, userId));
+    return res;
+  }
+
+  @PostMapping
+  public JSONObject post(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
+    JSONObject res = new JSONObject();
+    Post post = new Post();
+    post.setUserId(userId);
+    post.setTitle(param.getString("title"));
+    post.setCover(param.getString("cover"));
+    post.setContent(param.getString("content"));
+    postRepository.save(post);
+    res.put("ok", true);
+    res.put("message", "发帖成功");
+    return res;
+  }
+
+  @PostMapping("/comment")
+  public JSONObject comment(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
+    JSONObject res = new JSONObject();
+    int postId = param.getIntValue("id");
+    if (!postRepository.existsById(postId)) {
+      res.put("ok", false);
+      res.put("message", "帖子不存在");
+    } else {
+      Comment comment = new Comment();
+      comment.setUserId(userId);
+      comment.setPostId(postId);
+      comment.setContent(param.getString("content"));
+      commentRepository.save(comment);
+      res.put("ok", true);
+      res.put("message", "评论成功");
+    }
     return res;
   }
 

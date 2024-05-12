@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Getter
@@ -15,9 +16,12 @@ public class Comment {
 
   private int postId;
   private String userId;
-  private Date createdAt;
   private String content;
 
   @Column(name = "`like`")
   private int like;
+
+  @CreationTimestamp
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdAt;
 }
