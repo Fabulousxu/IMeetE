@@ -1,7 +1,7 @@
 <!--pages/mine/mine.wxml-->
 
 <navigation-bar back="{{false}}"></navigation-bar>
-<scroll-view>
+<scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindscrolltolower="onReachBottom">
   <view style="display:flex; width:100%; margin:16rpx 0; justify-content:center;">
     <text wx:for="{{tags}}" style="margin:auto 24rpx; padding:8rpx 16rpx; border-radius:28rpx; border:4rpx solid rgb(127, 182, 255); font-size:24rpx;">{{item}}</text>
   </view>
@@ -34,6 +34,10 @@
     <button id="postButton" bindtap="onPostButton" style="width:50%; background-color:rgb(226,208,230,0.8); border-bottom:none; border-radius:48rpx 48rpx 0 0; padding:16rpx; text-align:center;">动态</button>
     <button id="saveButton" bindtap="onSaveButton" style="width:50%; background-color:rgb(151,213,238,0.8); border-bottom:none; border-radius:48rpx 48rpx 0 0; padding:16rpx; text-align:center;">收藏</button>
   </view>
-  <view id="posts" wx:if="{{mode}}" style="width:100%; height:1024rpx; background-color:rgb(226,208,230,0.8);"></view>
-  <view id="saves" wx:else style="width:100%; height:1024rpx; background-color:rgb(151,213,238,0.8);"></view>
+  <view id="posts" wx:if="{{mode}}" style="width:100%; height:1024rpx; background-color:rgb(226,208,230,0.8);">
+    <user-post id="self-post" bind:postTap="showPostDetail" pageType="post" category=""></user-post>
+  </view>
+  <view id="saves" wx:else style="width:100%; height:1024rpx; background-color:rgb(151,213,238,0.8);">
+    <user-post id="self-collect" bind:postTap="showPostDetail" pageType="collect" category=""></user-post>
+  </view>
 </scroll-view>
