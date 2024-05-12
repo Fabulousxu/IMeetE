@@ -93,6 +93,46 @@ Component({
         }
       })
     },
+
+    refresh: async function(){
+      // 重新获取帖子
+      // 获取当前页面类型
+      let type = this.data.pageType
+      // console.log(type)
+      // 帖子分类
+      let category = this.data.category
+
+      // 当前页面最后一个帖子的id，目前是sitemlist最后一个元素的 id
+      let lastPostId = 0
+
+      // 从后端fetch帖子数据
+      wx.request({
+        url: 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId,
+        method: 'GET',
+        header: {
+          'content-type': 'application/json',
+          // 'cookie': wx.getStorageSync("cookieKey")
+          'cookie': 'userId=' + wx.getStorageSync('userId')
+        },
+        success: (res) => {
+          if(res.statusCode == 200){
+            this.data.sitemlist = [...res.data]
+            console.log(this.data.sitemlist)
+
+            this.setData({
+              sitemlist: this.data.sitemlist
+            })
+          }else{
+            console.log("fetch error")
+          }
+        },
+        
+        fail: (err) => {
+          console.log(err);
+        }
+      })
+    },
+
     posterDetailTap: function(e) { // 待实现
       // // 获取当前点击对象的父元素在wx::for中的key
       // var index = e.currentTarget.id;

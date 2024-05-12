@@ -76,7 +76,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-  
+
     },
   
     /**
@@ -119,6 +119,31 @@ Page({
         wx.navigateBack({
             delta: 1
         })
+    },
+
+    refreshData()
+    {
+      const postId = this.data.post.id;
+      const lastCommentId = 0;
+      // 从后端fetch comment数据
+      wx.request({
+        url: 'http://localhost:8080/post/comment' + '?postId=' + postId + '&lastCommentId=' + lastCommentId,
+        method: 'GET',
+        header: {
+          'content-type': 'application/json',
+          // 'cookie': wx.getStorageSync("cookieKey")
+          'cookie': 'userId=' + wx.getStorageSync('userId')
+        },
+        success: (res) => {
+            this.setData({
+              comments: res.data
+            })
+            console.log(this.data.comments)
+        },
+        fail: (err) => {
+          console.log(err);
+        }
+      })        
     },
 
     like()
@@ -201,4 +226,11 @@ Page({
     {
 
     },
+
+    addcomment()
+    {
+      wx.navigateTo({
+        url: '/pages/square/add-comment/add-comment?postId=' + this.data.post.id,
+      });
+    }
   })

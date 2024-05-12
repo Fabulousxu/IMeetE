@@ -6,6 +6,8 @@
     "pages/mine/mine",
     "pages/square/square",
     "pages/square/post-detail/post-detail",
+    "pages/square/add-comment/add-comment",
+    "pages/square/add-post/add-post",
     "pages/message/message",
     "pages/friend/success",
     "pages/message/chat",

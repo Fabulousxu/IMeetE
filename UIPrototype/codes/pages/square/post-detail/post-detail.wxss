@@ -6,6 +6,28 @@
     padding:2%
   }
 
+  .button-container {
+    position: fixed;
+    bottom: 20rpx; /* 距离底部 20px */
+    right: 20rpx; /* 距离右侧 20px */
+  }
+  
+  .circular-button {
+    width: 80px; /* 按钮直径 */
+    height: 80px; /* 按钮直径 */
+    border-radius: 50%; /* 圆形按钮 */
+    background-color: #007bff; /* 按钮背景色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon {
+    width: 40rpx; /* 图标尺寸 */
+    height: 40rpx; /* 图标尺寸 */
+    border-radius: 50%; /* 圆形图标 */
+  }
+
   .post-content {
     display: flex;
     flex-direction: column;

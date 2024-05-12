@@ -66,6 +66,17 @@ Page({
     }
   },
 
+  onPullDownRefresh: async function() {
+    // 获取当前正在显示的user-post 的 id
+    let currentComponent = this.getCurrentComponent();
+    console.log(currentComponent);
+    let currentPostList = this.selectComponent('#' + currentComponent);
+    if(currentPostList)
+    {
+      await currentPostList.refresh();
+    }
+  },
+
   getCurrentComponent: function() {
     let currentTab = this.data.currentTab;
     let currentComponent;
@@ -207,4 +218,16 @@ Page({
     })
   },
 
+  addPost: function() {
+    console.log("add post")
+    wx.navigateTo({
+      url: '/pages/square/add-post/add-post',
+       success: function(res) {
+       console.log("跳转成功");
+      },
+      fail: function(error) {
+       console.log("跳转失败", error);
+      }
+    })
+  },
 })

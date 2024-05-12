@@ -194,3 +194,25 @@ swiper {
   color: black;
   font-weight: 700;
 }
+
+.button-container {
+  position: fixed;
+  bottom: 20rpx; /* 距离底部 20px */
+  right: 20rpx; /* 距离右侧 20px */
+}
+
+.circular-button {
+  position: fixed;
+  bottom: 30rpx;
+  right: 30rpx;
+  width: 60rpx!important;
+  height: 90rpx;
+  border-radius: 50%;
+  background-color: #00a0e9;
+  box-shadow: 0 2rpx 5rpx rgba(0, 0, 0, 0.26);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  z-index: 999;
+}

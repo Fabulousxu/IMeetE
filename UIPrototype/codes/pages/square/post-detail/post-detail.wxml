@@ -34,14 +34,14 @@
                     <button class="collect" bindtap="collect">收藏</button>
                     <button class="share" bindtap="share">分享</button>
                 </view>
-                <scroll-view class="comment-area" id="commentarea" scroll-y="{{true}}" type="list">
+                <scroll-view class="comment-area" id="commentarea" scroll-y="{{true}}" type="list" bindscrolltoupper="refreshData">
                     <!-- 评论区 -->
                     <view class="com-item" wx:for="{{comments}}" wx:key="id" wx:for-index="idx">
                         <view class="com-user">
-                            <image class="com-avator " src="{{item.avaurl}}"></image>
+                            <image class="com-avator " src="{{item.user.avatar}}"></image>
                             <view class="com-user-info">
-                                <view class="com-name">{{item.name}}</view>
-                                <view class="com-mbti">{{item.mbti}}</view>
+                                <view class="com-name">{{item.user.nickname}}</view>
+                                <view class="com-mbti">{{item.user.mbti}}</view>
                             </view>
                             <view class="com-date">{{item.time}}</view>
                         </view>
