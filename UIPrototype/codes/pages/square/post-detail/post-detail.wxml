@@ -15,10 +15,8 @@
             </view>
             <view class="data-wrapper">
                 <view class="fans">
-                    <view class="fans_log">粉丝 : {{poster.followerCount}}</view>
                     <view class="post-time">{{post.time}}</view>
                 </view>
-                <view class="sign">{{poster.intro}}</view>
             </view>
         </view>
         <view class="s-pic" wx:if="{{post.cover == null}}">
@@ -33,28 +31,31 @@
                 </view>
                 <view class="tool-wrapper">
                     <button class="like" bindtap="like">点赞</button>
-                    <button class="comment" bindtap="comment">评论</button>
+                    <button class="collect" bindtap="collect">收藏</button>
                     <button class="share" bindtap="share">分享</button>
                 </view>
-                <view class="comment-area" id="commentarea">
+                <scroll-view class="comment-area" id="commentarea" scroll-y="{{true}}" type="list">
                     <!-- 评论区 -->
-                    <view class="com-item" wx:for="{{post_comments}}" wx:key="id" wx:for-index="idx">
+                    <view class="com-item" wx:for="{{comments}}" wx:key="id" wx:for-index="idx">
                         <view class="com-user">
                             <image class="com-avator " src="{{item.avaurl}}"></image>
                             <view class="com-user-info">
                                 <view class="com-name">{{item.name}}</view>
                                 <view class="com-mbti">{{item.mbti}}</view>
                             </view>
-                            <view class="com-date">{{item.com_date}}</view>
+                            <view class="com-date">{{item.time}}</view>
                         </view>
-                        <view class="com-content">{{item.com_content}}</view>
+                        <view class="com-content">{{item.content}}</view>
                         <view class="com-tool">
                             <view class="com-like-tool">
                                 <view class="com-like" bindtap="com_like">点赞</view>
-                                <view class="com-like-num">点赞数:{{item.com_like}}</view>
+                                <view class="com-like-num">点赞数:{{item.likeCount}}</view>
                             </view>
                         </view>
                     </view>
+                </scroll-view>
+                <view class="add-comment">
+                    <button class="commit-comment" bindtap="addcomment">写评论</button>
                 </view>
             </view>
         </view>

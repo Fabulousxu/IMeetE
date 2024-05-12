@@ -7,6 +7,7 @@ Page({
     data: {
       post:[],
       poster:[],
+      comments:[],
     },
   
     /**
@@ -14,6 +15,7 @@ Page({
      */
     onLoad(options) {
         const postId = options.postId;
+        const lastCommentId = 0;
         let liked;
         let collected;
         if(options.liked == 'true') liked = true;
@@ -22,7 +24,7 @@ Page({
         else collected = false;
         // 从后端fetch post数据
         wx.request({
-          url: 'http://localhost:8080/square/post-detail' + '?postId=' + postId,
+          url: 'http://localhost:8080/post' + '?id=' + postId,
           method: 'GET',
           header: {
             'content-type': 'application/json',
@@ -30,18 +32,32 @@ Page({
             'cookie': 'userId=' + wx.getStorageSync('userId')
           },
           success: (res) => {
-            if(res.data.ok){
-              res.data.postData.liked = liked;
-              res.data.postData.collected = collected;
               this.setData({
-                post: res.data.postData,
-                poster: res.data.poster
+                post: res.data,
+                poster: res.data.user
               })
               console.log(this.data.post)
               console.log(this.data.poster)
-            }else{
-              console.log("fetch error")
-            }
+          },
+          fail: (err) => {
+            console.log(err);
+          }
+        })
+
+        // 从后端fetch comment数据
+        wx.request({
+          url: 'http://localhost:8080/post/comment' + '?postId=' + postId + '&lastCommentId=' + lastCommentId,
+          method: 'GET',
+          header: {
+            'content-type': 'application/json',
+            // 'cookie': wx.getStorageSync("cookieKey")
+            'cookie': 'userId=' + wx.getStorageSync('userId')
+          },
+          success: (res) => {
+              this.setData({
+                comments: res.data
+              })
+              console.log(this.data.comments)
           },
           fail: (err) => {
             console.log(err);
@@ -143,9 +159,42 @@ Page({
           })
     },
 
-    comment()
+    collect()
     {
-      
+      console.log(this.data.post.liked)
+        // 向后端发送请求
+        wx.request({
+            url: 'http://localhost:8080/post/' + (this.data.post.collected == true ? 'uncollect' : 'collect'),
+            method: 'POST',
+            header: {
+              'content-type': 'application/json',
+              'cookie': 'userId=' + wx.getStorageSync('userId')
+            },
+            data:{
+              id: this.data.post.id,
+            },
+            success: (res) => {
+              res = res.data
+              if(res.ok){
+                console.log(res.message)
+                wx.showToast({
+                  title: res.message,
+                  icon: 'none',
+                  duration: 1000
+                })
+                this.data.post.collected = !this.data.post.collected
+                this.setData({
+                  post: this.data.post
+                })
+              }else{
+                console.log(res.message)
+              }
+            },
+            
+            fail: (err) => {
+              console.log(err);
+            }
+          })
     },
 
     share()

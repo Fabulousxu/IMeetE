@@ -25,11 +25,6 @@ Component({
         },
         success: (res) => {
           if(res.statusCode == 200){
-            // 向res.data 中每个元素添加一个新属性，用于标记是否已经点赞和收藏
-            for(let i = 0; i < res.data.length; i++){
-              res.data[i].liked = false
-              res.data[i].collected = false
-            }
             this.data.sitemlist = [...res.data]
             this.setData({
               sitemlist: this.data.sitemlist
@@ -81,11 +76,6 @@ Component({
         success: (res) => {
           if(res.statusCode == 200){
             // 从sitemlist 末尾插入新帖子，并从页面当前位置加载
-            // 向res.data 中每个元素添加一个新属性，用于标记是否已经点赞
-            for(let i = 0; i < res.data.length; i++){
-              res.data[i].liked = false
-              res.data[i].collected = false
-            }
 
             this.data.sitemlist = [...this.data.sitemlist, ...res.data]
             console.log(this.data.sitemlist)

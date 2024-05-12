@@ -107,6 +107,11 @@
     font-weight: 700;
     width: 60%;
     text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    word-break: break-all;
   }
   
   .view-wrapper {

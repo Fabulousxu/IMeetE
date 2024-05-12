@@ -58,6 +58,7 @@ Page({
   onReachBottom: async function() {
     // 获取当前正在显示的user-post 的 id
     let currentComponent = this.getCurrentComponent();
+    console.log(currentComponent);
     let currentPostList = this.selectComponent('#' + currentComponent);
     if(currentPostList)
     {
