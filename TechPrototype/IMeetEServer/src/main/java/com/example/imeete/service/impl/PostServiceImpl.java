@@ -2,9 +2,9 @@ package com.example.imeete.service.impl;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.*;
-import com.example.imeete.entity.CollectId;
+import com.example.imeete.entity.idclass.CollectId;
 import com.example.imeete.entity.Comment;
-import com.example.imeete.entity.LikeId;
+import com.example.imeete.entity.idclass.LikeId;
 import com.example.imeete.entity.Post;
 import com.example.imeete.service.PostService;
 import java.text.SimpleDateFormat;
