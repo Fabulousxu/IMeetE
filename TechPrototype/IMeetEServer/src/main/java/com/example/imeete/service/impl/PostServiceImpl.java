@@ -8,6 +8,7 @@ import com.example.imeete.entity.LikeId;
 import com.example.imeete.entity.Post;
 import com.example.imeete.service.PostService;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,13 +66,16 @@ public class PostServiceImpl implements PostService {
   }
 
   public List<Post> getPost(String type, String category, int lastPostId) {
+    Integer maxId = postRepository.findMaxId();
+    if (maxId == null) return new ArrayList<>();
     return postRepository.findTop10ByPostIdBeforeOrderByPostIdDesc(
-        lastPostId == 0 ? postRepository.findMaxId() + 1 : lastPostId);
+        lastPostId == 0 ? maxId + 1 : lastPostId);
   }
 
   public List<Comment> getComment(int postId, long lastCommentId) {
+    Long maxId = commentRepository.findMaxIdByPostId(postId);
+    if (maxId == null) return new ArrayList<>();
     return commentRepository.findTop10ByPostIdAndCommentIdBeforeOrderByCommentIdDesc(
-        postId,
-        lastCommentId == 0 ? commentRepository.findMaxIdByPostId(postId) + 1 : lastCommentId);
+        postId, lastCommentId == 0 ? maxId + 1 : lastCommentId);
   }
 }

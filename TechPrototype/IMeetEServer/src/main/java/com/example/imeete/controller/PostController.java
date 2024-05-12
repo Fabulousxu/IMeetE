@@ -29,7 +29,7 @@ public class PostController {
       int postId, long lastCommentId, @CookieValue("userId") String userId) {
     JSONArray res = new JSONArray();
     for (Comment comment : postService.getComment(postId, lastCommentId))
-      res.add(commentService.toJson(comment, userId));
+      if (comment != null) res.add(commentService.toJson(comment, userId));
     return res;
   }
 
