@@ -1,15 +1,13 @@
-package com.example.imeete.entity;
+package com.example.imeete.entity.idclass;
 
-import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-@Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentLikeId implements Serializable {
-  private long commentId;
+public class CollectId implements Serializable {
   private String userId;
+  private int postId;
 }

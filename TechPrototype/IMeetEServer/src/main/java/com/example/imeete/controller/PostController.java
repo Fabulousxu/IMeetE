@@ -5,6 +5,8 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.CollectRepository;
 import com.example.imeete.dao.LikeRepository;
 import com.example.imeete.entity.*;
+import com.example.imeete.entity.idclass.CollectId;
+import com.example.imeete.entity.idclass.LikeId;
 import com.example.imeete.service.CommentService;
 import com.example.imeete.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +38,9 @@ public class PostController {
   @PostMapping("/like")
   public JSONObject like(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
     JSONObject res = new JSONObject();
-    LikeId likeId = new LikeId(userId, param.getIntValue("id"));
-    if (!likeRepository.existsById(likeId)) {
-      likeRepository.save(new Like(likeId));
+    int postId = param.getIntValue("id");
+    if (!likeRepository.existsById(new LikeId(userId, postId))) {
+      likeRepository.save(new Like(userId, postId));
       res.put("ok", true);
       res.put("message", "点赞成功");
     } else {
@@ -66,9 +68,9 @@ public class PostController {
   @PostMapping("/collect")
   public JSONObject collect(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
     JSONObject res = new JSONObject();
-    CollectId collectId = new CollectId(userId, param.getIntValue("id"));
-    if (!collectRepository.existsById(collectId)) {
-      collectRepository.save(new Collect(collectId));
+    int postId = param.getIntValue("id");
+    if (!collectRepository.existsById(new CollectId(userId, postId))) {
+      collectRepository.save(new Collect(userId, postId));
       res.put("ok", true);
       res.put("message", "收藏成功");
     } else {

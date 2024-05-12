@@ -1,7 +1,7 @@
 package com.example.imeete.dao;
 
 import com.example.imeete.entity.Follow;
-import com.example.imeete.entity.FollowId;
+import com.example.imeete.entity.idclass.FollowId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -12,4 +12,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
   Integer findMaxId();
 
   List<Post> findTop10ByPostIdBeforeOrderByPostIdDesc(int lastPostId);
+
+  List<Post> findByUserIdOrderByPostIdDesc(String userId);
 }

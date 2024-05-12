@@ -5,7 +5,7 @@ import com.example.imeete.dao.CommentLikeRepository;
 import com.example.imeete.dao.CommentRepository;
 import com.example.imeete.dao.UserRepository;
 import com.example.imeete.entity.Comment;
-import com.example.imeete.entity.CommentLikeId;
+import com.example.imeete.entity.idclass.CommentLikeId;
 import com.example.imeete.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
