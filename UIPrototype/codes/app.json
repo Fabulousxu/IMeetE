@@ -15,7 +15,8 @@
     "pages/mbti/test/test",
     "pages/mbti/result/result",
     "pages/mbti/introduction/introduction",
-    "pages/mbti/intro-detail/intro-detail"
+    "pages/mbti/intro-detail/intro-detail",
+    "pages/mbti/mbti-post/mbti-post"
   ],
   "window": {
     "navigationBarTextStyle": "black",

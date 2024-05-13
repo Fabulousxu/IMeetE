@@ -1,0 +1,19 @@
+<view style="width:100%">
+    <view style="width:100%; height:{{statusBarHeight}}px;"></view>
+    <view style="display:flex; justify-content:space-around; width:100%; box-sizing:border-box; height:{{navigationBarHeight}}px; padding-left:32rpx; padding-right:{{navigationBarPaddingRight}}px;">
+        <view class="back-btn" bindtap="navigateBack">
+            <text class="arrow">{{'<'}}</text>
+        </view>
+        <button bindtap="onSearchButton" style="background-color:rgb(0,0,0,0); background-image:url('/image/search-black.png'); background-size:cover; background-position:center; width: 48rpx; height:48rpx; margin:auto; padding:0;"></button>
+        <mbti-bar bind:handleChange="chooseMbti1" nameList="{{mbti1}}"></mbti-bar>
+        <mbti-bar bind:handleChange="chooseMbti2" nameList="{{mbti2}}"></mbti-bar>
+        <mbti-bar bind:handleChange="chooseMbti3" nameList="{{mbti3}}"></mbti-bar>
+        <mbti-bar bind:handleChange="chooseMbti4" nameList="{{mbti4}}"></mbti-bar>
+    </view>
+</view>
+<view class="main-page">
+    <scroll-view class="mbti-pl" type="list" scroll-y="{{true}}" bindscrolltolower="onReachBottom" bindscrolltoupper="onPullDownRefresh" enable-flex="{{true}}">
+        <!-- 使用自定义组件post -->
+        <mbti-post-list id="mbti-pl-item" bind:postTap="showPostDetail" mbtiType="{{selectMbti}}" observers="{{['reRender']}}"></mbti-post-list>
+    </scroll-view>
+</view>

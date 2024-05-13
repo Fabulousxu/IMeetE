@@ -74,5 +74,12 @@ Page({
     wx.navigateTo({
       url: '/pages/mbti/introduction/introduction',
     })
+  },
+
+  openMbtiPost() {
+    console.log("openMbtiPost")
+    wx.navigateTo({
+      url: '/pages/mbti/mbti-post/mbti-post',
+    })
   }
 })

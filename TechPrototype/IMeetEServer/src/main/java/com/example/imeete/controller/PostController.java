@@ -134,7 +134,7 @@ public class PostController {
     return res;
   }
 
-  @GetMapping("mbti")
+  @GetMapping("/mbti")
   public JSONArray getPostByMbti(
       String mbti, int lastPostId, @CookieValue("userId") String userId) {
     JSONArray res = new JSONArray();
