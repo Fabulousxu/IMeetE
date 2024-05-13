@@ -10,6 +10,7 @@ import com.example.imeete.entity.*;
 import com.example.imeete.entity.idclass.CollectId;
 import com.example.imeete.entity.idclass.LikeId;
 import com.example.imeete.service.CommentService;
+import com.example.imeete.service.MbtiService;
 import com.example.imeete.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
   @Autowired private PostService postService;
   @Autowired private CommentService commentService;
+  @Autowired private MbtiService mbtiService;
   @Autowired private LikeRepository likeRepository;
   @Autowired private CollectRepository collectRepository;
   @Autowired private PostRepository postRepository;
@@ -129,6 +131,15 @@ public class PostController {
       res.put("ok", false);
       res.put("message", "帖子未收藏");
     }
+    return res;
+  }
+
+  @GetMapping("mbti")
+  public JSONArray getPostByMbti(
+      String mbti, int lastPostId, @CookieValue("userId") String userId) {
+    JSONArray res = new JSONArray();
+    for (Post post : postService.getPostByMbti(mbtiService.getMbtiSet(mbti), lastPostId))
+      res.add(postService.toJson(post, userId));
     return res;
   }
 }

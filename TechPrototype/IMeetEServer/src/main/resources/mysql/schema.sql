@@ -45,7 +45,8 @@ CREATE TABLE post
     `like`     INT       DEFAULT 0,                 # 点赞量
     collect    INT       DEFAULT 0,                 # 收藏量
     share      INT       DEFAULT 0,                 # 分享量
-    comment    INT       DEFAULT 0                  # 评论量
+    comment    INT       DEFAULT 0,                 # 评论量
+    mbti       CHAR(4)   DEFAULT 'NONE'             # MBTI('NONE':未设定)
 );
 
 # 点赞表

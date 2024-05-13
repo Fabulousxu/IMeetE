@@ -2,14 +2,15 @@ package com.example.imeete.service.impl;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.*;
-import com.example.imeete.entity.idclass.CollectId;
 import com.example.imeete.entity.Comment;
-import com.example.imeete.entity.idclass.LikeId;
 import com.example.imeete.entity.Post;
+import com.example.imeete.entity.idclass.CollectId;
+import com.example.imeete.entity.idclass.LikeId;
 import com.example.imeete.service.PostService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,5 +78,12 @@ public class PostServiceImpl implements PostService {
     if (maxId == null) return new ArrayList<>();
     return commentRepository.findTop10ByPostIdAndCommentIdBeforeOrderByCommentIdDesc(
         postId, lastCommentId == 0 ? maxId + 1 : lastCommentId);
+  }
+
+  public List<Post> getPostByMbti(Set<String> mbti, int lastPostId) {
+    Integer maxId = postRepository.findMaxId();
+    if (maxId == null) return new ArrayList<>();
+    return postRepository.findTop10ByMbtiInAndPostIdBeforeOrderByPostIdDesc(
+        mbti, lastPostId == 0 ? maxId + 1 : lastPostId);
   }
 }

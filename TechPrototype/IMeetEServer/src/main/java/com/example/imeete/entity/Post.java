@@ -20,10 +20,10 @@ public class Post {
   private String cover;
   private String content;
   private int watch;
-
   private int collect;
   private int share;
   private int comment;
+  private String mbti;
 
   @Column(name = "`like`")
   private int like;
