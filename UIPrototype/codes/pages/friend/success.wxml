@@ -2,27 +2,27 @@
 <!-- 正在匹配时页面 -->
 <view wx:if="{{loading}}" class="container">
   <view class="header">
-    <view class="header-word1">loading......</view>
-    <view class="header-word2">we are trying our best</view>
-    <view class="header-word2">for your meeting</view>
+    <view class="header-word1">正在匹配中</view>
+    <view class="header-word2">我们正在尽全力...</view>
+    <view class="header-word2">为了您的邂逅</view>
   </view>
 </view>
 <!-- 匹配失败页面 -->
 <view wx:if="{{!loading&&!success}}" class="container">
   <view class="fail-header">
-    <view class="header-word4">😭sorry😣</view>
-    <view class="header-word2">believe the better match</view>
-    <view class="header-word2">is around the corner🥹</view>
-    <view class="header-word3">what about</view>
-    <view class="header-word3">trying again😉</view>
+    <view class="header-word4">😭抱歉😣</view>
+    <view class="header-word2">相信更好的匹配</view>
+    <view class="header-word2">就在不远处 🥹 </view>
+    <view class="header-word3">不如</view>
+    <view class="header-word3">再试一次😉</view>
   </view>
-  <button class="btn" bindtap="back">back</button>
+  <button class="btn" bindtap="back">返回</button>
 </view>
 
 <view wx:if="{{!loading&&success}}" class="container">
   <view class="header">
-    <view class="header-word1">horray!</view>
-    <view class="header-word2">success match😘</view>
+    <view class="header-word1">成功啦!</view>
+    <view class="header-word2">成功匹配 😘</view>
   </view>
   <view class="user-container">
     <view class="up">

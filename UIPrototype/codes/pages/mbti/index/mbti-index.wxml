@@ -1,23 +1,26 @@
-<!-- pages/mbti/mbti.wxml -->
-<navigation-bar title="MBTI" back="{{false}}"></navigation-bar>
-<view style="width:80%; padding:32rpx; margin:64rpx auto; border-radius:32rpx; font-size:32rpx; background:rgb(255,255,255,0.5)">
+<navigation-bar title="MBTI" back="{{false}}" style="background-color: #6200EA; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;"></navigation-bar>
+<view style="width: 80%; padding: 32rpx; margin: 64rpx auto; border-radius: 16rpx; font-size: 32rpx; background: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); font-family: 'Helvetica Neue', Arial, sans-serif;">
   {{mbtiIntro}}
 </view>
-<button bindtap="onTestButton" style="position:relative; margin-left:32rpx; height:288rpx; width:288rpx; padding:0; background:none;">
-  <img style="position:absolute; top:0; left:0; height:100%; width:100%; border-radius:144rpx; background:linear-gradient(lightpink,pink,lightblue);" />
-  <text style="position:absolute; top:0; left:0; height:100%; width:100%; display:flex; align-items:center; justify-content:center;">
-    测测我的MBTI！
-  </text>
-</button>
-<button bind:tap="onIntroButton" style="position:relative; margin-right:32rpx; height:196rpx; width:196rpx; padding:0; background:none;">
-  <img style="position:absolute; top:0; left:0; height:100%; width:100%; border-radius:144rpx; background:linear-gradient(lightgreen,orange,brown);" />
-  <text style="position:absolute; top:0; left:0; height:100%; width:100%; display:flex; align-items:center; justify-content:center;">
-    MBTI解读
-  </text>
-</button>
-<button bindtap="openMbtiPost" style="position:relative; height:196rpx; width:196rpx; padding:0; background:none;">
-  <img style="position:absolute; top:0; left:0; height:100%; width:100%; border-radius:144rpx; background:linear-gradient(green,black,purple);" />
-  <text style="position:absolute; top:0; left:0; height:100%; width:100%; display:flex; align-items:center; justify-content:center; color:white;">
-    MBTI圈子
-  </text>
-</button>
+<view style="display: flex; flex-direction: column; align-items: center; margin: 32rpx 0;">
+  <button bindtap="onTestButton" style="position: relative; height: 288rpx; width: 288rpx; padding: 0; background: none; margin-bottom: 32rpx;">
+    <view style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 25%; background: linear-gradient(135deg, #FF80AB, #FF4081);"></view>
+    <text style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;">
+      测测我的MBTI！
+    </text>
+  </button>
+  <view style="display: flex; justify-content: space-between; width: 80%;">
+    <button bindtap="onIntroButton" style="position: relative; height: 196rpx; width: 196rpx; padding: 0; background: none;">
+      <view style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 50%; background: linear-gradient(135deg, #69F0AE, #00E676);"></view>
+      <text style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;">
+        MBTI解读
+      </text>
+    </button>
+    <button bindtap="openMbtiPost" style="position: relative; height: 196rpx; width: 196rpx; padding: 0; background: none;">
+      <view style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 50%; background: linear-gradient(135deg, #7C4DFF, #651FFF);"></view>
+      <text style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;">
+        MBTI圈子
+      </text>
+    </button>
+  </view>
+</view>

@@ -141,7 +141,7 @@
   width: 40%;
   border-radius: 60px;
   background-color: rgb(241, 207, 226);
-  font-size: 40px;
+  font-size: 30px;
   font-family:fantasy;
   align-content: center;
   color: rgb(153, 54, 153);

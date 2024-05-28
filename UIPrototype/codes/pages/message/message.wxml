@@ -1,6 +1,6 @@
 <!-- pages/message/message.wxml -->
 <view class="body">
-  <view class="header-word4">😉have a chat</view>
+  <view class="header-word4">😉聊聊天吧</view>
   <scroll-view class="users-scroll-view" scroll-y="true">
     <block wx:for="{{usersInfo}}" wx:key="id">
       <view class="user-card">
