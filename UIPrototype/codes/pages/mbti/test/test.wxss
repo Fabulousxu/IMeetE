@@ -13,6 +13,8 @@
 .question {
   font-size: 48rpx;
   margin: 48rpx auto;
+  text-align: center; /* 添加这一行 */
+  width: 100%; /* 添加这一行 */
 }
 
 .option {
