@@ -1,77 +1,245 @@
 page {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    min-height: 100%;
-  }
-  
-  swiper {
-    height: 100%;
-    width: 100%;
-  }
-  
-  .main-page {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    height: 100%;
-    overflow: auto;
-  }
-  
-  .search {
-    width: 60%;
-    margin-top: 50px;
-  }
-  
-  .search_arr {
-    border: 2px solid black;
-    border-radius: 10rpx;
-    margin-left: 40rpx;
-    width: 500rpx;
-  }
-  
-  .search_arr input {
-    margin-left: 60rpx;
-    height: 40rpx;
-    border-radius: 5px;
-  }
-  
-  .searchinput {
-    padding-left: 36%;
-    width: 15%;
-    text-align: center;
-  }
-  
-  .searchicon {
-    margin: 10rpx 10rpx 10rpx 10rpx;
-    position: absolute;
-    margin-left: 48%;
-    z-index: 2;
-    width: 15px;
-    height: 15px;
-    text-align: center;
-  }
-  
-  .back-btn {
-    width: 40px;
-    height: 40px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-  }
-  
-  .arrow {
-    color: black; /* 箭头颜色 */
-    font-size: 24px; /* 箭头大小 */
-  }
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  padding: 2%;
+}
 
-  .mbti-pl {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: hidden;
-    width: 100%;
-    height: 100vh;
-  }
+.swiper {
+  height: 100%;
+  width: 100%;
+}
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+  padding: 2%;
+}
+
+.search {
+  width: 60%;
+  margin-top: 50px;
+}
+
+.search_arr {
+  border: 2px solid black;
+  border-radius: 10rpx;
+  margin-left: 40rpx;
+  width: 500rpx;
+}
+
+.search_arr input {
+  margin-left: 60rpx;
+  height: 40rpx;
+  border-radius: 5px;
+}
+
+.searchinput {
+  padding-left: 36%;
+  width: 15%;
+  text-align: center;
+}
+
+.searchicon {
+  margin: 10rpx 10rpx 10rpx 10rpx;
+  position: absolute;
+  margin-left: 48%;
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+}
+
+.back-btn {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.arrow {
+  color: black;
+  font-size: 24px;
+}
+
+.mbti-pl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: hidden;
+  width: 100%;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  padding: 2%;
+}
+
+.s-post-list {
+  padding: auto;
+  width: 100%;
+}
+
+.s-post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  background-color: #e0f7fa !important; /* 每个帖子的背景颜色 */
+  border-radius: 8px;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.s-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px;
+  background-color: #fff3e0 !important; /* 每个项的背景颜色 */
+  border-radius: 8px;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.avator {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.mbti {
+  font-size: 14px;
+  color: #666;
+}
+
+.data-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.fans {
+  display: flex;
+  flex-direction: row;
+}
+
+.fans_log {
+  margin-right: 20px;
+  font-size: 14px;
+  color: #666;
+  font-weight: 400;
+}
+
+.post-time {
+  padding: 10rpx;
+}
+
+.sign {
+  margin-top: 10px;
+  margin-left: 60px;
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+}
+
+.place {
+  margin-left: 80px;
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+}
+
+.s-content {
+  display: flex;
+  flex-direction: row;
+  width: 360px;
+  align-items: center;
+  box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
+}
+
+.content {
+  font-size: 14px;
+  color: black;
+  font-weight: 700;
+  width: 60%;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.view-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  border-left: 1px solid #999;
+}
+
+.view {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #999;
+}
+
+.like {
+  width: 30%;
+  text-align: center;
+  background-color: #ffadd2;
+  color: white;
+  padding: 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
+.comment {
+  width: 30%;
+  text-align: center;
+  background-color: #b5ff91;
+  color: white;
+  padding: 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
+.share {
+  width: 30%;
+  text-align: center;
+  background-color: #91caff;
+  color: white;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.tool-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+}

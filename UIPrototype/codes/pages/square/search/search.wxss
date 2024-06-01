@@ -1,53 +1,64 @@
-/* pages/square/search/search.wxss */
-
 .search-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; /* 确保按钮和输入框有足够的空间 */
   height: 64rpx;
   width: 80%;
-  padding-left: 16rpx;
-  padding-right: 16rpx;
+  padding: 0 16rpx;
   margin: 32rpx auto 64rpx;
-  background-color: rgb(0, 0, 0, 0.1);
-  border: 2rpx solid black;
+  background-color: white;
+  border: 2rpx solid #6200EA;
   border-radius: 32rpx;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .search-input {
   flex-grow: 1;
-  padding: 0;
+  padding: 0 8rpx;
+  border: none;
+  outline: none;
+  font-size: 28rpx;
+}
+
+.search-btn {
+  width: 48rpx;
+  height: 48rpx;
+  background-color: transparent;
+  background-size: cover;
+  background-position: center;
+  border: none;
+  margin-left: 8rpx;
 }
 
 .rank {
   display: flex;
-  align-items: center;
   justify-content: center;
   width: 100%;
+  margin-top: 32rpx;
 }
 
-.rank-search {
+.rank-search, .rank-topic {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  margin: 0;
-  width: 50%;
-  padding-left: 10%;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0 10%;
+  width: 40%;
 }
 
-.rank-topic {
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  margin: 0;
-  width: 50%;
-  padding-right: 10%;
+.rank-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #6200EA;
+  margin-bottom: 16rpx;
 }
 
 .rank-content {
+  font-size: 28rpx;
+  color: #333;
+  margin: 8rpx 0;
+  padding: 4rpx 0;
+  border-bottom: 1px solid #e0e0e0;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin: 4rpx 0;
+  white-space: nowrap;
 }
