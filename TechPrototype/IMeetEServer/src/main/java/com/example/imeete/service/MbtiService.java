@@ -1,9 +1,11 @@
 package com.example.imeete.service;
 
-import java.util.Set;
+import com.alibaba.fastjson2.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
 public interface MbtiService {
-  Set<String> getMbtiSet(String mbti);
+  JSONObject getMbtiTest();
+
+  JSONObject getMbtiIntro(String mbti);
 }

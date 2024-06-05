@@ -1,13 +1,14 @@
 package com.example.imeete.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-public class Account {
+@Table(name = "user_auth")
+public class UserAuth {
   @Id private String userId;
   private String password;
+
+  @OneToOne
+  @JoinColumn(name = "user_id")
+  private User user;
 }

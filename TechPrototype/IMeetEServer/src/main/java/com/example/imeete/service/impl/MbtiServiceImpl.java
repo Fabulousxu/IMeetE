@@ -1,52 +1,32 @@
 package com.example.imeete.service.impl;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.example.imeete.dao.MbtiIntroRepository;
+import com.example.imeete.dao.MbtiTestRepository;
+import com.example.imeete.entity.MbtiIntro;
 import com.example.imeete.service.MbtiService;
-import java.util.HashSet;
-import java.util.Set;
+import com.example.imeete.util.Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MbtiServiceImpl implements MbtiService {
-  private static final Set<String> mbti = new HashSet<>();
+  @Autowired private MbtiTestRepository mbtiTestRepository;
+  @Autowired private MbtiIntroRepository mbtiIntroRepository;
 
-  static {
-    mbti.add("ISTJ");
-    mbti.add("ISFJ");
-    mbti.add("INFJ");
-    mbti.add("INTJ");
-    mbti.add("ISTP");
-    mbti.add("ISFP");
-    mbti.add("INFP");
-    mbti.add("INTP");
-    mbti.add("ESTP");
-    mbti.add("ESFP");
-    mbti.add("ENFP");
-    mbti.add("ENTP");
-    mbti.add("ESTJ");
-    mbti.add("ESFJ");
-    mbti.add("ENFJ");
-    mbti.add("ENTJ");
+  @Override
+  public JSONObject getMbtiTest() {
+    JSONObject res = Util.successResponse("获取MBTI测试题成功");
+    res.put("data", mbtiTestRepository.findAll());
+    return res;
   }
 
-  public Set<String> getMbtiSet(String mbti) {
-    Set<String> set = new HashSet<>();
-    if (mbti.equals("NONE")) return set;
-    if (mbti.length() == 4) {
-      for (String entry : MbtiServiceImpl.mbti)
-        if (entry.contains(mbti.substring(0, 1))
-            && entry.contains(mbti.substring(1, 2))
-            && entry.contains(mbti.substring(2, 3))
-            && entry.contains(mbti.substring(3, 4))) set.add(entry);
-    } else if (mbti.length() == 3) {
-      for (String entry : MbtiServiceImpl.mbti)
-        if (entry.contains(mbti.substring(0, 1))
-            && entry.contains(mbti.substring(1, 2))
-            && entry.contains(mbti.substring(2, 3))) set.add(entry);
-    } else if (mbti.length() == 2) {
-      for (String entry : MbtiServiceImpl.mbti)
-        if (entry.contains(mbti.substring(0, 1)) && entry.contains(mbti.substring(1, 2)))
-          set.add(entry);
-    } else for (String entry : MbtiServiceImpl.mbti) if (entry.contains(mbti)) set.add(entry);
-    return set;
+  @Override
+  public JSONObject getMbtiIntro(String mbti) {
+    MbtiIntro mbtiIntro = mbtiIntroRepository.findById(mbti).orElse(null);
+    if (mbtiIntro == null) return Util.errorResponse("MBTI类型不存在");
+    JSONObject res = Util.successResponse("获取MBTI介绍成功");
+    res.put("data", mbtiIntroRepository.findById(mbti).orElse(null));
+    return res;
   }
 }

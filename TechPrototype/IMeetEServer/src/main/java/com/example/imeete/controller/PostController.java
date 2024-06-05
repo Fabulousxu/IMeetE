@@ -2,16 +2,9 @@ package com.example.imeete.controller;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.dao.CollectRepository;
-import com.example.imeete.dao.CommentRepository;
-import com.example.imeete.dao.LikeRepository;
-import com.example.imeete.dao.PostRepository;
-import com.example.imeete.entity.*;
-import com.example.imeete.entity.idclass.CollectId;
-import com.example.imeete.entity.idclass.LikeId;
-import com.example.imeete.service.CommentService;
-import com.example.imeete.service.MbtiService;
 import com.example.imeete.service.PostService;
+import com.example.imeete.util.Util;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,126 +13,52 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class PostController {
   @Autowired private PostService postService;
-  @Autowired private CommentService commentService;
-  @Autowired private MbtiService mbtiService;
-  @Autowired private LikeRepository likeRepository;
-  @Autowired private CollectRepository collectRepository;
-  @Autowired private PostRepository postRepository;
-  @Autowired private CommentRepository commentRepository;
 
   @GetMapping
-  public JSONObject getPost(int id, @CookieValue("userId") String userId) {
-    return postService.toJson(id, userId);
+  public JSONObject getPostInfo(int id, @CookieValue("userId") String userId) throws IOException {
+    return postService.getPostInfo(id, userId);
   }
 
   @GetMapping("/comment")
-  public JSONArray getComment(
-      int postId, long lastCommentId, @CookieValue("userId") String userId) {
-    JSONArray res = new JSONArray();
-    for (Comment comment : postService.getComment(postId, lastCommentId))
-      if (comment != null) res.add(commentService.toJson(comment, userId));
-    return res;
+  public JSONArray getComments(int postId, long lastCommentId, @CookieValue("userId") String userId)
+      throws IOException {
+    return postService.getComments(postId, lastCommentId, userId);
   }
 
   @PostMapping
-  public JSONObject post(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
-    JSONObject res = new JSONObject();
-    Post post = new Post();
-    post.setUserId(userId);
-    post.setTitle(param.getString("title"));
-    post.setCover(param.getString("cover"));
-    post.setContent(param.getString("content"));
-    postRepository.save(post);
-    res.put("ok", true);
-    res.put("message", "发帖成功");
-    return res;
+  public JSONObject post(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.post(
+        userId, body.getString("title"), body.getString("cover"), body.getString("content"));
   }
 
   @PostMapping("/comment")
-  public JSONObject comment(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
-    JSONObject res = new JSONObject();
-    int postId = param.getIntValue("id");
-    if (!postRepository.existsById(postId)) {
-      res.put("ok", false);
-      res.put("message", "帖子不存在");
-    } else {
-      Comment comment = new Comment();
-      comment.setUserId(userId);
-      comment.setPostId(postId);
-      comment.setContent(param.getString("content"));
-      commentRepository.save(comment);
-      res.put("ok", true);
-      res.put("message", "评论成功");
-    }
-    return res;
+  public JSONObject comment(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.comment(body.getIntValue("id"), userId, body.getString("content"));
   }
 
   @PostMapping("/like")
-  public JSONObject like(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
-    JSONObject res = new JSONObject();
-    int postId = param.getIntValue("id");
-    if (!likeRepository.existsById(new LikeId(userId, postId))) {
-      likeRepository.save(new Like(userId, postId));
-      res.put("ok", true);
-      res.put("message", "点赞成功");
-    } else {
-      res.put("ok", false);
-      res.put("message", "帖子已点赞");
-    }
-    return res;
+  public JSONObject like(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.like(body.getIntValue("id"), userId);
   }
 
   @PostMapping("/dislike")
-  public JSONObject dislike(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
-    JSONObject res = new JSONObject();
-    LikeId likeId = new LikeId(userId, param.getIntValue("id"));
-    if (likeRepository.existsById(likeId)) {
-      likeRepository.deleteById(likeId);
-      res.put("ok", true);
-      res.put("message", "取消点赞成功");
-    } else {
-      res.put("ok", false);
-      res.put("message", "帖子未点赞");
-    }
-    return res;
+  public JSONObject dislike(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.dislike(body.getIntValue("id"), userId);
   }
 
   @PostMapping("/collect")
-  public JSONObject collect(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
-    JSONObject res = new JSONObject();
-    int postId = param.getIntValue("id");
-    if (!collectRepository.existsById(new CollectId(userId, postId))) {
-      collectRepository.save(new Collect(userId, postId));
-      res.put("ok", true);
-      res.put("message", "收藏成功");
-    } else {
-      res.put("ok", false);
-      res.put("message", "帖子已收藏");
-    }
-    return res;
+  public JSONObject collect(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.collect(body.getIntValue("id"), userId);
   }
 
   @PostMapping("/uncollect")
-  public JSONObject uncollect(@RequestBody JSONObject param, @CookieValue("userId") String userId) {
-    JSONObject res = new JSONObject();
-    CollectId collectId = new CollectId(userId, param.getIntValue("id"));
-    if (collectRepository.existsById(collectId)) {
-      collectRepository.deleteById(collectId);
-      res.put("ok", true);
-      res.put("message", "取消收藏成功");
-    } else {
-      res.put("ok", false);
-      res.put("message", "帖子未收藏");
-    }
-    return res;
+  public JSONObject uncollect(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.uncollect(body.getIntValue("id"), userId);
   }
 
   @GetMapping("/mbti")
   public JSONArray getPostByMbti(
       String mbti, int lastPostId, @CookieValue("userId") String userId) {
-    JSONArray res = new JSONArray();
-    for (Post post : postService.getPostByMbti(mbtiService.getMbtiSet(mbti), lastPostId))
-      res.add(postService.toJson(post, userId));
-    return res;
+    return postService.getPostByMbti(Util.getMbtiSet(mbti), lastPostId, userId);
   }
 }

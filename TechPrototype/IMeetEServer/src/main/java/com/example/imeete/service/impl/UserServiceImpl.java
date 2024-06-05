@@ -1,63 +1,78 @@
 package com.example.imeete.service.impl;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.dao.CollectRepository;
-import com.example.imeete.dao.PostRepository;
+import com.example.imeete.dao.UserAuthRepository;
 import com.example.imeete.dao.UserRepository;
-import com.example.imeete.entity.Collect;
-import com.example.imeete.entity.Post;
 import com.example.imeete.entity.User;
 import com.example.imeete.service.UserService;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.imeete.util.Util;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
   @Autowired private UserRepository userRepository;
-  @Autowired private PostRepository postRepository;
-  @Autowired private CollectRepository collectRepository;
+  @Autowired private UserAuthRepository userAuthRepository;
+  @Autowired private HttpServletResponse response;
 
-  public JSONObject toJson(User user) {
-    JSONObject json = new JSONObject();
-    json.put("userId", user.getUserId());
-    json.put("nickname", user.getNickname());
-    json.put("avatar", user.getAvatar());
-    json.put("mbti", user.getMbti());
-    json.put("sex", user.getSex());
-    json.put("age", user.getAge());
-    json.put("area", user.getArea());
-    json.put("intro", user.getIntro());
-    json.put("followingCount", user.getFollowing());
-    json.put("followerCount", user.getFollower());
-    return json;
+  @Override
+  public JSONObject login(String userId, String password) {
+    if (!userAuthRepository.existsById(userId)) return Util.errorResponse("账号不存在");
+    if (!userAuthRepository.existsByUserIdAndPassword(userId, password))
+      return Util.errorResponse("密码错误");
+    response.addCookie(new Cookie("userId", userId));
+    return Util.successResponse("登录成功");
   }
 
-  public JSONObject toJson(String userId) {
+  @Override
+  public JSONObject getUserInfo(String selfId) {
+    User user = userRepository.findById(selfId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    JSONObject res = Util.successResponse("获取用户信息成功");
+    res.put("data", user.toJson());
+    return res;
+  }
+
+  @Override
+  public JSONObject getSelfInfo(String userId) throws IOException {
     User user = userRepository.findById(userId).orElse(null);
-    return user == null ? null : toJson(user);
+    if (user == null) response.sendError(401);
+    return user == null ? null : user.toJson();
   }
 
-  public List<Post> getPost(User user) {
-    return postRepository.findByUserIdOrderByPostIdDesc(user.getUserId());
-  }
-
-  public List<Post> getPost(String userId) {
+  @Override
+  public JSONObject getUserPosts(String userId, String selfId) {
     User user = userRepository.findById(userId).orElse(null);
-    return user == null ? null : getPost(user);
+    if (user == null) return Util.errorResponse("用户不存在");
+    JSONObject res = Util.successResponse("获取用户动态成功");
+    res.put("data", user.getPostsJson(selfId));
+    return res;
   }
 
-  public List<Post> getCollect(User user) {
-    List<Collect> collects = collectRepository.findByUserIdOrderByPostIdDesc(user.getUserId());
-    List<Post> posts = new ArrayList<>();
-    for (Collect collect : collects)
-      postRepository.findById(collect.getPostId()).ifPresent(posts::add);
-    return posts;
+  @Override
+  public JSONArray getSelfPosts(String selfId) throws IOException {
+    User user = userRepository.findById(selfId).orElse(null);
+    if (user == null) response.sendError(401);
+    return user == null ? null : user.getPostsJson(selfId);
   }
 
-  public List<Post> getCollect(String userId) {
+  @Override
+  public JSONObject getUserCollects(String userId, String selfId) {
     User user = userRepository.findById(userId).orElse(null);
-    return user == null ? null : getCollect(user);
+    if (user == null) return Util.errorResponse("用户不存在");
+    JSONObject res = Util.successResponse("获取用户收藏成功");
+    res.put("data", user.getCollectsJson(selfId));
+    return res;
+  }
+
+  @Override
+  public JSONArray getSelfCollects(String selfId) throws IOException {
+    User user = userRepository.findById(selfId).orElse(null);
+    if (user == null) response.sendError(401);
+    return user == null ? null : user.getCollectsJson(selfId);
   }
 }

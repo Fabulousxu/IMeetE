@@ -1,15 +1,15 @@
 package com.example.imeete.service.impl;
 
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.dao.*;
 import com.example.imeete.entity.Comment;
 import com.example.imeete.entity.Post;
-import com.example.imeete.entity.idclass.CollectId;
-import com.example.imeete.entity.idclass.LikeId;
+import com.example.imeete.entity.User;
 import com.example.imeete.service.PostService;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.imeete.util.Util;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,72 +18,115 @@ import org.springframework.stereotype.Service;
 public class PostServiceImpl implements PostService {
   @Autowired private PostRepository postRepository;
   @Autowired private UserRepository userRepository;
-  @Autowired private LikeRepository likeRepository;
-  @Autowired private CollectRepository collectRepository;
-  @Autowired private CommentRepository commentRepository;
+  @Autowired private HttpServletResponse response;
 
-  public JSONObject toJson(Post post) {
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    JSONObject json = new JSONObject();
-    json.put("id", post.getPostId());
-    json.put("title", post.getTitle());
-    json.put("cover", post.getCover());
-    json.put("content", post.getContent());
-    json.put("time", dateFormat.format(post.getCreatedAt()));
-    json.put("watchCount", post.getWatch());
-    json.put("likeCount", post.getLike());
-    json.put("collectCount", post.getCollect());
-    json.put("shareCount", post.getShare());
-    json.put("commentCount", post.getComment());
-    userRepository
-        .findById(post.getUserId())
-        .ifPresent(
-            user -> {
-              JSONObject userJson = new JSONObject();
-              userJson.put("id", user.getUserId());
-              userJson.put("nickname", user.getNickname());
-              userJson.put("avatar", user.getAvatar());
-              userJson.put("mbti", user.getMbti());
-              json.put("user", userJson);
-            });
-    return json;
-  }
-
-  public JSONObject toJson(int postId) {
+  @Override
+  public JSONObject getPostInfo(int postId, String selfId) throws IOException {
     Post post = postRepository.findById(postId).orElse(null);
-    return post == null ? null : toJson(post);
+    if (post == null) response.sendError(404);
+    return post == null ? null : post.toJson(selfId);
   }
 
-  public JSONObject toJson(Post post, String userId) {
-    JSONObject json = toJson(post);
-    json.put("liked", likeRepository.existsById(new LikeId(userId, post.getPostId())));
-    json.put("collected", collectRepository.existsById(new CollectId(userId, post.getPostId())));
-    return json;
-  }
-
-  public JSONObject toJson(int postId, String userId) {
+  @Override
+  public JSONArray getComments(int postId, long lastCommentId, String selfId) throws IOException {
     Post post = postRepository.findById(postId).orElse(null);
-    return post == null ? null : toJson(post, userId);
+    if (post == null) response.sendError(404);
+    return post == null
+        ? null
+        : post.get10CommentsJson(lastCommentId == 0 ? Long.MAX_VALUE : lastCommentId, selfId);
   }
 
-  public List<Post> getPost(String type, String category, int lastPostId) {
-    Integer maxId = postRepository.findMaxId();
-    if (maxId == null) return new ArrayList<>();
-    return postRepository.findTop10ByPostIdBeforeOrderByPostIdDesc(
-        lastPostId == 0 ? maxId + 1 : lastPostId);
+  @Override
+  public JSONObject post(String selfId, String title, String cover, String content) {
+    User user = userRepository.findById(selfId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    Post post = new Post();
+    post.setUser(user);
+    post.setTitle(title);
+    post.setCover(cover);
+    post.setContent(content);
+    postRepository.save(post);
+    return Util.successResponse("发帖成功");
   }
 
-  public List<Comment> getComment(int postId, long lastCommentId) {
-    Long maxId = commentRepository.findMaxIdByPostId(postId);
-    if (maxId == null) return new ArrayList<>();
-    return commentRepository.findTop10ByPostIdAndCommentIdBeforeOrderByCommentIdDesc(
-        postId, lastCommentId == 0 ? maxId + 1 : lastCommentId);
+  @Override
+  public JSONObject comment(int postId, String selfId, String content) {
+    User user = userRepository.findById(selfId).orElse(null);
+    Post post = postRepository.findById(postId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    if (post == null) return Util.errorResponse("帖子不存在");
+    Comment comment = new Comment();
+    comment.setUser(user);
+    comment.setPost(post);
+    comment.setContent(content);
+    post.getComments().add(comment);
+    postRepository.save(post);
+    return Util.successResponse("评论成功");
   }
 
-  public List<Post> getPostByMbti(Set<String> mbti, int lastPostId) {
-    Integer maxId = postRepository.findMaxId();
-    if (maxId == null) return new ArrayList<>();
-    return postRepository.findTop10ByMbtiInAndPostIdBeforeOrderByPostIdDesc(
-        mbti, lastPostId == 0 ? maxId + 1 : lastPostId);
+  @Override
+  public JSONObject like(int postId, String selfId) {
+    User user = userRepository.findById(selfId).orElse(null);
+    Post post = postRepository.findById(postId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    if (post == null) return Util.errorResponse("帖子不存在");
+    if (post.getLikers().contains(user)) return Util.errorResponse("帖子已点赞");
+    post.getLikers().add(user);
+    postRepository.save(post);
+    return Util.successResponse("点赞成功");
+  }
+
+  @Override
+  public JSONObject dislike(int postId, String selfId) {
+    User user = userRepository.findById(selfId).orElse(null);
+    Post post = postRepository.findById(postId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    if (post == null) return Util.errorResponse("帖子不存在");
+    if (!post.getLikers().contains(user)) return Util.errorResponse("帖子未点赞");
+    post.getLikers().remove(user);
+    postRepository.save(post);
+    return null;
+  }
+
+  @Override
+  public JSONObject collect(int postId, String selfId) {
+    User user = userRepository.findById(selfId).orElse(null);
+    Post post = postRepository.findById(postId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    if (post == null) return Util.errorResponse("帖子不存在");
+    if (post.getCollectors().contains(user)) return Util.errorResponse("帖子已收藏");
+    post.getCollectors().add(user);
+    postRepository.save(post);
+    return null;
+  }
+
+  @Override
+  public JSONObject uncollect(int postId, String selfId) {
+    User user = userRepository.findById(selfId).orElse(null);
+    Post post = postRepository.findById(postId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    if (post == null) return Util.errorResponse("帖子不存在");
+    if (!post.getCollectors().contains(user)) return Util.errorResponse("帖子未收藏");
+    post.getCollectors().remove(user);
+    postRepository.save(post);
+    return null;
+  }
+
+  @Override
+  public JSONArray getPost(String type, String category, int lastPostId, String selfId) {
+    JSONArray res = new JSONArray();
+    for (Post post :
+        postRepository.findTop10ByPostIdBeforeOrderByPostIdDesc(
+            lastPostId == 0 ? Integer.MAX_VALUE : lastPostId)) res.add(post.toJson(selfId));
+    return res;
+  }
+
+  @Override
+  public JSONArray getPostByMbti(Set<String> mbti, int lastPostId, String selfId) {
+    JSONArray res = new JSONArray();
+    for (Post post :
+        postRepository.findTop10ByMbtiInAndPostIdBeforeOrderByPostIdDesc(
+            mbti, lastPostId == 0 ? Integer.MAX_VALUE : lastPostId)) res.add(post.toJson(selfId));
+    return res;
   }
 }

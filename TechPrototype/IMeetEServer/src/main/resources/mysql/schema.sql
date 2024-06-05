@@ -2,13 +2,6 @@ DROP DATABASE IF EXISTS imeete;
 CREATE DATABASE imeete;
 USE imeete;
 
-# 账户密码表
-CREATE TABLE account
-(
-    user_id  VARCHAR(16) PRIMARY KEY, # 账号
-    password VARCHAR(16) NOT NULL     # 密码
-);
-
 # 用户表
 CREATE TABLE user
 (
@@ -24,12 +17,21 @@ CREATE TABLE user
     follower  INT     DEFAULT 0        # 粉丝量
 );
 
+# 密码表
+CREATE TABLE user_auth
+(
+    user_id  VARCHAR(16) PRIMARY KEY, # 账号
+    password VARCHAR(16) NOT NULL,    # 密码
+    FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 # 关注表
 CREATE TABLE follow
 (
     followee_id VARCHAR(16) NOT NULL, # 被关注者账号
     follower_id VARCHAR(16) NOT NULL, # 关注者账号
-    PRIMARY KEY (followee_id, follower_id)
+    FOREIGN KEY (followee_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (follower_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 # 帖子表
@@ -41,20 +43,19 @@ CREATE TABLE post
     title      TEXT        NOT NULL,                # 帖子标题
     cover      TEXT        NOT NULL,                # 封面URL
     content    TEXT        NOT NULL,                # 帖子内容
+    mbti       CHAR(4)   DEFAULT 'NONE',            # 帖子MBTI分类('NONE':未设定)
     watch      INT       DEFAULT 0,                 # 浏览量
-    `like`     INT       DEFAULT 0,                 # 点赞量
-    collect    INT       DEFAULT 0,                 # 收藏量
     share      INT       DEFAULT 0,                 # 分享量
-    comment    INT       DEFAULT 0,                 # 评论量
-    mbti       CHAR(4)   DEFAULT 'NONE'             # MBTI('NONE':未设定)
+    FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 # 点赞表
-CREATE TABLE `like`
+CREATE TABLE post_like
 (
     user_id VARCHAR(16) NOT NULL, # 用户账号
     post_id INT         NOT NULL, # 帖子编号
-    PRIMARY KEY (user_id, post_id)
+    FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES post (post_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 # 收藏表
@@ -62,7 +63,8 @@ CREATE TABLE collect
 (
     user_id VARCHAR(16) NOT NULL, # 用户账号
     post_id INT         NOT NULL, # 帖子编号
-    PRIMARY KEY (user_id, post_id)
+    FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES post (post_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 # 评论表
@@ -73,7 +75,8 @@ CREATE TABLE comment
     user_id    VARCHAR(16) NOT NULL,                # 评论用户账号
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, # 评论时间
     content    TEXT        NOT NULL,                # 评论内容
-    `like`     INT       DEFAULT 0                  # 点赞量
+    FOREIGN KEY (post_id) REFERENCES post (post_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 # 评论点赞表
@@ -81,7 +84,8 @@ CREATE TABLE comment_like
 (
     comment_id BIGINT      NOT NULL, # 评论编号
     user_id    VARCHAR(16) NOT NULL, # 用户账号
-    PRIMARY KEY (comment_id, user_id)
+    FOREIGN KEY (comment_id) REFERENCES comment (comment_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 # MBTI介绍表
