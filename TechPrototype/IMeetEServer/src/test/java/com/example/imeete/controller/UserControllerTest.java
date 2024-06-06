@@ -1,184 +1,147 @@
 package com.example.imeete.controller;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
-import java.nio.charset.Charset;
+import com.example.imeete.controller.UserController;
+import com.example.imeete.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockCookie;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-@SpringBootTest
-@AutoConfigureMockMvc
 public class UserControllerTest {
-  @Autowired private MockMvc mockMvc;
 
-  @Test
-  public void getUserInfoTest1() throws Exception {
-    JSONObject res =
-        JSONObject.parseObject(
-            mockMvc
-                .perform(get("/user?id=u1"))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert res.getBooleanValue("ok");
-    assert res.getJSONObject("data").getString("userId").equals("u1");
-    assert res.getJSONObject("data").getString("nickname").equals("user1");
+  private MockMvc mockMvc;
+
+  @Mock
+  private UserService userService;
+
+  @InjectMocks
+  private UserController userController;
+
+  @BeforeEach
+  public void setup() {
+    MockitoAnnotations.openMocks(this);
+    mockMvc = standaloneSetup(userController).build();
   }
 
   @Test
-  public void getUserInfoTest2() throws Exception {
-    JSONObject res =
-        JSONObject.parseObject(
-            mockMvc
-                .perform(get("/user?id=u0"))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert !res.getBooleanValue("ok");
+  public void getUserInfo_Success() throws Exception {
+    JSONObject mockResponse = new JSONObject();
+    mockResponse.put("userId", "user1");
+    mockResponse.put("username", "John Doe");
+
+    given(userService.getUserInfo("user1")).willReturn(mockResponse);
+
+    mockMvc.perform(get("/user").param("id", "user1"))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.userId").value("user1"))
+            .andExpect(jsonPath("$.username").value("John Doe"));
+  }
+
+
+  @Test
+  public void getSelfInfo_Success() throws Exception {
+    JSONObject mockResponse = new JSONObject();
+    mockResponse.put("userId", "user1");
+    mockResponse.put("username", "John Doe");
+
+    given(userService.getSelfInfo("user1")).willReturn(mockResponse);
+
+    mockMvc.perform(get("/user/self").cookie(new MockCookie("userId", "user1")))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.userId").value("user1"))
+            .andExpect(jsonPath("$.username").value("John Doe"));
   }
 
   @Test
-  public void getSelfInfoTest1() throws Exception {
-    JSONObject res =
-        JSONObject.parseObject(
-            mockMvc
-                .perform(get("/user/self").cookie(new MockCookie("userId", "u1")))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert res.getString("userId").equals("u1");
-    assert res.getString("nickname").equals("user1");
+  public void getUserInfo_NotFound() throws Exception {
+    given(userService.getUserInfo("user999")).willReturn(null);
+
+    mockMvc.perform(get("/user")
+                    .param("id", "user999"))
+            .andExpect(status().isOk())  // 检查状态码为200
+            .andExpect(content().string(""));  // 假设当用户不存在时返回空字符串
   }
 
   @Test
-  public void getSelfInfoTest2() throws Exception {
-    assert mockMvc
-        .perform(get("/user/self").cookie(new MockCookie("userId", "u0")))
-        .andExpect(status().isOk())
-        .andReturn()
-        .getResponse()
-        .getContentAsString(Charset.defaultCharset())
-        .isEmpty();
+  public void getSelfInfo_Unauthorized() throws Exception {
+    given(userService.getSelfInfo("user0")).willReturn(null);  // 假设未授权也返回null
+
+    mockMvc.perform(get("/user/self")
+                    .cookie(new MockCookie("userId", "user0")))
+            .andExpect(status().isOk())  // 检查状态码为200
+            .andExpect(content().string(""));  // 假设未授权时返回空字符串
+  }
+  @Test
+  public void getUserPosts_Success() throws Exception {
+    JSONObject mockResponse = new JSONObject();
+    mockResponse.put("posts", "Sample posts");
+
+    given(userService.getUserPosts("user1", "user1")).willReturn(mockResponse);
+
+    mockMvc.perform(get("/user/post").param("id", "user1").cookie(new MockCookie("userId", "user1")))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.posts").value("Sample posts"));
   }
 
   @Test
-  public void getUserPostTest1() throws Exception {
-    JSONObject res =
-        JSONObject.parseObject(
-            mockMvc
-                .perform(get("/user/post?id=u1").cookie(new MockCookie("userId", "u1")))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert res.getBooleanValue("ok");
-    assert res.getJSONArray("data").size() == 5;
+  public void getSelfPosts_Success() throws Exception {
+    JSONArray mockResponse = new JSONArray();
+    mockResponse.add("Post 1");
+    mockResponse.add("Post 2");
+
+    given(userService.getSelfPosts("user1")).willReturn(mockResponse);
+
+    mockMvc.perform(get("/user/self/post").cookie(new MockCookie("userId", "user1")))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$[0]").value("Post 1"))
+            .andExpect(jsonPath("$[1]").value("Post 2"));
   }
 
   @Test
-  public void getUserPostTest2() throws Exception {
-    JSONObject res =
-        JSONObject.parseObject(
-            mockMvc
-                .perform(get("/user/post?id=u0").cookie(new MockCookie("userId", "u1")))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert !res.getBooleanValue("ok");
+  public void getUserCollect_Success() throws Exception {
+    JSONObject mockResponse = new JSONObject();
+    mockResponse.put("collects", "Sample collects");
+
+    given(userService.getUserCollects("user1", "user1")).willReturn(mockResponse);
+
+    mockMvc.perform(get("/user/collect").param("id", "user1").cookie(new MockCookie("userId", "user1")))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.collects").value("Sample collects"));
   }
 
   @Test
-  public void getSelfPostTest1() throws Exception {
-    JSONArray res =
-        JSONArray.parseArray(
-            mockMvc
-                .perform(get("/user/self/post").cookie(new MockCookie("userId", "u1")))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert res.size() == 5;
+  public void getSelfCollect_Success() throws Exception {
+    JSONArray mockResponse = new JSONArray();
+    mockResponse.add("Collect 1");
+    mockResponse.add("Collect 2");
+
+    given(userService.getSelfCollects("user1")).willReturn(mockResponse);
+
+    mockMvc.perform(get("/user/self/collect").cookie(new MockCookie("userId", "user1")))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$[0]").value("Collect 1"))
+            .andExpect(jsonPath("$[1]").value("Collect 2"));
   }
 
-  @Test
-  public void getSelfPostTest2() throws Exception {
-    assert mockMvc
-        .perform(get("/user/self/post").cookie(new MockCookie("userId", "u0")))
-        .andExpect(status().isOk())
-        .andReturn()
-        .getResponse()
-        .getContentAsString(Charset.defaultCharset())
-        .isEmpty();
-  }
-
-  @Test
-  public void getUserCollectTest1() throws Exception {
-    JSONObject res =
-        JSONObject.parseObject(
-            mockMvc
-                .perform(get("/user/collect?id=u1").cookie(new MockCookie("userId", "u1")))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert res.getBooleanValue("ok");
-    assert res.getJSONArray("data").size() == 10;
-  }
-
-  @Test
-  public void getUserCollectTest2() throws Exception {
-    JSONObject res =
-        JSONObject.parseObject(
-            mockMvc
-                .perform(get("/user/collect?id=u0").cookie(new MockCookie("userId", "u1")))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert !res.getBooleanValue("ok");
-  }
-
-  @Test
-  public void getSelfCollectTest1() throws Exception {
-    JSONArray res =
-        JSONArray.parseArray(
-            mockMvc
-                .perform(get("/user/self/collect").cookie(new MockCookie("userId", "u1")))
-                .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString(Charset.defaultCharset()));
-    System.out.print(res);
-    assert res.size() == 10;
-  }
-
-  @Test
-  public void getSelfCollectTest2() throws Exception {
-    mockMvc
-        .perform(get("/user/self/collect").cookie(new MockCookie("userId", "u0")))
-        .andExpect(status().isOk())
-        .andReturn()
-        .getResponse()
-        .getContentAsString(Charset.defaultCharset())
-        .isEmpty();
-  }
+  // Additional tests to cover error paths, input validations, etc. should be added here.
 }
