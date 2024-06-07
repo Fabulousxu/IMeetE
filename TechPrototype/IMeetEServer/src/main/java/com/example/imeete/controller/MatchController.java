@@ -18,7 +18,7 @@ public class MatchController {
     User matchedUser = matchService.matchUser(userId, mbti, sex).join();
     if (matchedUser == null) return Util.errorResponse("匹配失败");
     JSONObject res = Util.successResponse("匹配成功");
-    res.put("matchedUser", matchedUser.toJson());
+    res.put("matchedUser", matchedUser.toJson(userId));
     return res;
   }
 }

@@ -58,7 +58,7 @@ public class Post {
   public JSONObject toJson(String selfId) {
     JSONObject json = new JSONObject();
     json.put("id", postId);
-    json.put("user", user.toSimpleJson());
+    json.put("user", user.toJson(selfId));
     json.put("title", title);
     json.put("cover", cover);
     json.put("content", content);

@@ -25,8 +25,13 @@ public class PostServiceImpl implements PostService {
   @Override
   public JSONObject getPostInfo(int postId, String selfId) throws IOException {
     Post post = postRepository.findById(postId).orElse(null);
-    if (post == null) response.sendError(404);
-    return post == null ? null : post.toJson(selfId);
+    if (post == null) {
+      response.sendError(404);
+      return null;
+    }
+    post.setWatch(post.getWatch() + 1);
+    postRepository.save(post);
+    return post.toJson(selfId);
   }
 
   @Override
@@ -128,7 +133,7 @@ public class PostServiceImpl implements PostService {
     JSONArray res = new JSONArray();
     if (type.equals("发现") && !categoryName.equals("推荐")) {
       Category category = categoryRepository.findById(categoryName).orElse(null);
-      return category == null ? null : category.get10PostsJson(lastPostId, selfId);
+      return category == null ? res : category.get10PostsJson(lastPostId, selfId);
     }
     for (Post post :
         postRepository.findTop10ByPostIdBeforeOrderByPostIdDesc(

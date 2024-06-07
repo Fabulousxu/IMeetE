@@ -51,7 +51,7 @@ public class User {
     this.nickname = nickname;
   }
 
-  public JSONObject toJson() {
+  public JSONObject toJson(String selfId) {
     JSONObject json = new JSONObject();
     json.put("userId", userId);
     json.put("nickname", nickname);
@@ -63,15 +63,7 @@ public class User {
     json.put("intro", intro);
     json.put("followingCount", followings.size());
     json.put("followerCount", followers.size());
-    return json;
-  }
-
-  public JSONObject toSimpleJson() {
-    JSONObject json = new JSONObject();
-    json.put("id", userId);
-    json.put("nickname", nickname);
-    json.put("avatar", avatar);
-    json.put("mbti", mbti);
+    json.put("followed", followings.stream().anyMatch(user -> user.getUserId().equals(selfId)));
     return json;
   }
 
@@ -89,7 +81,7 @@ public class User {
 
   public JSONArray getFriendsJson() {
     JSONArray json = new JSONArray();
-    for (User user : followings) if (followers.contains(user)) json.add(user.toJson());
+    for (User user : followings) if (followers.contains(user)) json.add(user.toJson(userId));
     return json;
   }
 }

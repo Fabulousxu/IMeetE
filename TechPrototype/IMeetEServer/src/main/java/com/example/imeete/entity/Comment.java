@@ -44,7 +44,7 @@ public class Comment {
     json.put("time", createdAt);
     json.put("content", content);
     json.put("likeCount", likers.size());
-    json.put("user", user.toSimpleJson());
+    json.put("user", user.toJson(selfId));
     json.put("liked", likers.stream().anyMatch(user -> user.getUserId().equals(selfId)));
     return json;
   }

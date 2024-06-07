@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     User user = userRepository.findById(selfId).orElse(null);
     if (user == null) return Util.errorResponse("用户不存在");
     JSONObject res = Util.successResponse("获取用户信息成功");
-    res.put("data", user.toJson());
+    res.put("data", user.toJson(selfId));
     return res;
   }
 
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
   public JSONObject getSelfInfo(String userId) throws IOException {
     User user = userRepository.findById(userId).orElse(null);
     if (user == null) response.sendError(401);
-    return user == null ? null : user.toJson();
+    return user == null ? null : user.toJson(userId);
   }
 
   @Override
