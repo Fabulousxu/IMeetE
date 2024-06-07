@@ -159,5 +159,10 @@ Page({
     this.setData({
       password: event.detail.value
     })
+  },
+  navigateToRegister() {
+    wx.navigateTo({
+      url: '/pages/register/register'
+    })
   }
 })

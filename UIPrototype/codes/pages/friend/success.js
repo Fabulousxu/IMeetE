@@ -6,7 +6,7 @@ Page({
    */
   data: {
     loading: false,
-    success: false,
+    success: true,
     userInfo: { // 定义userInfo结构体
       nickname: 'Giggle',
       age: 0,
@@ -74,7 +74,11 @@ Page({
   back: function() {
     wx.navigateBack();
   },
-  chat: function() {
-    console.log("go to the chat page")
+  look: function() {
+    console.log("go to the look page")
+    wx.navigateTo({
+      // url: '/pages/info/info?userId=' + userId
+      url: '/pages/info/info?userId=u1'
+    });
   }
 })

@@ -16,7 +16,9 @@
     "pages/mbti/result/result",
     "pages/mbti/introduction/introduction",
     "pages/mbti/intro-detail/intro-detail",
-    "pages/mbti/mbti-post/mbti-post"
+    "pages/mbti/mbti-post/mbti-post",
+    "pages/info/info",
+    "pages/register/register"
   ],
   "window": {
     "navigationBarTextStyle": "black",

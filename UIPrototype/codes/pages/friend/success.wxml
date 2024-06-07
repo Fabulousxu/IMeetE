@@ -34,8 +34,8 @@
     </view>
     <view class="down">{{userInfo.loveSentence}}</view>
     <view class="downbtnarea">
-    <button class="successBtn" bind:tap="chat">chat</button>
-    <button class="successBtn" bind:tap="back">back</button>
+    <button class="successBtn" bind:tap="look">看看</button>
+    <button class="successBtn" bind:tap="back">返回</button>
     </view>
  </view>
 </view>
