@@ -2,13 +2,16 @@
 
 <navigation-bar back="{{false}}"></navigation-bar>
 <scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindscrolltolower="onReachBottom">
-  <view style="display:flex; width:100%; margin:16rpx 0; justify-content:center;">
+  <!-- <view style="display:flex; width:100%; margin:16rpx 0; justify-content:center;">
     <text wx:for="{{tags}}" style="margin:auto 24rpx; padding:8rpx 16rpx; border-radius:28rpx; border:4rpx solid rgb(127, 182, 255); font-size:24rpx;">{{item}}</text>
-  </view>
+  </view> -->
   <view style="display:flex; width:100%; height:256rpx; align-items:center;">
     <img style="width:128rpx; height:128rpx; margin:auto 64rpx; border:2px solid black; border-radius:72rpx;"/>
     <view style="display:flex; flex-direction:column; flex-grow:1; height:100%; justify-content:center;">
-      <text style="font-size:40rpx; margin:32rpx 0 auto;">{{name}}</text>
+      <view style="display:flex; ">
+        <text style="font-size:40rpx; margin:32rpx 0 auto;">{{name}}</text>
+        <button style="margin:32rpx 64rpx auto auto; width:auto; padding:8rpx 16rpx; border-radius:16rpx; background-color:rgb(127, 182, 255); font-size:24rpx;">{{followed ? "已关注" : "关注"}}</button>
+      </view>
       <text style="font-size:24rpx; margin:auto 0;">id: {{id}}</text>
       <view style="display:flex; margin:auto 0 32rpx;">
         <text style="margin:0 auto 0 0">{{mbti}}</text>

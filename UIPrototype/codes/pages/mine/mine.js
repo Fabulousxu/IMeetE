@@ -14,6 +14,7 @@ Page({
     followCount: "1437",
     followerCount: "5.6w",
     intro: "此用户未设置个人简介",
+    followed: false,
     tags: [
       "运动",
       "音乐",
