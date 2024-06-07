@@ -5,21 +5,23 @@ import com.alibaba.fastjson2.JSONObject;
 import jakarta.persistence.*;
 import java.util.Set;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "user")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
   @Id private String userId;
   private String nickname;
-  private String avatar;
-  private String mbti;
-  private int sex;
-  private int age;
-  private String area;
-  private String intro;
+  private String avatar = "";
+  private String mbti = "NONE";
+  private int sex = -1;
+  private int age = 0;
+  private String area = "";
+  private String intro = "";
 
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
@@ -43,6 +45,11 @@ public class User {
 
   @ManyToMany(mappedBy = "likers", cascade = CascadeType.ALL)
   private Set<Comment> likeComments;
+
+  public User(String userId, String nickname) {
+    this.userId = userId;
+    this.nickname = nickname;
+  }
 
   public JSONObject toJson() {
     JSONObject json = new JSONObject();
@@ -77,6 +84,12 @@ public class User {
   public JSONArray getCollectsJson(String selfId) {
     JSONArray json = new JSONArray();
     for (Post post : collects) json.add(post.toJson(selfId));
+    return json;
+  }
+
+  public JSONArray getFriendsJson() {
+    JSONArray json = new JSONArray();
+    for (User user : followings) if (followers.contains(user)) json.add(user.toJson());
     return json;
   }
 }

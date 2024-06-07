@@ -34,6 +34,9 @@ public class Post {
   private int watch;
   private int share;
 
+  @ManyToMany(mappedBy = "posts", cascade = CascadeType.ALL)
+  private Set<Category> categories;
+
   @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("commentId DESC")
   private Set<Comment> comments;
@@ -73,7 +76,7 @@ public class Post {
   public JSONArray get10CommentsJson(long lastCommentId, String selfId) {
     JSONArray json = new JSONArray();
     for (Comment comment : comments)
-      if (comment.getCommentId() < lastCommentId) {
+      if (comment.getCommentId() < lastCommentId || lastCommentId == 0) {
         json.add(comment.toJson(selfId));
         if (json.size() == 10) break;
       }

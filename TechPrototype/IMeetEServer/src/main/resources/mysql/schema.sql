@@ -49,6 +49,21 @@ CREATE TABLE post
     FOREIGN KEY (user_id) REFERENCES user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+# 分类表
+CREATE TABLE category
+(
+    category VARCHAR(16) PRIMARY KEY # 分类名称
+);
+
+# 帖子分类表
+CREATE TABLE post_category
+(
+    post_id  INT         NOT NULL, # 帖子编号
+    category VARCHAR(16) NOT NULL, # 分类名称
+    FOREIGN KEY (post_id) REFERENCES post (post_id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (category) REFERENCES category (category) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 # 点赞表
 CREATE TABLE post_like
 (

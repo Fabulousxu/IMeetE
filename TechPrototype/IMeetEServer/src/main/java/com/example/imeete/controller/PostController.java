@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.example.imeete.service.PostService;
 import com.example.imeete.util.Util;
 import java.io.IOException;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,12 @@ public class PostController {
   @PostMapping
   public JSONObject post(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
     return postService.post(
-        userId, body.getString("title"), body.getString("cover"), body.getString("content"));
+        userId,
+        body.getString("title"),
+        body.getString("cover"),
+        body.getString("content"),
+        Set.of(body.getString("categories").split("\\s+")),
+        body.getString("mbti"));
   }
 
   @PostMapping("/comment")
@@ -57,8 +63,8 @@ public class PostController {
   }
 
   @GetMapping("/mbti")
-  public JSONArray getPostByMbti(
+  public JSONArray getPostsByMbti(
       String mbti, int lastPostId, @CookieValue("userId") String userId) {
-    return postService.getPostByMbti(Util.getMbtiSet(mbti), lastPostId, userId);
+    return postService.getPostsByMbti(Util.getMbtiSet(mbti), lastPostId, userId);
   }
 }

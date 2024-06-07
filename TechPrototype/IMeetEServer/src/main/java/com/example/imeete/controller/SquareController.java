@@ -6,14 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/square")
+@RequestMapping
 @CrossOrigin
 public class SquareController {
   @Autowired private PostService postService;
 
-  @GetMapping
-  public JSONArray getPost(
+  @GetMapping("/square")
+  public JSONArray getPosts(
       String type, String category, int lastPostId, @CookieValue("userId") String userId) {
-    return postService.getPost(type, category, lastPostId, userId);
+    return postService.getPosts(type, category, lastPostId, userId);
+  }
+
+  @GetMapping("/search")
+  public JSONArray searchPosts(
+      String keyword, int lastPostId, @CookieValue("userId") String userId) {
+    return postService.searchPosts(keyword, lastPostId, userId);
   }
 }

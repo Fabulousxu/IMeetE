@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 public interface UserService {
   JSONObject login(String userId, String password);
 
+  JSONObject register(String userId, String nickname, String password);
+
   JSONObject getUserInfo(String userId);
 
   JSONObject getSelfInfo(String selfId) throws IOException;
@@ -20,4 +22,20 @@ public interface UserService {
   JSONObject getUserCollects(String userId, String selfId);
 
   JSONArray getSelfCollects(String selfId) throws IOException;
+
+  JSONArray getFriends(String userId) throws IOException;
+
+  JSONObject follow(String userId, String selfId);
+
+  JSONObject unfollow(String userId, String selfId);
+
+  JSONObject updateUserInfo(
+      String userId,
+      String nickname,
+      String avatar,
+      String mbti,
+      int sex,
+      int age,
+      String area,
+      String intro);
 }

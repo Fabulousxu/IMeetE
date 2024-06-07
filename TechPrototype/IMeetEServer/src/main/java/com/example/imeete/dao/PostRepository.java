@@ -11,4 +11,13 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
   List<Post> findTop10ByPostIdBeforeOrderByPostIdDesc(int lastPostId);
 
   List<Post> findTop10ByMbtiInAndPostIdBeforeOrderByPostIdDesc(Set<String> mbti, int lastPostId);
+
+  List<Post>
+      findTop10ByTitleContainsAndPostIdBeforeOrContentContainsAndPostIdBeforeOrUser_NicknameContainsAndPostIdBeforeOrderByPostIdDesc(
+          String keyword1,
+          int lastPostId1,
+          String keyword2,
+          int lastPostId2,
+          String keyword3,
+          int lastPostId3);
 }

@@ -42,4 +42,33 @@ public class UserController {
   public JSONArray getSelfCollect(@CookieValue("userId") String userId) throws IOException {
     return userService.getSelfCollects(userId);
   }
+
+  @GetMapping("/self/friends")
+  public JSONArray getFriends(@CookieValue("userId") String userId) throws IOException {
+    return userService.getFriends(userId);
+  }
+
+  @PostMapping("/follow")
+  public JSONObject follow(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return userService.follow(body.getString("id"), userId);
+  }
+
+  @PostMapping("/unfollow")
+  public JSONObject unfollow(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return userService.unfollow(body.getString("id"), userId);
+  }
+
+  @PostMapping("/setting")
+  public JSONObject updateUserInfo(
+      @RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return userService.updateUserInfo(
+        userId,
+        body.getString("nickname"),
+        body.getString("avatar"),
+        body.getString("mbti"),
+        body.getIntValue("sex"),
+        body.getIntValue("age"),
+        body.getString("area"),
+        body.getString("intro"));
+  }
 }

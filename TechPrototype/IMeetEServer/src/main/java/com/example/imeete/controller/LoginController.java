@@ -14,4 +14,10 @@ public class LoginController {
   public JSONObject login(@RequestBody JSONObject body) {
     return userService.login(body.getString("id"), body.getString("password"));
   }
+
+  @PostMapping("/register")
+  public JSONObject register(@RequestBody JSONObject body) {
+    return userService.register(
+        body.getString("id"), body.getString("nickname"), body.getString("password"));
+  }
 }
