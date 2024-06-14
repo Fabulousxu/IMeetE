@@ -9,29 +9,51 @@
         </view>
         <view class="data-wrapper">
           <view class="fans">
-            <view class="fans_log">粉丝 : {{item.user.followerCount}}</view>
-            <view class="post-time">{{item.time}}</view>
+            <!-- <view class="fans_log">粉丝 : {{item.user.followerCount}}</view> -->
+            <!-- <view class="post-time">{{item.time}}</view> -->
           </view>
-          <view class="sign">{{item.title}}</view>
+          <!-- <view class="sign">{{item.title}}</view> -->
         </view>
       </view>
       <view class="s-pic" wx:if="{{item.isDisplay === 1}}" id="{{idx}}" bindtap="postContentTap">
         <image class="post-pic" src="{{item.cover}}"></image>
       </view>
+      
       <view class="s-content">
         <view class="content" id="{{idx}}" bindtap="postContentTap">{{item.content}}</view>
-        <view class="view-wrapper">
-          <view class="view">
-            <view class="view-num">view : {{item.watchCount}}</view>
-            <view class="com-num">comment : {{item.commentCount}}</view>
+
+        <view class="icon-wrapper">
+          <view class="icon" id="{{idx}}">
+            <image class="image" src="/image/view.svg"></image>
           </view>
-          <view class="tool-wrapper">
-            <button class="like" bindtap="like" id="{{idx}}">点赞</button>
-            <button class="comment" bindtap="comment" id="{{idx}}">评论</button>
-            <button class="share" bindtap="share" id="{{idx}}">分享</button>
+
+          <view class="icon" bindtap="comment" id="{{idx}}">
+            <image class="image" src="/image/comment.svg"></image>
           </view>
+
+          <view class="icon" bindtap="like" id="{{idx}}">
+            <image class="image" src="{{item.liked ? '/image/like-active.svg' : '/image/like.svg'}}"></image>
+          </view>
+
+          <view class="icon" bindtap="collect" id="{{idx}}">
+            <image class="image" src="{{item.collected ? '/image/collect-active.svg' : '/image/collect.svg'}}"></image>
+          </view>
+
+          <view class="icon" bindtap="share" id="{{idx}}">
+            <image class="image" src="/image/share.svg"></image>
+          </view>
+
+        </view>
+
+        <view class="text-wrapper">
+          <text class="text">{{item.watchCount}}</text>
+          <text class="text">{{item.commentCount}}</text>
+          <text class="text">{{item.likeCount}}</text>
+          <text class="text">{{item.collectCount}}</text>
+          <text class="text">{{item.shareCount}}</text>
         </view>
       </view>
+
     </view>
   </view>
 </view>

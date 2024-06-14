@@ -160,7 +160,7 @@ Component({
     like: function(e){
       // 获取当前点击对象的父元素在wx::for中的key
       var index = e.currentTarget.id;
-      console.log(index)
+      console.log(this.data.sitemlist[index].id)
 
       // 向后端发送请求
       wx.request({
@@ -171,24 +171,22 @@ Component({
           'cookie': 'userId=' + wx.getStorageSync('userId')
         },
         data:{
-          id: this.data.sitemlist[index].id,
+          id: this.data.sitemlist[index].id
         },
         success: (res) => {
           res = res.data
-          if(res.ok){
-            console.log(res.message)
-            wx.showToast({
-              title: res.message,
-              icon: 'none',
-              duration: 1000
-            })
-            this.data.sitemlist[index].liked = !this.data.sitemlist[index].liked
-            this.setData({
-              sitemlist: this.data.sitemlist
-            })
-          }else{
-            console.log(res.message)
-          }
+          console.log(res.message)
+          wx.showToast({
+            title: res.message,
+            icon: 'none',
+            duration: 1000
+          })
+          // 更新页面
+          this.data.sitemlist[index].liked = !this.data.sitemlist[index].liked
+          this.data.sitemlist[index].likeCount += this.data.sitemlist[index].liked ? 1 : -1
+          this.setData({
+            sitemlist: this.data.sitemlist
+          })
         },
         
         fail: (err) => {
@@ -211,5 +209,46 @@ Component({
       console.log("成功分享")
       
     },
+
+    // 收藏
+    collect: function(e){
+      // 获取当前点击对象的父元素在wx::for中的key
+      var index = e.currentTarget.id;
+      console.log(this.data.sitemlist[index].id)
+      console.log(this.data.sitemlist[index].collected)
+
+      // 向后端发送请求
+      wx.request({
+        url: 'http://localhost:8080/post/' + (this.data.sitemlist[index].collected ? 'uncollect' : 'collect'),
+        method: 'POST',
+        header: {
+          'content-type': 'application/json',
+          'cookie': 'userId=' + wx.getStorageSync('userId')
+        },
+        data:{
+          id: this.data.sitemlist[index].id
+        },
+        success: (res) => {
+          res = res.data
+          console.log("hint")
+          console.log(res.message)
+          wx.showToast({
+            title: res.message,
+            icon: 'none',
+            duration: 1000
+          })
+          // 更新页面
+          this.data.sitemlist[index].collected = !this.data.sitemlist[index].collected
+          this.data.sitemlist[index].collectCount += this.data.sitemlist[index].collected ? 1 : -1
+          this.setData({
+            sitemlist: this.data.sitemlist
+          })
+        },
+        
+        fail: (err) => {
+          console.log(err);
+        }
+      })
+    }
   }
 })

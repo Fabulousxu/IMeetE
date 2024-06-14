@@ -101,7 +101,7 @@ public class PostServiceImpl implements PostService {
     if (!post.getLikers().contains(user)) return Util.errorResponse("帖子未点赞");
     post.getLikers().remove(user);
     postRepository.save(post);
-    return null;
+    return Util.successResponse("取消点赞");
   }
 
   @Override
@@ -113,7 +113,7 @@ public class PostServiceImpl implements PostService {
     if (post.getCollectors().contains(user)) return Util.errorResponse("帖子已收藏");
     post.getCollectors().add(user);
     postRepository.save(post);
-    return null;
+    return Util.successResponse("收藏成功");
   }
 
   @Override
@@ -125,7 +125,7 @@ public class PostServiceImpl implements PostService {
     if (!post.getCollectors().contains(user)) return Util.errorResponse("帖子未收藏");
     post.getCollectors().remove(user);
     postRepository.save(post);
-    return null;
+    return Util.successResponse("取消收藏");
   }
 
   @Override

@@ -95,25 +95,29 @@
 }
 
 .s-content {
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
   width: 360px;
+  height: auto;
   align-items: center;
   box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.1);
   border: 1px solid black;
 }
 
 .content {
+  min-height: 32px;
+  max-height: 160px;
   font-size: 14px;
   color: black;
   font-weight: 700;
-  width: 60%;
   text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
   word-break: break-all;
+
+  border-bottom: 1px solid #999;
 }
 
 .view-wrapper {
@@ -164,4 +168,59 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 0;
+}
+
+.icon-wrapper {
+  margin-top: 1%;
+  display: grid;
+  /* 5个图标 */
+  grid-template-columns: repeat(5, 1fr);
+  /* 间距 */
+  gap: 24px;
+  padding-left: 8%;
+  /* border-top: 1px solid #999; */
+  /* border-bottom: transparent; */
+  
+  /* 使图标居中 */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.text-wrapper {
+  display: grid;
+  /* 5个文字 */
+  grid-template-columns: repeat(5, 1fr);
+  /* 间距 */
+  /* gap: 10px; */
+  /* padding-left: 3%; */
+  
+  /* 使文字居中 */
+  text-align: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  place-items: center;
+}
+
+.icon:active {
+  /* 变暗 */
+  background-color: #666;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.text {
+  font-size: 14px;
+  color: #666;
+  /* font-weight: 400; */
+  /* 字体居中 */
+  /* text-align: center; */
 }
