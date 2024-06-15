@@ -170,6 +170,7 @@ Page({
                   duration: 1000
                 })
                 this.data.post.liked = !this.data.post.liked
+                this.data.post.likeCount += this.data.post.liked ? 1 : -1
                 this.setData({
                   post: this.data.post
                 })
@@ -208,6 +209,7 @@ Page({
                   duration: 1000
                 })
                 this.data.post.collected = !this.data.post.collected
+                this.data.post.collectCount += this.data.post.collected ? 1 : -1
                 this.setData({
                   post: this.data.post
                 })

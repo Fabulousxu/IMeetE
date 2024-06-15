@@ -1,63 +1,116 @@
-<view class="container">
+<view class="container" >
     <!-- 展示具体帖子内容 -->
     <view class="post-content">
-        <view class="bar">
+        <scroll-view scroll-y="{{true}}" type="list" style="height: 100vh;" bindscrolltoupper="refreshData">
+            <view class="bar">
             <!-- 封装一个bar，放置返回按钮 -->
             <view class="back-btn" bindtap="navigateBack">
                 <text class="arrow">{{'<'}}</text>
             </view>
         </view>
-        <view class="s-item">
-            <image class="avator" src="{{poster.avatar}}"></image>
-            <view class="info">
-                <view class="name">{{poster.nickname}}</view>
-                <view class="mbti">{{poster.mbti}}</view>
+
+            <view class="s-item">
+                <image class="avator" src="{{poster.avatar}}"></image>
+
+                <view class="info">
+                    <view class="name">{{poster.nickname}}</view>
+                    <view class="mbti">{{poster.mbti}}</view>
+                </view>
+
+                <view class="data-wrapper">
+                    <view class="fans">
+                        <view class="post-time">{{post.time}}</view>
+                    </view>
+                </view>
+
             </view>
-            <view class="data-wrapper">
-                <view class="fans">
-                    <view class="post-time">{{post.time}}</view>
-                </view>
+        
+            <view class="s-pic" wx:if="{{post.cover == null}}">
+                <image class="post-pic" src="{{post.cover}}"></image>
             </view>
-        </view>
-        <view class="s-pic" wx:if="{{post.cover == null}}">
-            <image class="post-pic" src="{{post.cover}}"></image>
-        </view>
-        <view class="content" id="{{idx}}">{{post.content}}</view>
-        <view class="s-content">
-            <view class="view-wrapper">
-                <view class="view">
-                    <view class="view-num">view : {{post.watchCount}}</view>
-                    <view class="com-num">comment : {{post.commentCount}}</view>
+
+            <view class="content" id="{{idx}}">{{post.content}}</view>
+            
+            <view class="s-content">
+
+                <view class="view-wrapper">
+
+                    <view class="icon-wrapper">
+                        <view class="icon" id="{{idx}}">
+                            <image class="image" src="/image/view.svg"></image>
+                        </view>
+
+                        <!-- <view class="icon" bindtap="comment" id="{{idx}}">
+                            <image class="image" src="/image/comment.svg"></image>
+                        </view> -->
+
+                        <view class="icon" bindtap="like" id="{{idx}}">
+                            <image class="image" src="{{post.liked ? '/image/like-active.svg' : '/image/like.svg'}}"></image>
+                        </view>
+
+                        <view class="icon" bindtap="collect" id="{{idx}}">
+                            <image class="image" src="{{post.collected ? '/image/collect-active.svg' : '/image/collect.svg'}}"></image>
+                        </view>
+
+                        <view class="icon" bindtap="share" id="{{idx}}">
+                            <image class="image" src="/image/share.svg"></image>
+                        </view>
+
+                    </view>
+
+                    <view class="text-wrapper">
+                        <text class="text">{{post.watchCount}}</text>
+                        <!-- <text class="text">{{post.commentCount}}</text> -->
+                        <text class="text">{{post.likeCount}}</text>
+                        <text class="text">{{post.collectCount}}</text>
+                        <text class="text">{{post.shareCount}}</text>
+                    </view>
+
                 </view>
-                <view class="tool-wrapper">
-                    <button class="like" bindtap="like">点赞</button>
-                    <button class="collect" bindtap="collect">收藏</button>
-                    <button class="share" bindtap="share">分享</button>
+
+                <view class="add-comment">
+                    <button class="commit-comment" bindtap="addcomment">写评论</button>
                 </view>
-                <scroll-view class="comment-area" id="commentarea" scroll-y="{{true}}" type="list" bindscrolltoupper="refreshData">
+
+                <view class="comment-area" id="commentarea">
                     <!-- 评论区 -->
                     <view class="com-item" wx:for="{{comments}}" wx:key="id" wx:for-index="idx">
                         <view class="com-user">
+
                             <image class="com-avator " src="{{item.user.avatar}}"></image>
+
                             <view class="com-user-info">
                                 <view class="com-name">{{item.user.nickname}}</view>
                                 <view class="com-mbti">{{item.user.mbti}}</view>
                             </view>
+
                             <view class="com-date">{{item.time}}</view>
+
                         </view>
+
                         <view class="com-content">{{item.content}}</view>
+
+                        <!-- 后端没有相关接口 -->
+
                         <view class="com-tool">
                             <view class="com-like-tool">
-                                <view class="com-like" bindtap="com_like">点赞</view>
-                                <view class="com-like-num">点赞数:{{item.likeCount}}</view>
+                                <view class="icon" bindtap="com_like" id="{{idx}}">
+                                    <image class="image" src="{{post.liked ? '/image/like-active.svg' : '/image/like.svg'}}"></image>
+                                </view>
+
+                                <text class="text">{{post.likeCount}}</text>
                             </view>
                         </view>
+                        
                     </view>
-                </scroll-view>
-                <view class="add-comment">
-                    <button class="commit-comment" bindtap="addcomment">写评论</button>
-                </view>
+                <view>
+                
             </view>
+
         </view>
+        </view>
+        </scroll-view>
+
+        
     </view>
 </view>

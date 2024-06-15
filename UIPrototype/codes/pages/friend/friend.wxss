@@ -1,28 +1,29 @@
 /* pages/index/index.wxss */
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  /* display: flex;
+  flex-direction: column; */
+  /* align-items: center;
+  justify-content: flex-start; */
   height: 100%;
   width: 100%;
 }
 
 .header {
   width: 100%;
-  height: 10vh;
+  height: 6vh;
   /* background-color: aqua; */
-  position: relative;
+  /* position: relative;
   display: flex;
   object-fit: cover;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  flex-direction: column; */
+  /* justify-content: flex-start;
+  align-items: center; */
+  text-align: center;
   padding-top: 0%;
 }
 .header-word{
   font-family:fantasy;
-  font-size:40px;
+  font-size:24px;
   color: rgb(77, 63, 141);
 }
 .gender-container {
@@ -57,7 +58,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 55vh;
+  height: 50vh;
   /* background-color: aqua; */
 }
 

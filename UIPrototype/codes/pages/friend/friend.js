@@ -47,7 +47,7 @@ Page({
   onCommitTap: function () {
     if (!this.data.selectedGender || !this.data.selectedMBTI) {
       wx.showToast({
-        title: 'Please select both gender and MBTI type',
+        title: '请选择性别以及MBTI类型',
         icon: 'none'
       });
       return;
@@ -58,10 +58,10 @@ Page({
     }
 
     // Process the selected options. You can modify this part to suit your needs, such as navigating to another page or calling an API.
-    wx.showToast({
-      title: `Selected Gender: ${this.data.selectedGender}, Selected MBTI: ${this.data.selectedMBTI}`,
-      icon: 'success'
-    });
+    // wx.showToast({
+    //   title: `性别: ${this.data.selectedGender === 'Woman' ? '女' : '男'}，MBTI类型: ${this.data.selectedMBTI}`,
+    //   icon: 'success'
+    // });
 
     // Implement additional logic here, e.g., saving the selection or navigating
   },
