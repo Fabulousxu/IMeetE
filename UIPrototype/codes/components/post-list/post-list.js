@@ -11,12 +11,23 @@ Component({
       // 帖子分类
       let category = this.data.category
 
+      let mbtiType = this.data.mbtiType
+
+      let strategy = this.data.strategy
+
       // 当前页面最后一个帖子的id
       let lastPostId = 0
 
+      let url = ""
+      if(strategy == "mbti"){
+        url = 'http://localhost:8080/post/mbti' + '?mbti=' + mbtiType + '&lastPostId=' + lastPostId
+      }else{
+        url = 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId
+      }
+
       // 从后端fetch帖子数据
       wx.request({
-        url: 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId,
+        url: url,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -47,6 +58,14 @@ Component({
       value: "关注"
     },
     category:{
+      type: String,
+      value:""
+    },
+    mbtiType:{
+      type: String,
+      value:""
+    },
+    strategy:{
       type: String,
       value:""
     }
@@ -200,9 +219,16 @@ Component({
       var index = e.currentTarget.id;
       console.log(index)
       // 跳转到评论页面
-      this.triggerEvent('postTap', {
-        selectedPostId: this.data.sitemlist[index].id
-      });
+      // this.triggerEvent('postTap', {
+      //   selectedPostId: this.data.sitemlist[index].id
+      // });
+
+      const postId = this.data.sitemlist[index].id
+      const liked = this.data.sitemlist[index].liked
+      const collected = this.data.sitemlist[index].collected
+      wx.navigateTo({
+        url: '/pages/post/post-detail/post-detail?postId=' + postId + '&liked=' + liked + '&collected=' + collected,
+      })
     },
 
     share: function(e){

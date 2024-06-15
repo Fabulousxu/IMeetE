@@ -14,6 +14,8 @@
 <view class="main-page">
     <scroll-view class="mbti-pl" type="list" scroll-y="{{true}}" bindscrolltolower="onReachBottom" bindscrolltoupper="onPullDownRefresh" enable-flex="{{true}}">
         <!-- 使用自定义组件post -->
-        <mbti-post-list id="mbti-pl-item" bind:postTap="showPostDetail" mbtiType="{{selectMbti}}" observers="{{['reRender']}}"></mbti-post-list>
+        <!-- <mbti-post-list id="mbti-pl-item" bind:postTap="showPostDetail" mbtiType="{{selectMbti}}" observers="{{['reRender']}}"></mbti-post-list> -->
+        <mbti-post-list id="mbti-pl-item" mbtiType="{{selectMbti}}" strategy="mbti"></mbti-post-list>
+
     </scroll-view>
 </view>

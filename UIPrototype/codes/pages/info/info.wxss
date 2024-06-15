@@ -138,13 +138,13 @@
 
 .content-panel {
   width: 100%;
-  height: 1024rpx;
+  min-height: 1024rpx;
 }
 
 .content-panel.posts {
-  background-color: #FFE4E1;
+  background-color: rgba(226, 208, 230, 0.8);
 }
 
 .content-panel.saves {
-  background-color: #ADD8E6;
+  background-color: rgba(151, 213, 238, 0.8);
 }

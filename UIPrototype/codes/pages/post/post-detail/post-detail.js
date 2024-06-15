@@ -232,7 +232,7 @@ Page({
     addcomment()
     {
       wx.navigateTo({
-        url: '/pages/square/add-comment/add-comment?postId=' + this.data.post.id,
+        url: '/pages/post/add-comment/add-comment?postId=' + this.data.post.id,
       });
     }
   })

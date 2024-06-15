@@ -1,6 +1,6 @@
 <!-- pages/info/info.wxml -->
 <!-- <navigation-bar back="{{true}}"></navigation-bar> -->
-<scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindscrolltolower="onReachBottom">
+<scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100vh" bindscrolltolower="onReachBottom">
   <view class="container">
     <view style="display:flex; width:100%; padding:0rpx; justify-content:flex-start;">
       <button class="back-button" bindtap="navigateBack">返回</button>
@@ -37,11 +37,11 @@
       <button id="postButton" bindtap="onPostButton" class="tab-button">动态</button>
       <button id="saveButton" bindtap="onSaveButton" class="tab-button save">收藏</button>
     </view>
-<view id="posts" wx:if="{{mode}}" class="content-panel posts">
-  <user-post id="self-post" bind:postTap="showPostDetail" pageType="post" userId="{{userId}}" category=""></user-post>
+<view id="posts" wx:if="{{mode}}" class="content-panel posts" style="min-height: fit-content;">
+  <user-post id="self-post" pageType="post" userId="{{userId}}" category=""></user-post>
 </view>
-<view id="saves" wx:else class="content-panel saves">
-  <user-post id="self-collect" bind:postTap="showPostDetail" pageType="collect" userId="{{userId}}" category=""></user-post>
+<view id="saves" wx:else class="content-panel saves" style="min-height: fit-content;">
+  <user-post id="self-collect" pageType="collect" userId="{{userId}}" category=""></user-post>
 </view>
   </view>
 </scroll-view>

@@ -98,7 +98,7 @@
                                     <image class="image" src="{{post.liked ? '/image/like-active.svg' : '/image/like.svg'}}"></image>
                                 </view>
 
-                                <text class="text">{{post.likeCount}}</text>
+                                <text class="text">{{item.likeCount}}</text>
                             </view>
                         </view>
                         

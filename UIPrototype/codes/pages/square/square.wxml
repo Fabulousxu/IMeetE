@@ -21,7 +21,8 @@
         <swiper-item>
             <scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100%" bindscrolltolower="onReachBottom" bindscrolltoupper="onPullDownRefresh">
                 <!-- 使用自定义组件post -->
-                <user-post id="subscribe-post" bind:postTap="showPostDetail" pageType="关注" category=""></user-post>
+                <!-- <user-post id="subscribe-post" bind:postTap="showPostDetail" pageType="关注" category=""></user-post> -->
+                <user-post id="subscribe-post" pageType="关注" category=""></user-post>
             </scroll-view>
         </swiper-item>
         <swiper-item>

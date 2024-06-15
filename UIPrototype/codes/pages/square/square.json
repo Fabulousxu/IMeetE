@@ -1,5 +1,5 @@
 {
     "usingComponents":{
-        "user-post":"./posts/post/post"
+        "user-post":"/components/post-list/post-list"
     }
 }

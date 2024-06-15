@@ -113,14 +113,14 @@ Page({
     return currentComponent;
   },
 
-  showPostDetail: function(e) {
-    const postId = e.detail.selectedPostId;
-    const liked = e.detail.liked;
-    const collected = e.detail.collected;
-    wx.navigateTo({
-      url: '/pages/square/post-detail/post-detail?postId=' + postId + '&liked=' + liked + '&collected=' + collected,
-    })
-  },
+  // showPostDetail: function(e) {
+  //   const postId = e.detail.selectedPostId;
+  //   const liked = e.detail.liked;
+  //   const collected = e.detail.collected;
+  //   wx.navigateTo({
+  //     url: '/pages/square/post-detail/post-detail?postId=' + postId + '&liked=' + liked + '&collected=' + collected,
+  //   })
+  // },
 
   /** 
    * 滑动切换tab 
@@ -221,7 +221,7 @@ Page({
   addPost: function() {
     console.log("add post")
     wx.navigateTo({
-      url: '/pages/square/add-post/add-post',
+      url: '/pages/post/add-post/add-post',
        success: function(res) {
        console.log("跳转成功");
       },
