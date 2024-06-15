@@ -1,21 +1,21 @@
 package com.example.imeete.controller;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.example.imeete.controller.LoginController;
 import com.example.imeete.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.http.MediaType;
 
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
 
 public class LoginControllerTest {
 
@@ -28,71 +28,90 @@ public class LoginControllerTest {
     private LoginController loginController;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(loginController).build();
     }
 
     @Test
-    public void login_Success() throws Exception {
-        // 构建登录请求
-        JSONObject loginRequest = new JSONObject();
-        loginRequest.put("id", "user1");
-        loginRequest.put("password", "password");
+    public void testLoginSuccess() throws Exception {
+        JSONObject loginResponse = new JSONObject();
+        loginResponse.put("code", 200);
+        loginResponse.put("message", "登录成功");
 
-        // 构建服务层的模拟返回值
-        JSONObject mockResponse = new JSONObject();
-        mockResponse.put("status", "success");
-        mockResponse.put("message", "登录成功");
+        when(userService.login(anyString(), anyString())).thenReturn(loginResponse);
 
-        given(userService.login("user1", "password")).willReturn(mockResponse);
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("id", "u1");
+        requestBody.put("password", "password");
 
-        mockMvc.perform(post("/login")
+        mockMvc.perform(MockMvcRequestBuilders.post("/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginRequest.toJSONString()))
+                        .content(requestBody.toJSONString()))
                 .andExpect(status().isOk())
-                .andExpect(content().json(mockResponse.toJSONString()));
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(jsonPath("$.message").value("登录成功"));
     }
 
     @Test
-    public void login_Failure() throws Exception {
-        // 构建登录请求
-        JSONObject loginRequest = new JSONObject();
-        loginRequest.put("id", "user1");
-        loginRequest.put("password", "wrongpassword");
+    public void testLoginFailure() throws Exception {
+        JSONObject loginResponse = new JSONObject();
+        loginResponse.put("code", 400);
+        loginResponse.put("message", "登录失败");
 
-        // 构建服务层的模拟返回值
-        JSONObject mockResponse = new JSONObject();
-        mockResponse.put("status", "failure");
-        mockResponse.put("message", "密码错误");
+        when(userService.login(anyString(), anyString())).thenReturn(loginResponse);
 
-        given(userService.login("user1", "wrongpassword")).willReturn(mockResponse);
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("id", "u1");
+        requestBody.put("password", "wrongPassword");
 
-        mockMvc.perform(post("/login")
+        mockMvc.perform(MockMvcRequestBuilders.post("/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginRequest.toJSONString()))
+                        .content(requestBody.toJSONString()))
                 .andExpect(status().isOk())
-                .andExpect(content().json(mockResponse.toJSONString()));
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.message").value("登录失败"));
     }
 
     @Test
-    public void login_UserNotFound() throws Exception {
-        // 构建登录请求
-        JSONObject loginRequest = new JSONObject();
-        loginRequest.put("id", "unknownUser");
-        loginRequest.put("password", "password");
+    public void testRegisterSuccess() throws Exception {
+        JSONObject registerResponse = new JSONObject();
+        registerResponse.put("code", 200);
+        registerResponse.put("message", "注册成功");
 
-        // 构建服务层的模拟返回值
-        JSONObject mockResponse = new JSONObject();
-        mockResponse.put("status", "failure");
-        mockResponse.put("message", "账号不存在");
+        when(userService.register(anyString(), anyString(), anyString())).thenReturn(registerResponse);
 
-        given(userService.login("unknownUser", "password")).willReturn(mockResponse);
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("id", "u1");
+        requestBody.put("nickname", "user1");
+        requestBody.put("password", "password");
 
-        mockMvc.perform(post("/login")
+        mockMvc.perform(MockMvcRequestBuilders.post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(loginRequest.toJSONString()))
+                        .content(requestBody.toJSONString()))
                 .andExpect(status().isOk())
-                .andExpect(content().json(mockResponse.toJSONString()));
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(jsonPath("$.message").value("注册成功"));
+    }
+
+    @Test
+    public void testRegisterFailure() throws Exception {
+        JSONObject registerResponse = new JSONObject();
+        registerResponse.put("code", 400);
+        registerResponse.put("message", "注册失败");
+
+        when(userService.register(anyString(), anyString(), anyString())).thenReturn(registerResponse);
+
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("id", "u1");
+        requestBody.put("nickname", "user1");
+        requestBody.put("password", "password");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody.toJSONString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(400))
+                .andExpect(jsonPath("$.message").value("注册失败"));
     }
 }
