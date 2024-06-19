@@ -13,9 +13,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    let type = options.mbtiType;
     let that = this;
-
-    let type = JSON.parse(options.mbtiType);
 
     that.setData({mbtiType:type});
     wx.request({

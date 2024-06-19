@@ -5,14 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    mbti: "INTJ",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setData({
+      mbti: options.mbti
+    })
 
+    console.log(this.data.mbti)
   },
 
   /**
@@ -62,5 +66,11 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  detail(){
+    wx.navigateTo({
+      url: '/pages/mbti/intro-detail/intro-detail?mbtiType=' + this.data.mbti
+    })
   }
 })
