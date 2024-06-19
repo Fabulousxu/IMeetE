@@ -6,7 +6,7 @@ Page({
    */
   data: {
     name: "user_00000001",
-    id: "00000001",
+    userId: "00000001",
     mbti: "INTJ",
     area: "上海 闵行",
     sex: "♂",
@@ -44,12 +44,12 @@ Page({
           console.log(data)
           this.setData({
             name: data.nickname,
-            id: data.id,
+            userId: userId,
             mbti: data.mbti,
             area: data.area,
-            sex: (data.sex === "男") ? "♂" : "♀",
+            sex: (data.sex === 0) ? "♂" : "♀",
             age: data.age,
-            followCount: data.followCount,
+            followCount: data.followingCount,
             followerCount: data.followerCount,
             intro: data.intro,
             tags: [

@@ -25,8 +25,11 @@
   </view>
 
   <view class="footer">
-    <button class="roundBtn" bindtap="onCommitTap">
+    <button class="roundBtn" wx:if="{{!isMatching}}" bindtap="onCommitTap">
      开始匹配
     </button>
+    <!-- <button  class="roundBtn-unactive" wx:else>
+      匹配中...
+    </button> -->
   </view>
 </view>

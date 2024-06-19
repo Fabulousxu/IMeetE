@@ -1,7 +1,7 @@
 <view class="container">
   <view class="s-post-list">
     <view class="s-post" wx:for="{{sitemlist}}" wx:key="id" wx:for-index="idx">
-      <view class="s-item" id="{{idx}}" bindtap="posterDetailTap">
+      <view class="s-item" id="{{idx}}" bindtap="UserInfoTap">
         <image class="avator" src="{{item.user.avatar}}"></image>
         <view class="info">
           <view class="name">{{item.user.nickname}}</view>
@@ -24,7 +24,7 @@
         <view class="content" id="{{idx}}" >{{item.content}}</view>
 
         <view class="icon-wrapper">
-          <view class="icon" id="{{idx}}">
+          <view class="icon_non" id="{{idx}}">
             <image class="image" src="/image/view.svg"></image>
           </view>
 

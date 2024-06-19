@@ -12,7 +12,7 @@
         <text style="font-size:40rpx; margin:32rpx 0 auto;">{{name}}</text>
         <button style="margin:32rpx 64rpx auto auto; width:auto; padding:8rpx 16rpx; border-radius:16rpx; background-color:rgb(127, 182, 255); font-size:24rpx;">{{followed ? "已关注" : "关注"}}</button>
       </view>
-      <text style="font-size:24rpx; margin:auto 0;">id: {{id}}</text>
+      <text style="font-size:24rpx; margin:auto 0;">id: {{userId}}</text>
       <view style="display:flex; margin:auto 0 32rpx;">
         <text style="margin:0 auto 0 0">{{mbti}}</text>
         <text style="margin:0 auto 0 auto;">{{area}}</text>
@@ -38,9 +38,9 @@
     <button id="saveButton" bindtap="onSaveButton" style="width:50%; background-color:rgb(151,213,238,0.8); border-bottom:none; border-radius:48rpx 48rpx 0 0; padding:16rpx; text-align:center;">收藏</button>
   </view>
   <view id="posts" wx:if="{{mode}}" style="width:100%; min-height:1024rpx; background-color:rgb(226,208,230,0.8);">
-    <user-post id="self-post" pageType="post" category="" strategy="user_post"></user-post>
+    <user-post id="self-post" pageType="post" category="" strategy="self_post"></user-post>
   </view>
   <view id="saves" wx:else style="width:100%; min-height:1024rpx; background-color:rgb(151,213,238,0.8);">
-    <user-post id="self-collect" pageType="collect" category="" strategy="user_collect"></user-post>
+    <user-post id="self-collect" pageType="collect" category="" strategy="self_collect"></user-post>
   </view>
 </scroll-view>

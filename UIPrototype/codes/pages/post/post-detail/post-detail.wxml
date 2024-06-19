@@ -9,7 +9,7 @@
             </view>
         </view>
 
-            <view class="s-item">
+            <view class="s-item" bind:tap="lookUserInfo">
                 <image class="avator" src="{{poster.avatar}}"></image>
 
                 <view class="info">
@@ -90,12 +90,10 @@
 
                         <view class="com-content">{{item.content}}</view>
 
-                        <!-- 后端没有相关接口 -->
-
                         <view class="com-tool">
                             <view class="com-like-tool">
                                 <view class="icon" bindtap="com_like" id="{{idx}}">
-                                    <image class="image" src="{{post.liked ? '/image/like-active.svg' : '/image/like.svg'}}"></image>
+                                    <image class="image" src="{{item.liked ? '/image/like-active.svg' : '/image/like.svg'}}"></image>
                                 </view>
 
                                 <text class="text">{{item.likeCount}}</text>

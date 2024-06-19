@@ -24,7 +24,9 @@ Page({
         source: 'url("https://github.com/HangZhouShuChengKeJi/freeFontLibrary/blob/master/%E7%AB%99%E9%85%B7%EF%BC%88%E5%A5%BD%E7%9C%8B%EF%BC%8C%E7%B1%BB%E4%BC%BC%E8%89%BA%E6%9C%AF%E5%AD%97%EF%BC%89/%E7%AB%99%E9%85%B7%E5%BF%AB%E4%B9%90%E4%BD%93/%E7%AB%99%E9%85%B7%E5%BF%AB%E4%B9%90%E4%BD%932016%E4%BF%AE%E8%AE%A2%E7%89%88.ttf")',
         success: console.log
       });
-    }
+    },
+
+    isMatching: false,
   },
 
   // Function to handle gender selection
@@ -53,8 +55,50 @@ Page({
       return;
     } else {
       wx.navigateTo({
-        url: '/pages/friend/success'
+        url: '/pages/friend/success' + '?mbti=' + this.data.selectedMBTI + '&sex=' + (this.data.selectedGender==='man' ? 0 : 1),
       })
+
+      // // 向后端发送，等待测试结果
+      // this.setData({
+      //   isMatching: true
+      // });
+      // // /match
+      // // mbti, sex
+      // wx.request({
+      //   url: 'http://localhost:8080/match' + '?mbti=' + this.data.selectedMBTI + '&sex=' + (this.data.selectedGender==='man' ? 0 : 1),
+      //   method: 'POST',
+      //   header: {
+      //     'content-type': 'application/json',
+      //     'cookie': 'userId=' + wx.getStorageSync('userId')
+      //   },
+      //   success: (res) => {
+      //     res = res.data
+      //     console.log(res)
+      //     if (res.ok) {
+      //       console.log(res.data)
+      //       wx.navigateTo({
+      //         url: '/pages/friend/success?matchedUse' + res.matchedUser
+      //       });
+      //     } else {
+      //       // 显示匹配失败
+      //       wx.showToast({
+      //         title: res.message,
+      //         icon: 'none',
+      //         duration: 2000
+      //       })
+
+      //       console.log(res.message)
+
+      //       this.setData({
+      //         isMatching: false
+      //       });
+      //     }
+      //   },
+      //   fail: (err) => {
+      //     console.log(err);
+      //   }
+      // })
+  
     }
 
     // Process the selected options. You can modify this part to suit your needs, such as navigating to another page or calling an API.
