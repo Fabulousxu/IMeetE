@@ -2,6 +2,9 @@ package com.example.imeete.entity;
 
 import com.alibaba.fastjson2.JSONArray;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -25,5 +28,13 @@ public class Category {
         if (json.size() == 10) break;
       }
     return json;
+  }
+
+  public void setName(String name) {
+    this.category = name;
+  }
+
+  public void setPosts(HashSet<Post> posts) {
+    this.posts = posts;
   }
 }
