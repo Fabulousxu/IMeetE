@@ -116,9 +116,22 @@ Component({
       // 当前页面最后一个帖子的id，目前是sitemlist最后一个元素的 id
       let lastPostId = this.data.sitemlist[this.data.sitemlist.length-1].id
 
+      let mbtiType = this.data.mbtiType
+      let strategy = this.data.strategy
+      let url = this.url
+      if(strategy == "mbti"){
+        url = 'http://localhost:8080/post/mbti' + '?mbti=' + mbtiType + '&lastPostId=' + lastPostId
+      }
+        else{
+        url = 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId
+      }
+      console.log(strategy)
+      console.log(url)
+
       // 从后端fetch帖子数据
       wx.request({
-        url: 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId,
+        // url: 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId,
+        url: url,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -129,7 +142,24 @@ Component({
           if(res.statusCode == 200){
             // 从sitemlist 末尾插入新帖子，并从页面当前位置加载
 
-            this.data.sitemlist = [...this.data.sitemlist, ...res.data]
+            console.log(res)
+
+            res = res.data
+
+            // 如果res.data还嵌套一层，就需要解开
+            if(res.ok != undefined){
+              if(res.ok){
+                res = res.data
+              }else{
+                console.log(res.message)
+                return
+              }
+            }
+            
+
+            this.data.sitemlist = [...this.data.sitemlist, ...res]
+
+            // this.data.sitemlist = [...this.data.sitemlist, ...res.data]
             console.log(this.data.sitemlist)
 
             this.setData({
@@ -157,9 +187,30 @@ Component({
       // 当前页面最后一个帖子的id，目前是sitemlist最后一个元素的 id
       let lastPostId = 0
 
+      let mbtiType = this.data.mbtiType
+      let strategy = this.data.strategy
+      let url = this.url
+      if(strategy == "mbti"){
+        url = 'http://localhost:8080/post/mbti' + '?mbti=' + mbtiType + '&lastPostId=' + lastPostId
+      }else if(strategy == "self_post"){
+        url = 'http://localhost:8080/user/self/post'
+      }else if(strategy == "self_collect"){
+        url = 'http://localhost:8080/user/self/collect'
+      }else if(strategy == "user_post"){
+        url = 'http://localhost:8080/user/post?id=' + userId
+      }else if(strategy == "user_collect"){
+        url = 'http://localhost:8080/user/collect?id=' + userId
+      }
+        else{
+        url = 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId
+      }
+      console.log(strategy)
+      console.log(url)
+
       // 从后端fetch帖子数据
       wx.request({
-        url: 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId,
+        // url: 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId,
+        url: url,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -168,7 +219,24 @@ Component({
         },
         success: (res) => {
           if(res.statusCode == 200){
-            this.data.sitemlist = [...res.data]
+
+            console.log(res)
+
+            res = res.data
+
+            // 如果res.data还嵌套一层，就需要解开
+            if(res.ok != undefined){
+              if(res.ok){
+                res = res.data
+              }else{
+                console.log(res.message)
+                return
+              }
+            }
+
+            this.data.sitemlist = [...res]
+
+            // this.data.sitemlist = [...res.data]
             console.log(this.data.sitemlist)
 
             this.setData({
