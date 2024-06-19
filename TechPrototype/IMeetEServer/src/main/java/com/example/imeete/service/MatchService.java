@@ -8,4 +8,5 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public interface MatchService {
     CompletableFuture<User> matchUser(String waitingUserId, String mbti, int sex);
+    void initializeUserCollections(User user);
 }

@@ -9,6 +9,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
+
+import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,18 +23,35 @@ public class MatchServiceImpl implements MatchService {
   @Autowired private UserRepository userRepository;
 
   @Override
+  public void initializeUserCollections(User user) {
+      Hibernate.initialize(user.getFollowings());
+      Hibernate.initialize(user.getFollowers());
+      Hibernate.initialize(user.getPosts());
+      Hibernate.initialize(user.getLikes());
+      Hibernate.initialize(user.getCollects());
+      Hibernate.initialize(user.getLikeComments());
+  }
+
+  @Override
+  @Transactional
   public CompletableFuture<User> matchUser(String waitingUserId, String mbti, int sex) {
     User currentUser = userRepository.findById(waitingUserId).orElse(null);
-    if (currentUser == null) return null;
-    for (User matchedUser : waitingQueue) {
-      if (!Objects.equals(matchedUser.getUserId(), waitingUserId)
-          && Objects.equals(matchedUser.getMbti(), mbti)
-          && matchedUser.getSex() == sex) {
-        System.out.println(matchedUser);
-        CompletableFuture<User> future = futureMap.remove(matchedUser.getUserId());
-        if (future != null) future.complete(currentUser);
-        return CompletableFuture.completedFuture(matchedUser);
-      }
+    if (currentUser != null) {
+        initializeUserCollections(currentUser);
+    }
+    synchronized (waitingQueue) {
+        for (User matchedUser : waitingQueue) {
+            if (!Objects.equals(matchedUser.getUserId(), waitingUserId)
+                    && Objects.equals(matchedUser.getMbti(), mbti)
+                    && matchedUser.getSex() == sex) {
+                CompletableFuture<User> future = futureMap.remove(matchedUser.getUserId());
+                if (future != null) {
+                    future.complete(currentUser);
+                }
+                waitingQueue.remove(matchedUser);
+                return CompletableFuture.completedFuture(matchedUser);
+            }
+        }
     }
     waitingQueue.add(currentUser);
     CompletableFuture<User> future = new CompletableFuture<>();
@@ -43,7 +63,6 @@ public class MatchServiceImpl implements MatchService {
             ex -> {
               waitingQueue.remove(currentUser);
               futureMap.remove(currentUser.getUserId());
-              System.out.println("1");
               return null; // 返回null表示匹配失败
             });
   }
