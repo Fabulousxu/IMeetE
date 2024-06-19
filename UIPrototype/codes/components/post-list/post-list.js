@@ -21,7 +21,12 @@ Component({
       let url = ""
       if(strategy == "mbti"){
         url = 'http://localhost:8080/post/mbti' + '?mbti=' + mbtiType + '&lastPostId=' + lastPostId
-      }else{
+      }else if(strategy == "user_post"){
+        url = 'http://localhost:8080/user/self/post'
+      }else if(strategy == "user_collect"){
+        url = 'http://localhost:8080/user/self/collect'
+      }
+        else{
         url = 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId
       }
 
