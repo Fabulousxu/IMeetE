@@ -28,12 +28,13 @@ public class PostController {
 
   @PostMapping
   public JSONObject post(@RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    System.out.println(body);
     return postService.post(
         userId,
         body.getString("title"),
         body.getString("cover"),
         body.getString("content"),
-        Set.of(body.getString("categories").split("\\s+")),
+        Set.of(body.getString("category").split("\\s+")),
         body.getString("mbti"));
   }
 
@@ -66,5 +67,17 @@ public class PostController {
   public JSONArray getPostsByMbti(
       String mbti, int lastPostId, @CookieValue("userId") String userId) {
     return postService.getPostsByMbti(Util.getMbtiSet(mbti), lastPostId, userId);
+  }
+
+  @PostMapping("/comment/like")
+  public JSONObject likeComment(
+      @RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.likeComment(body.getLongValue("commentId"), userId);
+  }
+
+  @PostMapping("/comment/dislike")
+  public JSONObject dislikeComment(
+      @RequestBody JSONObject body, @CookieValue("userId") String userId) {
+    return postService.dislikeComment(body.getLongValue("commentId"), userId);
   }
 }

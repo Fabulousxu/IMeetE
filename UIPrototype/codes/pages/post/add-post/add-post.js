@@ -4,10 +4,10 @@ Page({
         title: "",
         cover: "",
         content: "",
-        categoty: "体育",
-        options: ['体育', '游戏', '学习', '旅游'],
+        category: "生活",
+        options: ['生活', '美食', '游戏'],
         selectedIndex: 0,
-        selectedOption: '体育'
+        selectedOption: '生活'
     },
 
     onLoad: function () {

@@ -35,4 +35,8 @@ public interface PostService {
   JSONArray getPostsByMbti(Set<String> mbti, int lastPostId, String selfId);
 
   JSONArray searchPosts(String keyword, int lastPostId, String selfId);
+
+  JSONObject likeComment(long commentId, String selfId);
+
+  JSONObject dislikeComment(long commentId, String selfId);
 }
