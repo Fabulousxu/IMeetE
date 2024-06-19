@@ -20,6 +20,7 @@ public class PostServiceImpl implements PostService {
   @Autowired private PostRepository postRepository;
   @Autowired private UserRepository userRepository;
   @Autowired private CategoryRepository categoryRepository;
+  @Autowired private CommentRepository commentRepository;
   @Autowired private HttpServletResponse response;
 
   @Override
@@ -160,5 +161,29 @@ public class PostServiceImpl implements PostService {
                 keyword, lastPostId, keyword, lastPostId, keyword, lastPostId))
       res.add(post.toJson(selfId));
     return res;
+  }
+
+  @Override
+  public JSONObject likeComment(long commentId, String selfId) {
+    User user = userRepository.findById(selfId).orElse(null);
+    Comment comment = commentRepository.findById(commentId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    if (comment == null) return Util.errorResponse("评论不存在");
+    if (comment.getLikers().contains(user)) return Util.errorResponse("评论已点赞");
+    comment.getLikers().add(user);
+    commentRepository.save(comment);
+    return Util.successResponse("点赞成功");
+  }
+
+  @Override
+  public JSONObject dislikeComment(long commentId, String selfId) {
+    User user = userRepository.findById(selfId).orElse(null);
+    Comment comment = commentRepository.findById(commentId).orElse(null);
+    if (user == null) return Util.errorResponse("用户不存在");
+    if (comment == null) return Util.errorResponse("评论不存在");
+    if (!comment.getLikers().contains(user)) return Util.errorResponse("评论未点赞");
+    comment.getLikers().remove(user);
+    commentRepository.save(comment);
+    return Util.successResponse("取消点赞成功");
   }
 }

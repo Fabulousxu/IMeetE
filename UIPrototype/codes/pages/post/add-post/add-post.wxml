@@ -7,18 +7,20 @@
         </view>
     </view>
     <view class="input-title">
-        <input class="title" placeholder="请输入标题" bindinput="inputTitleChange"></input>
+        <input class="title" placeholder="请输入标题" bindinput="inputTitleChange" style="position: relative; left: 0rpx; top: 70rpx; width: 464rpx; height: 44rpx; display: block; box-sizing: border-box"></input>
     </view>
-    <view class="input-container">
-        <textarea class="input" placeholder="请输入帖子内容" bindinput="inputChange"></textarea>
-        <view class="choose-image">
-            <view class="image-item" bindtap="chooseImage">选择图片</view>
-        </view>
-        <view class="choose-type">
-            <picker mode="selector" range="{{options}}" bindchange="onPickerChange">
-                <view class="picker">{{selectedOption}}</view>
-            </picker>
-        </view>
-        <button class="submit" bindtap="submitPost">发布</button>
-    </view>
+    <view class="input-container" style="position: relative; left: -2rpx; top: 118rpx; width: 464rpx; height: 752rpx; display: block; box-sizing: border-box">
+      <textarea class="input" placeholder="请输入帖子内容" bindinput="inputChange" style="position: relative; left: 0rpx; top: 0rpx; width: 464rpx; height: 296rpx; display: block; box-sizing: border-box"></textarea>
+      <view class="choose-image" style="position: relative; left: 0rpx; top: -10rpx">
+        <view class="image-item" bindtap="chooseImage" style="width: 148rpx; height: 100rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">选择图片</view>
+      </view>
+      <view class="choose-type" style="position: relative; left: 232rpx; top: 18rpx; width: 148rpx; height: 40rpx; display: flex; box-sizing: border-box">
+        <picker mode="selector" range="{{options}}" bindchange="onPickerChange">
+          <view class="picker">{{selectedOption}}</view>
+        </picker>
+      </view>
+      <button class="submit" bindtap="submitPost" style="position: relative; left: 0rpx; top: 82rpx; width: 176rpx; height: 40rpx; display: block; box-sizing: border-box">发布</button>
+    
+      <text style="position: relative; left: 66rpx; top: -68rpx; font-size: 10px">选择帖子类型</text>
+      </view>
 </view>

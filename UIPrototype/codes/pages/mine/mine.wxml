@@ -38,9 +38,9 @@
     <button id="saveButton" bindtap="onSaveButton" style="width:50%; background-color:rgb(151,213,238,0.8); border-bottom:none; border-radius:48rpx 48rpx 0 0; padding:16rpx; text-align:center;">收藏</button>
   </view>
   <view id="posts" wx:if="{{mode}}" style="width:100%; min-height:1024rpx; background-color:rgb(226,208,230,0.8);">
-    <user-post id="self-post" bind:postTap="showPostDetail" pageType="post" category=""></user-post>
+    <user-post id="self-post" pageType="post" category="" strategy="user_post"></user-post>
   </view>
   <view id="saves" wx:else style="width:100%; min-height:1024rpx; background-color:rgb(151,213,238,0.8);">
-    <user-post id="self-collect" bind:postTap="showPostDetail" pageType="collect" category=""></user-post>
+    <user-post id="self-collect" pageType="collect" category="" strategy="user_collect"></user-post>
   </view>
 </scroll-view>

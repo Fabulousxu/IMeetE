@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,7 @@ public class Post {
   private int share;
 
   @ManyToMany(mappedBy = "posts", cascade = CascadeType.ALL)
-  private Set<Category> categories;
+  private Set<Category> categories = new HashSet<>();
 
   @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("commentId DESC")
