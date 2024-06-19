@@ -149,3 +149,18 @@
   text-align: center;
   line-height:8vh;
 }
+
+/* 按钮点击 */
+.roundBtn-unactive {
+  background-color: rgb(153, 54, 153);
+  color: rgb(241, 207, 226);
+  
+  height: 10vh;
+  width: 40%;
+  border-radius: 60px;
+  font-size: 30px;
+  font-family:fantasy;
+  align-content: center;
+  text-align: center;
+  line-height:8vh;
+}

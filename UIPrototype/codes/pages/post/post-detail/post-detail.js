@@ -234,5 +234,56 @@ Page({
       wx.navigateTo({
         url: '/pages/post/add-comment/add-comment?postId=' + this.data.post.id,
       });
+    },
+
+    com_like(e)
+    {
+      // idx
+      const idx = e.currentTarget.id;
+      console.log(idx)
+      console.log(this.data.comments[idx].liked)
+
+      // 向后端发送请求
+      wx.request({
+        url: 'http://localhost:8080/post/comment/' + (this.data.comments[idx].liked == true ? 'dislike' : 'like'),
+        method: 'POST',
+        header: {
+          'content-type': 'application/json',
+          'cookie': 'userId=' + wx.getStorageSync('userId')
+        },
+        data:{
+          commentId: this.data.comments[idx].id,
+        },
+        success: (res) => {
+          res = res.data
+          if(res.ok){
+            console.log(res.message)
+            wx.showToast({
+              title: res.message,
+              icon: 'none',
+              duration: 1000
+            })
+            this.data.comments[idx].liked = !this.data.comments[idx].liked
+            this.data.comments[idx].likeCount += this.data.comments[idx].liked ? 1 : -1
+            this.setData({
+              comments: this.data.comments
+            })
+          }else{
+            console.log(res.message)
+          }
+        },
+        
+        fail: (err) => {
+          console.log(err);
+        }
+      })
+    },
+
+    lookUserInfo(e){
+      console.log(this.data)
+      // 跳转到用户信息页
+      wx.navigateTo({
+        url: '/pages/info/info?userId=' + this.data.post.user.userId,
+      });
     }
   })

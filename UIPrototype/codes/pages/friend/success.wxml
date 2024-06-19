@@ -32,7 +32,7 @@
         <text class="mbti">{{userInfo.mbti}}</text>
       </view>
     </view>
-    <view class="down">{{userInfo.loveSentence}}</view>
+    <view class="down">{{userInfo.intro}}</view>
     <view class="downbtnarea">
     <button class="successBtn" bind:tap="look">看看</button>
     <button class="successBtn" bind:tap="back">返回</button>

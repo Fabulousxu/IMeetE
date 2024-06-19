@@ -15,16 +15,25 @@ Component({
 
       let strategy = this.data.strategy
 
+      let userId = this.data.userId
+
+      console.log(strategy)
+      console.log(userId)
+
       // 当前页面最后一个帖子的id
       let lastPostId = 0
 
       let url = ""
       if(strategy == "mbti"){
         url = 'http://localhost:8080/post/mbti' + '?mbti=' + mbtiType + '&lastPostId=' + lastPostId
-      }else if(strategy == "user_post"){
+      }else if(strategy == "self_post"){
         url = 'http://localhost:8080/user/self/post'
-      }else if(strategy == "user_collect"){
+      }else if(strategy == "self_collect"){
         url = 'http://localhost:8080/user/self/collect'
+      }else if(strategy == "user_post"){
+        url = 'http://localhost:8080/user/post?id=' + userId
+      }else if(strategy == "user_collect"){
+        url = 'http://localhost:8080/user/collect?id=' + userId
       }
         else{
         url = 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId
@@ -41,7 +50,22 @@ Component({
         },
         success: (res) => {
           if(res.statusCode == 200){
-            this.data.sitemlist = [...res.data]
+            console.log(res)
+
+            res = res.data
+
+            // 如果res.data还嵌套一层，就需要解开
+            if(res.ok != undefined){
+              if(res.ok){
+                res = res.data
+              }else{
+                console.log(res.message)
+                return
+              }
+            }
+            
+
+            this.data.sitemlist = [...res]
             this.setData({
               sitemlist: this.data.sitemlist
             })
@@ -71,6 +95,10 @@ Component({
       value:""
     },
     strategy:{
+      type: String,
+      value:""
+    },
+    userId:{
       type: String,
       value:""
     }
@@ -157,6 +185,15 @@ Component({
       })
     },
 
+    UserInfoTap: function(e) {
+      // 获取当前点击对象的父元素在wx::for中的key
+      var index = e.currentTarget.id;
+      // 跳转到用户信息页
+      wx.navigateTo({
+        url: '/pages/info/info?userId=' + this.data.sitemlist[index].user.userId,
+      });
+    },
+
     posterDetailTap: function(e) { // 待实现
       // // 获取当前点击对象的父元素在wx::for中的key
       // var index = e.currentTarget.id;
@@ -164,6 +201,7 @@ Component({
       // this.triggerEvent('postTap', {
       //   selectPost: this.data.sitemlist[index]
       // });
+
     },
   
     postContentTap: function(e) {

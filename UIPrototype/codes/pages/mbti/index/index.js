@@ -1,4 +1,4 @@
-// pages/mbti/mbti.js
+// pages/mbti/index.js
 Page({
 
   /**

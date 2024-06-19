@@ -2,7 +2,7 @@
   "pages": [
     "pages/login/login",
     "pages/friend/friend",
-    "pages/mbti/index/mbti-index",
+    "pages/mbti/index/index",
     "pages/mine/mine",
     "pages/square/square",
     "pages/post/post-detail/post-detail",
@@ -52,7 +52,7 @@
         "selectedIconPath": "./src/square.png"
       },
       {
-        "pagePath": "pages/mbti/index/mbti-index",
+        "pagePath": "pages/mbti/index/index",
         "text": "MBTI",
         "iconPath": "./src/square.png",
         "selectedIconPath": "./src/square.png"

@@ -10,11 +10,12 @@ Page({
     area: "",
     sex: "",
     age: "",
-    followCount: "",
+    followingCount: "",
     followerCount: "",
     intro: "",
     tags: [],
-    mode: true
+    mode: true,
+    userId: ""
   },
 
   /**
@@ -22,6 +23,13 @@ Page({
    */
   onLoad(options) {
     let userId = options.userId; // 获取传入的 userId 参数
+    
+    // 设置 userId
+    this.setData({
+      userId: userId,
+      mode: true
+  });
+
     console.log(userId);
     this.fetchUserInfo(userId);
   },
@@ -38,7 +46,9 @@ Page({
 
         if(result.ok){
           let data = result.data;
+
           console.log(data);
+          
           this.setData({
             name: data.nickname,
             id: data.id,
@@ -46,7 +56,7 @@ Page({
             area: data.area,
             sex: (data.sex === "男") ? "♂" : "♀",
             age: data.age,
-            followCount: data.followCount,
+            followingCount: data.followingCount,
             followerCount: data.followerCount,
             intro: data.intro,
             tags: [

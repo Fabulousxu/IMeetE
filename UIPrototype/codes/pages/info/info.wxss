@@ -52,6 +52,7 @@
   flex-grow: 1;
   height: 100%;
   justify-content: center;
+  margin:6px;
 }
 
 .profile-name {
@@ -67,7 +68,9 @@
 }
 
 .profile-stats {
+  width: 95%;
   display: flex;
+  justify-content: space-between;
   margin: auto 0 32rpx;
 }
 
@@ -138,7 +141,7 @@
 
 .content-panel {
   width: 100%;
-  min-height: 1024rpx;
+  height: 1024rpx;
 }
 
 .content-panel.posts {
@@ -146,5 +149,5 @@
 }
 
 .content-panel.saves {
-  background-color: rgba(151, 213, 238, 0.8);
+  /* background-color: rgba(151, 213, 238, 0.8); */
 }

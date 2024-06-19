@@ -86,7 +86,7 @@ Page({
     });
     console.log(this.data.selectedMBTI);
 
-    let type = JSON.stringify(this.data.selectedMBTI); // 参数
+    let type = this.data.selectedMBTI;
 
     // 等待0.1秒后跳转
     setTimeout(() => {
