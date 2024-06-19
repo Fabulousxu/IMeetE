@@ -68,9 +68,14 @@ Page({
 
   },
 
-  detail(){
+  detail(e){
     wx.navigateTo({
       url: '/pages/mbti/intro-detail/intro-detail?mbtiType=' + this.data.mbti
     })
+  },
+
+  quit(e){
+    console.log(e)
+    wx.navigateBack()
   }
 })

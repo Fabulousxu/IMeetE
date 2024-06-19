@@ -67,6 +67,19 @@
   line-height:13vh;
 }
 
+.quit-btn{
+  height: 15vh;
+  width: 40%;
+  border-radius: 40px;
+  background-color: lightblue;
+  font-size: 24px;
+  font-family:fantasy;
+  align-content: center;
+  color: green;
+  text-align: center;
+  line-height:13vh;
+}
+
 .user-container{
   background-color:#D6E6F2;
   height: 45vh;
