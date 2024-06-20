@@ -72,5 +72,11 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+
+  onSearchConfirm(event) {
+    wx.navigateTo({
+      url: '/pages/square/search-post/search-post?keyword=' + event.detail.value
+    })
   }
 })

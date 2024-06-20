@@ -15,7 +15,7 @@
           <!-- <view class="sign">{{item.title}}</view> -->
         </view>
       </view>
-      <view class="s-pic" wx:if="{{item.isDisplay === 1}}" id="{{idx}}" bindtap="postContentTap">
+      <view class="s-pic" wx:if="{{item.isDisplay === 1}}" id="{{idx}}" bindtap="comment">
         <image class="post-pic" src="{{item.cover}}"></image>
       </view>
       

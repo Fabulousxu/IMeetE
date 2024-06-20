@@ -17,8 +17,11 @@ Component({
 
       let userId = this.data.userId
 
+      let keyword = this.data.keyword
+
       console.log(strategy)
       console.log(userId)
+      console.log(keyword)
 
       // 当前页面最后一个帖子的id
       let lastPostId = 0
@@ -34,8 +37,9 @@ Component({
         url = 'http://localhost:8080/user/post?id=' + userId
       }else if(strategy == "user_collect"){
         url = 'http://localhost:8080/user/collect?id=' + userId
-      }
-        else{
+      }else if(strategy == "search"){
+        url = 'http://localhost:8080/search' + '?keyword=' + keyword + '&lastPostId=' + lastPostId
+      }else{
         url = 'http://localhost:8080/square' + '?type=' + type + '&category=' + category + '&lastPostId=' + lastPostId
       }
 
@@ -106,6 +110,10 @@ Component({
       value:""
     },
     userId:{
+      type: String,
+      value:""
+    },
+    keyword:{
       type: String,
       value:""
     }

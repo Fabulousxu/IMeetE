@@ -40,6 +40,7 @@
     padding: 10rpx;
     box-sizing: border-box;
     margin-bottom: 10rpx;
+    font-size: 14px;
   }
 
 .choose-image{

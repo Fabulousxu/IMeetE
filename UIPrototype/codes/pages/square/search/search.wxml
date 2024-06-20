@@ -1,7 +1,7 @@
 <navigation-bar></navigation-bar>
 
 <view class="search-bar">
-  <input class="search-input" placeholder="输入关键词以搜索" bindinput="searchInput" />
+  <input class="search-input" placeholder="输入关键词以搜索" bindconfirm="onSearchConfirm" />
   <button class="search-btn"></button>
 </view>
 

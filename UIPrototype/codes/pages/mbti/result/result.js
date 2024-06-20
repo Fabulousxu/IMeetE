@@ -76,6 +76,8 @@ Page({
 
   quit(e){
     console.log(e)
-    wx.navigateBack()
+    wx.navigateBack({
+      delta: 2,
+    })
   }
 })
