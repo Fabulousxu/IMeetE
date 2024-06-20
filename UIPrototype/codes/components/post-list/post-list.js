@@ -334,6 +334,11 @@ Component({
       //   selectedPostId: this.data.sitemlist[index].id
       // });
 
+      this.data.sitemlist[index].watchCount += 1
+      this.setData({
+        sitemlist: this.data.sitemlist
+      })
+
       const postId = this.data.sitemlist[index].id
       const liked = this.data.sitemlist[index].liked
       const collected = this.data.sitemlist[index].collected

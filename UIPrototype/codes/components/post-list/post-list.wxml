@@ -20,8 +20,8 @@
       </view>
       
       <view class="s-content">
-        <!-- <view class="content" id="{{idx}}" bindtap="postContentTap">{{item.content}}</view> -->
-        <view class="content" id="{{idx}}" >{{item.content}}</view>
+        <view class="content" id="{{idx}}" bindtap="comment">{{item.content}}</view>
+        <!-- <view class="content" id="{{idx}}" >{{item.content}}</view> -->
 
         <view class="icon-wrapper">
           <view class="icon_non" id="{{idx}}">
