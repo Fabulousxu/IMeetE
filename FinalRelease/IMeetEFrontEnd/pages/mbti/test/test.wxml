@@ -1,0 +1,36 @@
+<!--pages/mbti/test/test.wxml-->
+
+<navigation-bar title="测测我的MBTI"></navigation-bar>
+
+<view class="question-display">
+  <view class="question">{{question}}</view>
+  <view class="option">
+    <text class="yes">同意</text>
+    <!-- <view class="checkbox1"></view> -->
+    <view class="checkbox2 {{selectedCheckbox===-2 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{-2}}"></view>
+    <view class="checkbox3 {{selectedCheckbox===-1 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{-1}}"></view>
+    <view class="checkbox4 {{selectedCheckbox===0 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{0}}"></view>
+    <view class="checkbox5 {{selectedCheckbox===1 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{1}}"></view>
+    <view class="checkbox6 {{selectedCheckbox===2 ? 'tapped' : ''}}" bind:tap="onCheck" data-score="{{2}}"></view>
+    
+    <!-- <view class="checkbox7"></view> -->
+    <text class="no">反对</text>
+  </view>
+</view>
+
+
+<view class="shift-display">
+  <button wx:if="{{curr_page > 1}}" class="shift-back" 
+  bind:tap="onShiftBack"
+  style="width:auto; padding:16rpx; margin:0; background-color:lightblue;">上一题</button>
+  
+  <text class="shift-text">第{{curr_page}}题，共{{total_page}}题</text>
+  
+  <button wx:if="{{curr_page < total_page}}" class="shift-next" 
+  bind:tap="onShiftNext"
+  style="width:auto; padding:16rpx; margin:0; background-color:lightgray;">下一题</button>
+  
+  <button wx:if="{{curr_page == total_page}}" class="shift-next" 
+  bind:tap="onSubmit"
+  style="width:auto; padding:16rpx; margin:0; background-color:lightgray;">提交</button>
+</view>

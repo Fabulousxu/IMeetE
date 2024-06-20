@@ -1,0 +1,35 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <view class="header">
+    <view class="header-word">请设置您的偏好😁</view>
+  </view>
+
+  <view class="gender-container">
+    <block wx:for="{{genderTypes}}" wx:key="type">
+      <button class="gender-button" data-type="{{item.type}}" bindtap="onGenderTap">
+        <image src="{{item.image}}" class="{{selectedGender === item.type ? 'selected-gender-img' : ''}}"></image>
+      </button>
+    </block>
+  </view>
+
+  <view class="mbti-container">
+    <block wx:for="{{mbtiTypes}}" wx:key="index">
+      <view class="mbti-row">
+        <block wx:for="{{item}}" wx:key="type">
+          <button class="mbti-button" data-type="{{item}}" bindtap="onMBTITap">
+            <image src="/src/friend/16mbti/{{item}}.png" class="{{selectedMBTI === item ? 'selected-mbti-img' : ''}}"></image>
+          </button>
+        </block>
+      </view>
+    </block>
+  </view>
+
+  <view class="footer">
+    <button class="roundBtn" wx:if="{{!isMatching}}" bindtap="onCommitTap">
+     开始匹配
+    </button>
+    <!-- <button  class="roundBtn-unactive" wx:else>
+      匹配中...
+    </button> -->
+  </view>
+</view>

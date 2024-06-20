@@ -1,0 +1,68 @@
+/* pages/friend/friend.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.scroll-view {
+  flex: 1;
+  padding: 20rpx;
+}
+
+.friend-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20rpx;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10rpx;
+  padding: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  border: 2rpx solid #fff; /* 添加边框 */
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1); /* 添加阴影 */
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.mbti,
+.intro,
+.details,
+.followers {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.mbti {
+  color: #007aff; /* MBTI 类型颜色 */
+}
+
+.intro {
+  font-style: italic; /* 签名字体斜体 */
+}
+
+.details {
+  margin-top: 5rpx;
+  color: #333; /* 详细信息颜色 */
+}
+
+.followers {
+  margin-top: 5rpx;
+  color: #333; /* 关注粉丝信息颜色 */
+}

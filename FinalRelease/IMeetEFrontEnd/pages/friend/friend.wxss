@@ -1,0 +1,166 @@
+/* pages/index/index.wxss */
+.container {
+  /* display: flex;
+  flex-direction: column; */
+  /* align-items: center;
+  justify-content: flex-start; */
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 6vh;
+  /* background-color: aqua; */
+  /* position: relative;
+  display: flex;
+  object-fit: cover;
+  flex-direction: column; */
+  /* justify-content: flex-start;
+  align-items: center; */
+  text-align: center;
+  padding-top: 0%;
+}
+.header-word{
+  font-family:fantasy;
+  font-size:24px;
+  color: rgb(77, 63, 141);
+}
+.gender-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 9vh;
+  /* background-color: aqua; */
+}
+
+.gender-button {
+  width: 23%;
+  /* 按钮宽度调整为容器宽度的1/4，留出间隔 */
+  padding: 10px;
+  /* 根据需要调整 */
+  border: none;
+  background-color: transparent;
+}
+
+.gender-button image {
+  width: 12vw;
+  /* 使图片填满按钮 */
+  height: 6vh;
+  /* 保持图片的原始宽高比 */
+}
+
+.mbti-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 50vh;
+  /* background-color: aqua; */
+}
+
+.mbti-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 12vh;
+  padding: 3px;
+}
+
+.mbti-button {
+  width: 23%;
+  /* 按钮宽度调整为容器宽度的1/4，留出间隔 */
+  padding: 0;
+  /* 根据需要调整 */
+  border: none;
+  background-color: transparent;
+}
+
+.mbti-button image {
+  width: 9vh;
+  /* 使图片填满按钮 */
+  height: 19vw;
+  /* 保持图片的原始宽高比 */
+}
+
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  /* background-color: aqua; */
+  width: 100%;
+  height: 100px;
+  /* 用实际的高度代替百分比 */
+  padding: 10px 0;
+  /* 用padding代替margin来控制内部空间 */
+  /* background-color : blueviolet; */
+}
+
+.footer-button {
+  margin: 0;
+  width: 200px;
+  height: 84px;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  /* background-color: blue */
+}
+
+.footer-icon {
+  margin: 0 auto;
+  width: 200px;
+  height: 84px;
+  position: relative;
+}
+
+/* pages/index/index.wxss */
+/* pages/index/index.wxss */
+.selected-mbti-img {
+  border: 3px solid lightblue; /* 以荧光绿色为例 */
+  background-color: #D6E6F2;
+  border-radius: 20px;
+}
+.selected-gender-img {
+  border: 3px solid lightblue; /* 以荧光绿色为例 */
+  background-color:#D6E6F2;
+  border-radius: 8px;
+}
+.roundBtn{
+  background-color: black;
+  height: 10vh;
+  width: 40%;
+  border-radius: 60px;
+  background-color: rgb(241, 207, 226);
+  font-size: 30px;
+  font-family:fantasy;
+  align-content: center;
+  color: rgb(153, 54, 153);
+  text-align: center;
+  line-height:8vh;
+}
+
+/* 按钮点击 */
+.roundBtn-unactive {
+  background-color: rgb(153, 54, 153);
+  color: rgb(241, 207, 226);
+  
+  height: 10vh;
+  width: 40%;
+  border-radius: 60px;
+  font-size: 30px;
+  font-family:fantasy;
+  align-content: center;
+  text-align: center;
+  line-height:8vh;
+}

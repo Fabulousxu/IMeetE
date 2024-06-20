@@ -1,0 +1,6 @@
+{
+    "usingComponents":{
+        "mbti-bar":"/components/select-bar/select-bar",
+        "mbti-post-list":"/components/post-list/post-list"
+    }
+}

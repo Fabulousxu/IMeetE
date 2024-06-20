@@ -1,0 +1,21 @@
+<navigation-bar></navigation-bar>
+
+<view class="search-bar">
+  <input class="search-input" placeholder="输入关键词以搜索" bindconfirm="onSearchConfirm" />
+  <button class="search-btn"></button>
+</view>
+
+<view class="rank">
+  <view class="rank-search">
+    <text class="rank-title">热搜榜🔥</text>
+    <block wx:for="{{searchRank}}" wx:key="index">
+      <text class="rank-content">{{index + 1}}. {{item}}</text>
+    </block>
+  </view>
+  <view class="rank-topic">
+    <text class="rank-title">热门话题🔥</text>
+    <block wx:for="{{topicRank}}" wx:key="index">
+      <text class="rank-content">{{index + 1}}. {{item}}</text>
+    </block>
+  </view>
+</view>

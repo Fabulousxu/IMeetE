@@ -1,0 +1,32 @@
+<navigation-bar title="MBTI" back="{{false}}" style="background-color: #6200EA; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;"></navigation-bar>
+<view style="width: 80%; padding: 32rpx; margin: 64rpx auto; border-radius: 16rpx; font-size: 32rpx; background: rgba(238, 212, 212, 0.9); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); font-family: 'Helvetica Neue', Arial, sans-serif;text-align: center;">
+  {{mbtiIntro}}
+</view>
+<view style="display: flex; flex-direction: column; align-items: center; margin: 32rpx 0;">
+  <view style="position: relative; display: flex; align-items: center;">
+    <!-- Left small circle -->
+    <view style="position: absolute; left: -60rpx; height: 80rpx; width: 80rpx; border-radius: 50%; background: linear-gradient(135deg, #587cf1, #FF4081);"></view>
+    <button bindtap="onTestButton" style="height: 288rpx; width: 288rpx; padding: 0; background: none; margin-bottom: 32rpx;">
+      <view style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 25%; background: linear-gradient(135deg, #FF80AB, #FF4081);"></view>
+      <text style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;">
+        测测我的MBTI！
+      </text>
+    </button>
+    <!-- Right small circle -->
+    <view style="position: absolute; right: -60rpx; height: 80rpx; width: 80rpx; border-radius: 50%; background: linear-gradient(135deg, #FF80AB, #587cf1);"></view>
+  </view>
+  <view style="display: flex; justify-content: space-between; width: 80%;">
+    <button bindtap="onIntroButton" style="position: relative; height: 196rpx; width: 196rpx; padding: 0; background: none;">
+      <view style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 50%; background: linear-gradient(135deg, #69F0AE, #00E676);"></view>
+      <text style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;">
+        MBTI解读
+      </text>
+    </button>
+    <button bindtap="openMbtiPost" style="position: relative; height: 196rpx; width: 196rpx; padding: 0; background: none;">
+      <view style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; border-radius: 50%; background: linear-gradient(135deg, #7C4DFF, #651FFF);"></view>
+      <text style="position: absolute; top: 0; left: 0; height: 100%; width: 100%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; font-family: 'Helvetica Neue', Arial, sans-serif;">
+        MBTI圈子
+      </text>
+    </button>
+  </view>
+</view>

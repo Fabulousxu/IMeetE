@@ -1,0 +1,13 @@
+<!--pages/square/search-post.wxml-->
+
+<navigation-bar></navigation-bar>
+
+<view class="search-bar" style="display:flex; justify-content:center; align-items:center; margin-top:{{statusBarHeight}}px; margin-bottom:16rpx;">
+  <input style="width: 638rpx; height: 46rpx; box-sizing: border-box; padding-left: 14px" class="search-input" placeholder="输入关键词以搜索" bindconfirm="onSearchConfirm" />
+  
+</view>
+
+<scroll-view class="subscribe" type="list" scroll-y="{{true}}" style="width:100vw;height:100vh" wx:if="{{!loading}}">
+    <user-post id="search-post" pageType="搜索" category="" strategy="search" keyword="{{keyword}}"></user-post>
+
+</scroll-view>
