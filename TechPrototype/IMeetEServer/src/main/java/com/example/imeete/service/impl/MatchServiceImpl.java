@@ -39,6 +39,12 @@ public class MatchServiceImpl implements MatchService {
     if (currentUser != null) {
         initializeUserCollections(currentUser);
     }
+    else
+    {
+        CompletableFuture<User> future = new CompletableFuture<>();
+        future.complete(null);
+        return future;
+    }
     synchronized (waitingQueue) {
         for (User matchedUser : waitingQueue) {
             if (!Objects.equals(matchedUser.getUserId(), waitingUserId)
@@ -56,7 +62,6 @@ public class MatchServiceImpl implements MatchService {
     waitingQueue.add(currentUser);
     CompletableFuture<User> future = new CompletableFuture<>();
     futureMap.put(currentUser.getUserId(), future);
-    // 设置定时任务3秒后匹配失败
     return future
         .orTimeout(3, TimeUnit.SECONDS)
         .exceptionally(
