@@ -59,7 +59,7 @@ Page({
       this.setData({
         loading: false
       });
-    }, 100);
+    }, 2000);
   },
 
   /**

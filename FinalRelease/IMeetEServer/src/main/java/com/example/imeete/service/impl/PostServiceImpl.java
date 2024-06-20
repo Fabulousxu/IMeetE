@@ -58,11 +58,14 @@ public class PostServiceImpl implements PostService {
     post.setCover(cover);
     post.setContent(content);
     post.setMbti(mbti);
-    for (String categoryName : categories)
-      categoryRepository
-          .findById(categoryName)
-          .ifPresent(category -> post.getCategories().add(category));
     postRepository.save(post);
+    for (String categoryName : categories) {
+      Category category = categoryRepository.findById(categoryName).orElse(null);
+      if (category != null) {
+        category.getPosts().add(post);
+        categoryRepository.save(category);
+      }
+    }
     return Util.successResponse("发帖成功");
   }
 

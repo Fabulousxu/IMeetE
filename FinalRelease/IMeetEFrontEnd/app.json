@@ -60,7 +60,7 @@
       },
       {
         "pagePath": "pages/message/message",
-        "text": "消息",
+        "text": "好友",
         "iconPath": "./src/square.png",
         "selectedIconPath": "./src/square.png"
       },

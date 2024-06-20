@@ -29,6 +29,8 @@
                 <image class="post-pic" src="{{post.cover}}"></image>
             </view>
 
+            <view class="title" id="{{idx}}">{{post.title}}</view>
+
             <view class="content" id="{{idx}}">{{post.content}}</view>
             
             <view class="s-content">
