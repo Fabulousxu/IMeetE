@@ -7,6 +7,7 @@ Page({
   data: {
     name: "user_00000001",
     userId: "00000001",
+    avatar: "",
     mbti: "INTJ",
     area: "上海 闵行",
     sex: "♂",
@@ -45,6 +46,7 @@ Page({
           this.setData({
             name: data.nickname,
             userId: userId,
+            avatar: data.avatar,
             mbti: data.mbti,
             area: data.area,
             sex: (data.sex === 0) ? "♂" : "♀",

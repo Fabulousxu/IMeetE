@@ -25,7 +25,7 @@
 
             </view>
         
-            <view class="s-pic" wx:if="{{post.cover == null}}">
+            <view class="s-pic" wx:if="{{post.cover !== ''}}">
                 <image class="post-pic" src="{{post.cover}}"></image>
             </view>
 

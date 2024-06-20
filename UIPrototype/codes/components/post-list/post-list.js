@@ -63,7 +63,14 @@ Component({
                 return
               }
             }
-            
+
+            for (let item of res) {
+              if (item.cover === ""){
+                item.isDisplay = 0
+              } else {
+                item.isDisplay = 1
+              }
+            }
 
             this.data.sitemlist = [...res]
             this.setData({
@@ -156,6 +163,13 @@ Component({
               }
             }
             
+            for (let item of res) {
+              if (item.cover === ""){
+                item.isDisplay = 0
+              } else {
+                item.isDisplay = 1
+              }
+            }
 
             this.data.sitemlist = [...this.data.sitemlist, ...res]
 
@@ -231,6 +245,14 @@ Component({
               }else{
                 console.log(res.message)
                 return
+              }
+            }
+
+            for (let item of res) {
+              if (item.cover === ""){
+                item.isDisplay = 0
+              } else {
+                item.isDisplay = 1
               }
             }
 

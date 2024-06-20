@@ -6,7 +6,7 @@
     <text wx:for="{{tags}}" style="margin:auto 24rpx; padding:8rpx 16rpx; border-radius:28rpx; border:4rpx solid rgb(127, 182, 255); font-size:24rpx;">{{item}}</text>
   </view> -->
   <view style="display:flex; width:100%; height:256rpx; align-items:center;">
-    <img style="width:128rpx; height:128rpx; margin:auto 64rpx; border:2px solid black; border-radius:72rpx;"/>
+    <image src="{{avatar}}" style="width:128rpx; height:128rpx; margin:auto 64rpx; border:2px solid black; border-radius:72rpx;"/>
     <view style="display:flex; flex-direction:column; flex-grow:1; height:100%; justify-content:center;">
       <view style="display:flex; ">
         <text style="font-size:40rpx; margin:32rpx 0 auto;">{{name}}</text>
