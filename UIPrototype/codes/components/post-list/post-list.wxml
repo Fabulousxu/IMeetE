@@ -12,7 +12,7 @@
             <!-- <view class="fans_log">粉丝 : {{item.user.followerCount}}</view> -->
             <!-- <view class="post-time">{{item.time}}</view> -->
           </view>
-          <!-- <view class="sign">{{item.title}}</view> -->
+          <view class="sign">{{item.title}}</view>
         </view>
       </view>
       <view class="s-pic" wx:if="{{item.isDisplay === 1}}" id="{{idx}}" bindtap="comment">

@@ -2,6 +2,8 @@ package com.example.imeete.entity;
 
 import com.alibaba.fastjson2.JSONArray;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -9,6 +11,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "category")
+@Getter
+@Setter
 public class Category {
   @Id String category;
 
