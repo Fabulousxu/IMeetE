@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "navigation-bar": "/components/navigation-bar/navigation-bar",
-    "user-post": "/components/post-list/post-list"
-  }
-}
